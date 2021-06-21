@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/extra/youtubePlayer.dart';
-import 'package:lecture_progress/pages/HomePage.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
-import 'pages/ChaptersPage.dart';
-
 void main() {
   runApp(MyApp());
 }
@@ -21,7 +16,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: CustomYoutubePlayer(),
+      home:  CustomYoutubePlayer(),
     );
   }
 }
