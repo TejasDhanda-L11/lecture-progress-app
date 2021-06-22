@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +7,18 @@ import 'package:video_player/video_player.dart';
 
 
 class CustomYoutubePlayer extends StatefulWidget {
-  const CustomYoutubePlayer({ Key? key }) : super(key: key);
 
+  String urlToVideoServer;
+  final String titleOfVideo;
+  CustomYoutubePlayer(
+    {
+      this.urlToVideoServer = 
+        	"https://r3---sn-cvh76ned.googlevideo.com/videoplayback?expire=1624376988&ei=PLLRYN6BJqCJ4t4Pn4W8wAE&ip=13.127.199.142&id=o-ALOOvI_qSl33asj2JwjWCDjjBtXb5InLBkw95YaVI9OU&itag=22&source=youtube&requiressl=yes&mh=TP&mm=31%2C26&mn=sn-cvh76ned%2Csn-qxaeen7e&ms=au%2Conr&mv=m&mvi=3&pl=15&initcwndbps=673750&vprv=1&mime=video%2Fmp4&ns=dSn0aB00t218zp286c9RNFMF&cnr=14&ratebypass=yes&dur=216.363&lmt=1574954669678757&mt=1624355325&fvip=3&fexp=24001373%2C24007246&c=WEB&txp=5535432&n=8tYw3xZiKNNFbIyMD&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgRRjciXlU3smhqz8UWo73hukx5__KmTWZBd-b27URjWACIGz4ZmR8u1msWxatmIq9XT0GHJ_ApFFmVZatdyR0bZvm&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAK2WLjPAirN0tgMIs7dwCrvz4kJPfMPgkDhsuRVbAVcXAiEAoqgQLE4qayOfbgZEq3YGDe4NgfiG7l5XqgEf1dZLAXM%3D"
+        ,
+      this.titleOfVideo = "Worlds Collide (ft. Nicki Taylor) | Worlds 2015 - League of Legends",
+
+    }
+  );
   @override
   _CustomYoutubePlayerState createState() => _CustomYoutubePlayerState();
 }
@@ -24,16 +33,8 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
   void chewieConfigStuff () async{
     final videoPlayerController = VideoPlayerController.network(
-"https://r5---sn-cvh7knsz.googlevideo.com/videoplayback?expire=1624361029&ei=5XPRYOWXItbFz7sPk_mYKA&ip=13.127.199.142&id=o-AC3qnUPk50J_2k1-YgvPH8RwlENjyMvYyJ_ET7WKIzfo&itag=22&source=youtube&requiressl=yes&mh=oK&mm=31%2C26&mn=sn-cvh7knsz%2Csn-qxaeeney&ms=au%2Conr&mv=m&mvi=5&pl=15&initcwndbps=763750&vprv=1&mime=video%2Fmp4&ns=877FZ5anS1TbMgByEcxL9f8F&cnr=14&ratebypass=yes&dur=226.115&lmt=1570288479739048&mt=1624339241&fvip=5&fexp=24001373%2C24007246&c=WEB&txp=5535432&n=7Mr2sPuvoPQBb4jI6&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgCwUDoDzQ9-Qlcy4536vEQvdXTTBqOcBpIfcUsMPt8oICIQCWNR06kb3Rf4U8krLxULTYvOl8-AUIFJx8YWIBoXkSLw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPt2tnKa1HbvchpUq2yg7zQoKHXe7dy3cvMqC5GEriwcAiAE3VCzXIBdbBl89j8bJOkWXAzxSBer9hXQJvNJA9jIlA%3D%3D"
-
-
-
-
-
-
-
-
-);
+      widget.urlToVideoServer
+    );
     await videoPlayerController.initialize();
 
     chewieController = ChewieController(
@@ -119,7 +120,8 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
                   Navigator.pop(context);
                   }
                   });
-              return CustomPortraitOrientation(chewieController: chewieController,);}
+              return CustomPortraitOrientation(chewieController: chewieController,titleOfVideo: widget.titleOfVideo,);
+              }
               
             else {
               debugPrint('1111111111111111111111111111111111111111111111111111111111 ${chewieController.isFullScreen}');
@@ -145,7 +147,13 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
 class CustomPortraitOrientation extends StatefulWidget {
   final ChewieController chewieController;
-  CustomPortraitOrientation({required this.chewieController});
+  final String titleOfVideo;
+  CustomPortraitOrientation(
+    {
+      required this.chewieController,
+      required this.titleOfVideo
+    }
+  );
   @override
   _CustomPortraitOrientationState createState() => _CustomPortraitOrientationState();
 }
@@ -161,23 +169,20 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(alignment: Alignment(1, 0),
-            height: ((MediaQuery.of(context).size.width)*(1/widget.chewieController.aspectRatio!)),
-            child: Visibility(
-              visible: true,  
-              child: Chewie(
-                controller: widget.chewieController,
-            
-              ),
-            ),
-            ),
-        Text('Hi', style: TextStyle(fontSize: 100),)
-      ],
-    );
+    return Container(alignment: Alignment(1, 0),
+        height: ((MediaQuery.of(context).size.width)*(1/widget.chewieController.aspectRatio!)),
+        child: Visibility(
+          visible: true,  
+          child: Chewie(
+            controller: widget.chewieController,
+        
+          ),
+        ),
+        );
   }
 }
+
+
 
 class CustomLandscapeOrientation extends StatefulWidget {
   final ChewieController chewieController;

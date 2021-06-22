@@ -32,6 +32,7 @@ dependencies:
   video_player: ^2.1.6
   receive_sharing_intent: ^1.4.5
   chewie: ^1.2.2
+  sqflite: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:

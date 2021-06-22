@@ -1,10 +1,15 @@
+// import 'package:clockapp/modalclasses/alarm_info.dart';
 // import 'package:sqflite/sqflite.dart';
 
-// final String _databaseName = 'HomePageDB.db';
+// final String _databaseName = 'alarm.db';
 // final int _databaseVersion = 1;
-// final String _databaseTableName = 'HomePageDB';
-// final String subject = 'subject';
+// final String _databaseTableName = 'Alarms';
+
 // final String columnId = 'id';
+// final String columnDescription = 'Description';
+// final String columnalarmDateTime = 'alarmDateTime';
+// final String columnisActive = 'isActive';
+// final String columngradientColorIndex = 'gradientColorIndex';
 
 
 
@@ -36,7 +41,10 @@
 //         '''
 //         CREATE TABLE $_databaseTableName (
 //           $columnId integer primary key autoincrement,
-//           $subject text not null,)
+//           $columnDescription text not null,
+//           $columnalarmDateTime text not null,
+//           $columnisActive text not null,
+//           $columngradientColorIndex integer)
 
 //         '''
 //       );
@@ -54,7 +62,7 @@
 
 //   // CRUD functions
 //   // C
-//   void insertAlarm(String subject) async {
+//   void insertAlarm(AlarmInfo alarmInfo) async {
 //     var db = await this.database;
 //     var result = await db.insert(_databaseTableName, alarmInfo.toMap());
 //     print('result : $result');
