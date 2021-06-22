@@ -1,101 +1,58 @@
-// import 'package:clockapp/modalclasses/alarm_info.dart';
-// import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqflite.dart';
 
-// final String _databaseName = 'alarm.db';
-// final int _databaseVersion = 1;
-// final String _databaseTableName = 'Alarms';
+final String _databaseName = 'lectureProgress.db';
+final int _databaseVersion = 1;
+final String databaseTableName = 'allData';
 
-// final String columnId = 'id';
-// final String columnDescription = 'Description';
-// final String columnalarmDateTime = 'alarmDateTime';
-// final String columnisActive = 'isActive';
-// final String columngradientColorIndex = 'gradientColorIndex';
-
-
-
-
-
-
-// class AlarmHelper {
-
-//   static Database? _database;
-//   static AlarmHelper? _alarmHelper;
-
-//   AlarmHelper._createInstance();
-//   factory AlarmHelper(){
-//     return _alarmHelper ?? AlarmHelper._createInstance();
-//   }
-
-
-//   Future<Database> get database async {
-//     return _database ?? await initialiseDatabase();
-
-//   }
-
-//   Future<Database> initialiseDatabase() async{
-//     String initialPrefixPath = await getDatabasesPath();
-//     String pathToDatabase = '${initialPrefixPath}/${_databaseName}';
-//     print('pathToDatabase = $pathToDatabase');
-//     return await openDatabase(pathToDatabase, version: _databaseVersion, onCreate: (db, version) {
-//       db.execute(
-//         '''
-//         CREATE TABLE $_databaseTableName (
-//           $columnId integer primary key autoincrement,
-//           $columnDescription text not null,
-//           $columnalarmDateTime text not null,
-//           $columnisActive text not null,
-//           $columngradientColorIndex integer)
-
-//         '''
-//       );
-//     },);
-//   } // initialise database
+final String columnId = 'id';
+final String columnSubject = 'subjectTitle';
+final String columnChapterTitle = 'chapterTitle';
+final String columnChapterPlaylistUrl = 'chapterPlaylistUrl';
+final String columngLectureTitle = 'lectureTitle';
+final String columngLectureUrl = 'lectureUrl';
 
 
 
 
 
+class LectureProgressHelper {
 
 
+  static Database? _database;
+  static LectureProgressHelper?  lectureProgressHelper;
+
+  LectureProgressHelper._createInstance();
+  factory LectureProgressHelper(){
+    return lectureProgressHelper ?? LectureProgressHelper._createInstance();
+  }
 
 
+  Future<Database> get database async {
+    return _database ?? await initialiseDatabase();
 
-//   // CRUD functions
-//   // C
-//   void insertAlarm(AlarmInfo alarmInfo) async {
-//     var db = await this.database;
-//     var result = await db.insert(_databaseTableName, alarmInfo.toMap());
-//     print('result : $result');
-//   }
-//   // R
-//   Future<List<AlarmInfo>> getAlarms() async {
-//     List<AlarmInfo> _alarms = [];
+  }
 
-//     var db = await this.database;
-//     var result = await db.query(_databaseTableName);
-//     result.forEach((element) {
-//       print('RAW_ELEMENTS_FROM_DATABASE = $element');
+  Future<Database> initialiseDatabase() async{
+    String initialPrefixPath = await getDatabasesPath();
+    String pathToDatabase = '${initialPrefixPath}/${_databaseName}';
+    print('pathToDatabase = $pathToDatabase');
+    return await openDatabase(pathToDatabase, version: _databaseVersion, onCreate: (db, version) {
+      db.execute(
+        '''
+        CREATE TABLE $databaseTableName (
+          $columnId integer primary key autoincrement,
+          $columnSubject text not null,
+          $columnChapterTitle text not null,
+          $columnChapterPlaylistUrl text not null,
+          $columngLectureTitle text not null,
+          $columngLectureUrl text not null
+          )
+        '''
+      );
+
       
-//       var alarmInfoToMapDB = AlarmInfo.fromMap(element);
-//       print('alarmInfoToMapDB = ${alarmInfoToMapDB.isActive}');
-//       _alarms.add(alarmInfoToMapDB);
-
-//     });
-
-//     return _alarms;
-//   }
-//   // U
-//   Future<int> updateDB({required Map<String,dynamic> new_values, required int id}) async {
-//     var db = await this.database;
-//     print('COMPLETE_MAP = $new_values');
-//     print('id_of_change = $id');
-//     return await db.update( _databaseTableName, new_values, where: '$columnId = ?', whereArgs: [id] );//(_databaseTableName, where: '$columnId = ?', whereArgs: [id]);
-//   }
-//   // D
-//   Future<int> delete(int id) async {
-//     var db = await this.database;
-//     return await db.delete(_databaseTableName, where: '$columnId = ?', whereArgs: [id]);
-//   }
+    },);
+  } // initialise database
 
 
 
@@ -105,7 +62,14 @@
 
 
 
-// }
+
+  // // CRUD functions
+  // // C
+  // void insertAlarm(AlarmInfo alarmInfo) async {
+  //   var db = await this.database;
+  //   var result = await db.insert(databaseTableName, alarmInfo.toMap());
+  //   print('result : $result');
+  // }
 
 
 
@@ -121,78 +85,64 @@
 
 
 
+  // // R
+  // Future<List<AlarmInfo>> getAlarms() async {
+  //   List<AlarmInfo> _alarms = [];
+
+  //   var db = await this.database;
+  //   var result = await db.query(databaseTableName);
+  //   result.forEach((element) {
+  //     print('RAW_ELEMENTS_FROM_DATABASE = $element');
+      
+  //     var alarmInfoToMapDB = AlarmInfo.fromMap(element);
+  //     print('alarmInfoToMapDB = ${alarmInfoToMapDB.isActive}');
+  //     _alarms.add(alarmInfoToMapDB);
+
+  //   });
+
+  //   return _alarms;
+  // }
 
 
 
 
 
 
-// // import 'package:clockapp/modalclasses/alarm_info.dart';
-// // import 'package:sqflite/sqflite.dart';
-// // import 'package:sqflite/sqlite_api.dart';
 
-// // final String tableAlarm = 'alarm';
-// // final String columnId = 'id';
-// // final String columnDescription = 'Description';
-// // final String columnalarmDateTime = 'alarmDateTime';
-// // final String columnisActive = 'isActive';
-// // final String columngradientgradientColorIndex = 'gradientColorIndex';
 
-// // class AlarmHelper {
-// //   static Database? _database;
-// //   static AlarmHelper? _alarmHelper;
 
-// //   AlarmHelper._createInstance();
-// //   factory AlarmHelper() {
-// //     return _alarmHelper ?? AlarmHelper._createInstance();
-// //   }
 
-// //   Future<Database> get database async {
-// //     return _database ?? await initializeDatabase();
-// //   }
 
-// //   Future<Database> initializeDatabase() async {
-// //     var dir = await getDatabasesPath();
-// //     var path = dir + "alarm.db";
 
-// //     var database = await openDatabase(
-// //       path,
-// //       version: 1,
-// //       onCreate: (db, version) {
-// //         db.execute('''
-// //           create table $tableAlarm ( 
-// //           $columnId integer primary key autoincrement, 
-// //           $columnDescription text not null,
-// //           $columnalarmDateTime text not null,
-// //           $columnisActive integer,
-// //           $columngradientColorIndex integer)
-// //         ''');
-// //       },
-// //     );
-// //     return database;
-// //   }
+  // // U
+  // Future<int> updateDB({required Map<String,dynamic> new_values, required int id}) async {
+  //   var db = await this.database;
+  //   print('COMPLETE_MAP = $new_values');
+  //   print('id_of_change = $id');
+  //   return await db.update( databaseTableName, new_values, where: '$columnId = ?', whereArgs: [id] );//(databaseTableName, where: '$columnId = ?', whereArgs: [id]);
+  // }
 
-// //   void insertAlarm(AlarmInfo alarmInfo) async {
-// //     var db = await this.database;
-// //     var result = await db.insert(tableAlarm, alarmInfo.toMap());
-// //     print('result : $result');
-// //   }
 
-// //   Future<List<AlarmInfo>> getAlarms() async {
-// //     List<AlarmInfo> _alarms = [];
 
-// //     var db = await this.database;
-// //     var result = await db.query(tableAlarm);
-// //     result.forEach((element) {
-// //       var alarmInfo = AlarmInfo.fromMap(element);
-// //       _alarms.add(alarmInfo);
-// //     });
 
-// //     return _alarms;
-// //   }
 
-// //   Future<int> delete(int id) async {
-// //     var db = await this.database;
-// //     return await db.delete(tableAlarm, where: '$columnId = ?', whereArgs: [id]);
-// //   }
-// // }
+
+
+
+
+
+  // // D
+  // Future<int> delete(int id) async {
+  //   var db = await this.database;
+  //   return await db.delete(databaseTableName, where: '$columnId = ?', whereArgs: [id]);
+  // }
+
+
+
+
+
+
+
+
+
+}
