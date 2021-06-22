@@ -24,8 +24,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
   void chewieConfigStuff () async{
     final videoPlayerController = VideoPlayerController.network(
-	"https://r1---sn-cvh76ned.googlevideo.com/videoplayback?expire=1624355819&ei=i1_RYPfiDLXJ4-EP7tmW0AU&ip=13.127.199.142&id=o-APvbxehiG-CPpRYV-apb9zXE74lmI7w32kLo1-1ldBtK&itag=18&source=youtube&requiressl=yes&mh=aR&mm=31%2C26&mn=sn-cvh76ned%2Csn-qxaeeney&ms=au%2Conr&mv=m&mvi=1&pl=15&initcwndbps=715000&vprv=1&mime=video%2Fmp4&ns=LPzykWQ9bI_tOcWbzQFTM5kF&gir=yes&clen=6226981&ratebypass=yes&dur=235.125&lmt=1597638115129132&mt=1624333958&fvip=1&fexp=24001373%2C24007246&c=WEB&txp=5531422&n=qBrV_qDxnjBsfW1WB&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgJmOArM5X4Of9XiikGx1Fp7cknTV5TskZFkz04mVH04YCIQDSjWHBvyZ1abhN9ITif6MKbdmWsnVSzbeO2ZduoTjS4Q%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAKFn-ppd_pzNs_c_H39GaaKlMG2cSdZkb7rdJvLDZ_hNAiAp0FprgSL0PMUOtNNr0O0gQPy6p99mx4gWsPDhblJtPg%3D%3D"
-
+"https://r5---sn-cvh7knsz.googlevideo.com/videoplayback?expire=1624361029&ei=5XPRYOWXItbFz7sPk_mYKA&ip=13.127.199.142&id=o-AC3qnUPk50J_2k1-YgvPH8RwlENjyMvYyJ_ET7WKIzfo&itag=22&source=youtube&requiressl=yes&mh=oK&mm=31%2C26&mn=sn-cvh7knsz%2Csn-qxaeeney&ms=au%2Conr&mv=m&mvi=5&pl=15&initcwndbps=763750&vprv=1&mime=video%2Fmp4&ns=877FZ5anS1TbMgByEcxL9f8F&cnr=14&ratebypass=yes&dur=226.115&lmt=1570288479739048&mt=1624339241&fvip=5&fexp=24001373%2C24007246&c=WEB&txp=5535432&n=7Mr2sPuvoPQBb4jI6&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgCwUDoDzQ9-Qlcy4536vEQvdXTTBqOcBpIfcUsMPt8oICIQCWNR06kb3Rf4U8krLxULTYvOl8-AUIFJx8YWIBoXkSLw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAPt2tnKa1HbvchpUq2yg7zQoKHXe7dy3cvMqC5GEriwcAiAE3VCzXIBdbBl89j8bJOkWXAzxSBer9hXQJvNJA9jIlA%3D%3D"
 
 
 
@@ -166,9 +165,12 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
       children: [
         Container(alignment: Alignment(1, 0),
             height: ((MediaQuery.of(context).size.width)*(1/widget.chewieController.aspectRatio!)),
-            child: Chewie(
-              controller: widget.chewieController,
-
+            child: Visibility(
+              visible: true,  
+              child: Chewie(
+                controller: widget.chewieController,
+            
+              ),
             ),
             ),
         Text('Hi', style: TextStyle(fontSize: 100),)
