@@ -1,19 +1,29 @@
+// // EachLecture is deprecated use allVideosSpecificInstead
 // import 'package:flutter/material.dart';
 
 // class EachLecture extends StatefulWidget {
-
+//   List<Map<String,dynamic>> dataRequiredEL ;
+//   EachLecture({required this.dataRequiredEL});
 //   @override
 //   _EachLectureState createState() => _EachLectureState();
 // }
 
 // class _EachLectureState extends State<EachLecture> {
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     print('dataRequiredEL = ${widget.dataRequiredEL}');
+//   }
+
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return SafeArea(
 //       child: Scaffold(
 //         body: SingleChildScrollView(
 //           child: Column(
-//             children: all_subjects
+//             children: ['all_subjects','b','c']
 //                 .map((e) => Container(
                   
 //                       width: double.infinity,
@@ -47,10 +57,3 @@
 
 
 
-// Set<Map> all_videos = {
-//   {
-//     'Title':'Lec 1',
-//     'Watched': '0',
-    
-//   }
-// };

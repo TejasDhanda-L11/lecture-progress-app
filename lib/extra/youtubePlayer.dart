@@ -2,20 +2,15 @@ import 'dart:async';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lecture_progress/modal_classes/databaseUnit.dart';
 import 'package:video_player/video_player.dart';
 
 
 
 class CustomYoutubePlayer extends StatefulWidget {
-
-  final List<DatabaseUnit> urlToVideoServer;
-  final String titleOfVideo;
+  final Map<String,dynamic> dataReq_youtubePlayer;
   CustomYoutubePlayer(
     {
-      required this.urlToVideoServer
-        ,
-      this.titleOfVideo = "Worlds Collide (ft. Nicki Taylor) | Worlds 2015 - League of Legends",
+      required this.dataReq_youtubePlayer,
 
     }
   );
@@ -24,7 +19,7 @@ class CustomYoutubePlayer extends StatefulWidget {
 }
 
 class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
-  
+
   bool chewieController_initialised = false;
   late ChewieController chewieController;
   bool isOrientationCheckerRunning = false;
@@ -33,7 +28,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
   void chewieConfigStuff () async{
     final videoPlayerController = VideoPlayerController.network(
-      widget.urlToVideoServer[0].lectureUrl
+      widget.dataReq_youtubePlayer['video_url']
     );
     await videoPlayerController.initialize();
 
@@ -49,24 +44,24 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
         DeviceOrientation.portraitDown,
         DeviceOrientation.landscapeRight,
         DeviceOrientation.landscapeLeft,
-        
-        
+
+
       ],
       deviceOrientationsAfterFullScreen: [
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
         DeviceOrientation.landscapeRight,
         DeviceOrientation.landscapeLeft,
-        
+
       ],
       aspectRatio: 16/9
-      
+
     );
-    
+
     setState(() {
       debugPrint('444444444444444444444444444444444444444444444444444444444444');
       chewieController_initialised = true;
-      
+
     });
 
   }
@@ -76,7 +71,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
     super.initState();
     orientation = Orientation.landscape;
     chewieConfigStuff();
-    
+
   }
 
   @override
@@ -109,7 +104,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     return WillPopScope(
-      onWillPop: () {  
+      onWillPop: () {
         if (chewieController.isPlaying){
           try{
           chewieController.pause();
@@ -126,40 +121,40 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
         // floatingActionButton: FloatingActionButton(onPressed: (){
         //   debugPrint('clicked present state ${chewieController.isFullScreen}');
         // }),
-        body: 
+        body:
         FutureBuilder(
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {  
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (chewieController_initialised == false)  return CircularProgressIndicator();
             else {
               debugPrint('final orientation ======================= ${orientation}');
               if (orientation == Orientation.portrait) {
                 debugPrint('00000000000000000000000000000000000000000000000000000000 ${chewieController.isFullScreen}');
                 Future.delayed(Duration.zero,(){
-                  
+
                   if (chewieController.isFullScreen){
                     debugPrint('full screnn removeddddddddddddddddddddddddddddddddd');
                     Navigator.pop(context);
                     }
                     });
-                return CustomPortraitOrientation(chewieController: chewieController,titleOfVideo: widget.titleOfVideo,);
+                return CustomPortraitOrientation(chewieController: chewieController,titleOfVideo: widget.dataReq_youtubePlayer['video_title'],);
                 }
-                
+
               else {
                 debugPrint('1111111111111111111111111111111111111111111111111111111111 ${chewieController.isFullScreen}');
                 Future.delayed(Duration.zero,(){
-                  
+
                   if (!chewieController.isFullScreen){
                     debugPrint('full screnn removeddddddddddddddddddddddddddddddddd');
                     chewieController.enterFullScreen();
                     }
                 });
-                
+
                 return CustomLandscapeOrientation(chewieController: chewieController,);}
             }
           },
-    
+
         )
-    
+
       ),
     );
   }
@@ -184,7 +179,7 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
 
   @override
   void initState() {
-        
+
 
     super.initState();
   }
@@ -194,10 +189,10 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
     return Container(alignment: Alignment(1, 0),
         height: ((MediaQuery.of(context).size.width)*(1/widget.chewieController.aspectRatio!)),
         child: Visibility(
-          visible: true,  
+          visible: true,
           child: Chewie(
             controller: widget.chewieController,
-        
+
           ),
         ),
         );
@@ -218,7 +213,7 @@ class _CustomLandscapeOrientationState extends State<CustomLandscapeOrientation>
   @override
   void initState() {
     super.initState();
-        
+
 
   }
 

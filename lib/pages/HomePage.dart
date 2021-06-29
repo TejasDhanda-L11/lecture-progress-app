@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/map_copy_for_database/map_copy_for_database.dart';
-import 'package:lecture_progress/modal_classes/databaseUnit.dart';
+import 'package:lecture_progress/database/HomePageDB.dart';
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,74 +9,87 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
-  Map<String,List<DatabaseUnit>> _sortingFunc({required List<DatabaseUnit> DatabaseUnitList_toBeSorted}){
-    List<String> subjectExist = [];
-    Map<String,List<DatabaseUnit>> mapToBeReturned = {};
-    for (int i = 0; i< DatabaseUnitList_toBeSorted.length; i++){
-      DatabaseUnit _databaseUnitInstance = DatabaseUnitList_toBeSorted[i];
-      if (subjectExist.contains(_databaseUnitInstance.subject)){
-        mapToBeReturned[_databaseUnitInstance.subject]!.add(_databaseUnitInstance);
-      } else{
-        subjectExist.add(_databaseUnitInstance.subject);
-        if (mapToBeReturned[_databaseUnitInstance.subject] == null){
-          mapToBeReturned[_databaseUnitInstance.subject] = [];
-        }
+
+  LectureProgressHelper _lectureProgressHelper = LectureProgressHelper();
+  bool databaseInitialised = false;
+  late Database db;
+  late List<Map<String, dynamic>> _finalSortedList;
+
+  @override
+  void initState() {
+    
+    _lectureProgressHelper.initialiseDatabase().then((value) async {
+      
+      print('database__________________initialised__________________________');
+      db = await _lectureProgressHelper.database;
+      _finalSortedList = await db.rawQuery('select * from subjects order by id');
+      databaseInitialised = true;
+      setState(() {
         
-        mapToBeReturned[_databaseUnitInstance.subject]!.add(_databaseUnitInstance);
-      }
-    }
-    
-    return mapToBeReturned;
-    
+      });
+      
+    });
+
+
+    super.initState();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List<DatabaseUnit>> _finalSortedList = _sortingFunc(DatabaseUnitList_toBeSorted: map_copy_for_database);
-    print(_finalSortedList);
-    print(_finalSortedList.keys);
-    print(_finalSortedList.values);
 
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: _finalSortedList.keys
-                .map((e) => GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context, 
-                          RouteManager.chaptersPage,
-                          arguments: {
-                            'listOfInstances_H2C': _finalSortedList[e]
-                          }
-                          );
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 150,
-                        margin: EdgeInsets.only(
-                            left: 20, right: 20, top: 20, bottom: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(23),
-                          gradient: LinearGradient(
-                              colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)]),
-                        ),
-                        child: Align(
-                          alignment: Alignment(0, -0.7),
-                          child: Text(
-                            '$e',
-                            style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900),
+        floatingActionButton: FloatingActionButton(onPressed: () async{
+          
+          
+        },),
+        body: FutureBuilder(
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {  
+            if (databaseInitialised){
+            return SingleChildScrollView(
+            child: Column(
+              children: _finalSortedList
+                  .map((e) => GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RouteManager.chaptersPage,
+                            arguments: {
+                              'subject' : e['id'],
+                              'dbInstance': db
+                            }
+                            );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 150,
+                          margin: EdgeInsets.only(
+                              left: 20, right: 20, top: 20, bottom: 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(23),
+                            gradient: LinearGradient(
+                                colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)]),
+                          ),
+                          child: Align(
+                            alignment: Alignment(0, -0.7),
+                            child: Text(
+                              '${e['subject_name']}',
+                              style: TextStyle(
+                                  fontSize: 40,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900),
+                            ),
                           ),
                         ),
-                      ),
-                    ))
-                .toList(),
-          ),
+                      ))
+                  .toList(),
+            ),
+          );
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
         ),
       ),
     );

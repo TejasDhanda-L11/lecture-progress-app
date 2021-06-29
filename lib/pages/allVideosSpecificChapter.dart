@@ -1,70 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/modal_classes/databaseUnit.dart';
 import 'package:lecture_progress/routes/routes.dart';
 
 class AllVideoSpecificChapter extends StatefulWidget {
-  final String linkToPlaylist;
-  final List<DatabaseUnit> listOfLecture;
-  AllVideoSpecificChapter({ this.linkToPlaylist = '', required this.listOfLecture});
+
+  List<Map<String,dynamic>> dataRequiredEL ;
+  AllVideoSpecificChapter({required this.dataRequiredEL});
+
   @override
   _AllVideoSpecificChapterState createState() => _AllVideoSpecificChapterState();
 }
 
 class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
 
-    Map<String,List<DatabaseUnit>> _sortingFunc({required List<DatabaseUnit> DatabaseUnitList_toBeSorted}){
-    List<String> subjectExist = [];
-    Map<String,List<DatabaseUnit>> mapToBeReturned = {};
-    for (int i = 0; i< DatabaseUnitList_toBeSorted.length; i++){
-      DatabaseUnit _databaseUnitInstance = DatabaseUnitList_toBeSorted[i];
-      if (subjectExist.contains(_databaseUnitInstance.lectureName)){
-        mapToBeReturned[_databaseUnitInstance.lectureName]!.add(_databaseUnitInstance);
-      } else{
-        subjectExist.add(_databaseUnitInstance.lectureName);
-        if (mapToBeReturned[_databaseUnitInstance.lectureName] == null){
-          mapToBeReturned[_databaseUnitInstance.lectureName] = [];
-        }
-        
-        mapToBeReturned[_databaseUnitInstance.lectureName]!.add(_databaseUnitInstance);
-      }
-    }
-    
-    return mapToBeReturned;
-    
+  @override
+  void initState() {
+    super.initState();
+    print('dataRequiredEL = ${widget.dataRequiredEL}');
   }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List<DatabaseUnit>> _finalSortedList = _sortingFunc(DatabaseUnitList_toBeSorted: widget.listOfLecture);
 
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
-            children: _finalSortedList.keys
+            children: widget.dataRequiredEL
                 .map((e) => GestureDetector(
                   onTap: (){
                     Navigator.pushNamed(
-                      context, 
+                      context,
                       RouteManager.singleVideoCustomPlayer,
                       arguments: {
-                        'videoSpecificInstance': _finalSortedList[e]
+                        'dataReq_youtubePlayer': e
                       }
 
-                      
+
                       );
                   },
                   child: Container(
-                        
+
                         width: double.infinity,
                         height: 150,
                         margin: EdgeInsets.only(
                             left: 20, right: 20, top: 20, bottom: 20),
                         decoration: BoxDecoration(
-                          
+
                           borderRadius: BorderRadius.circular(23),
                           color: Colors.white,
-                
+
                         ),
                         child: Stack(
                           fit: StackFit.expand,
@@ -74,7 +58,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                               top: 10,
                               left: 10,
                               child: Text(
-                                '${e}',
+                                '${e['video_lecture_number']}. ${e['video_title']}',
                                 style: TextStyle(
                                   letterSpacing: 3,
                                     fontSize: 30,
@@ -82,8 +66,8 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                                     fontWeight: FontWeight.w900),
                               ),
                             ),
-                            
-                            
+
+
                           ],
                         ),
                       ),

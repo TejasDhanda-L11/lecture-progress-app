@@ -10,11 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // routes: {
-      //   '/home' : (context) => HomePage(),
-      //   '/chapters' : (context) => ChaptersPage(),
-      //   '/specificChapterVideos': (context) => AllVideoSpecificChapter(linkToPlaylist: ,)
-      // },
+
       initialRoute: RouteManager.homePage,
       onGenerateRoute: RouteManager.generateRoute,
       debugShowCheckedModeBanner: false,
