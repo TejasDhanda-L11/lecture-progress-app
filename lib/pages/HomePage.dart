@@ -41,7 +41,9 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(onPressed: () async{
-          
+          print(
+            await db.rawQuery('select thumbnail from specific_videos')
+          );
           
         },),
         body: FutureBuilder(

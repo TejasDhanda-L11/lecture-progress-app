@@ -42,6 +42,16 @@ class _ChaptersPageState extends State<ChaptersPage> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (gotAllDataFromDB){
               return Scaffold(
+                floatingActionButton: FloatingActionButton(onPressed: (){
+                  Navigator.popAndPushNamed(
+                    context, 
+                    RouteManager.inputPlayUrl_page,
+                    arguments: {
+                      'subject_id':widget.subject_id,
+                      'dbInstance': widget.db
+                    }
+                    );
+                }),
                 body: SingleChildScrollView(
                   child: Column(
                     children: dataFromDB_table_chapters
