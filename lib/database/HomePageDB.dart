@@ -1,13 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
 final String _databaseName = 'lectureProgress.db';
-final int _databaseVersion = 5;
+final int _databaseVersion = 7;
 // checking if a new database is created on increasing the number
 
 
 class LectureProgressHelper {
 
-
+  bool deletePreviousDB = true;
   static Database? _database;
   static LectureProgressHelper?  lectureProgressHelper;
 
@@ -23,42 +24,74 @@ class LectureProgressHelper {
   }
 
   Future<Database> initialiseDatabase() async{
+
     String initialPrefixPath = await getDatabasesPath();
     String pathToDatabase = '${initialPrefixPath}/${_databaseName}';
     // print('pathToDatabase = $pathToDatabase');
-    return await openDatabase(pathToDatabase, version: _databaseVersion, onCreate: (db, version) {
-      db.execute(
+    if (deletePreviousDB) {
+      await deleteDatabase(pathToDatabase);
+      debugPrint('delete previous database completely ---------------------------------------------------');
+    }
+    
+    return await openDatabase(pathToDatabase, version: _databaseVersion, onCreate: (db, version) async {
+      debugPrint('creating a completely new database ---------------------------------------------------');
+
+      await db.execute(
         '''
         CREATE TABLE "subjects" (
           "id"	INTEGER,
           "subject_name"	VARCHAR(50) NOT NULL UNIQUE,
           PRIMARY KEY("id")
         );
+        '''
+      );
+      await db.execute(
+        '''
         CREATE TABLE "chapters" (
           "id"	INTEGER PRIMARY KEY AUTOINCREMENT,
-          "subject_id"	INT NOT NULL,
+          "subject_id"	INTEGER NOT NULL,
           "chapter_name"	VARCHAR(50) NOT NULL UNIQUE,
           "playlist_url"	VARCHAR(250) NOT NULL,
+          "uploader_name" VARCHAR(50) ,
+          "number_of_lectures" INTEGER,
           FOREIGN KEY("subject_id") REFERENCES "subjects"("id")
         );
+        '''
+      );
+      await db.execute(
+        '''
         CREATE TABLE "specific_videos" (
           "id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-          "chapter_id"	INT NOT NULL,
-          "subject_id"	INT NOT NULL,
+          "chapter_id"	INTEGER NOT NULL,
+          "subject_id"	INTEGER NOT NULL,
           "video_lecture_number"	INTEGER NOT NULL,
           "video_url"	VARCHAR(500) NOT NULL UNIQUE,
           "video_title"	VARCHAR(50) NOT NULL UNIQUE,
           "chapter_description_box"	VARCHAR(500),
           "notes_location"	VARCHAR(100) NOT NULL UNIQUE,
+          "duration" INTEGER,
+          "thumbnail" VARCHAR(500),
           FOREIGN KEY("chapter_id") REFERENCES "chapters"("id"),
           FOREIGN KEY("subject_id") REFERENCES "subjects"("id")
         );
+        '''
+      );
+      await db.execute(
+        '''
         INSERT INTO subjects(subject_name)
           VALUES ('physics'),('mathematics'),('chemistry');
+        '''
+      );
+      await db.execute(
+        '''
         INSERT INTO chapters(subject_id,chapter_name,playlist_url)
           VALUES (1,'Gravitaion','https://www.youtube.com/playlist?list=PLF_7kfnwLFCEwyxzG-rg2uYeYA2q1S2d8'),
           (2,'calculus','https://www.youtube.com/playlist?list=PL0-GT3co4r2wlh6UHTUeQsrf3mlS2lk6x'),
           (3,'atomic structure','https://www.youtube.com/playlist?list=PLF_7kfnwLFCFnjki8KSeTQHyJ7OkdBdNA');
+        '''
+      );
+      await db.execute(
+        '''
         INSERT INTO specific_videos(subject_id,
           chapter_id,
           video_lecture_number,
@@ -72,9 +105,8 @@ class LectureProgressHelper {
           (3,3,1,'first as',"https://r4---sn-cvh76nek.googlevideo.com/videoplayback?expire=1625012664&ei=WGXbYMCpL4z8juMPq5yJgAg&ip=65.1.86.82&id=o-AJ1oaqAN1BbdYTqcrXIypYKRDNKNEYlIpNwbMXrQFMQm&itag=22&source=youtube&requiressl=yes&mh=lq&mm=31%2C29&mn=sn-cvh76nek%2Csn-cvh7knle&ms=au%2Crdu&mv=m&mvi=4&pl=14&initcwndbps=643750&vprv=1&mime=video%2Fmp4&ns=bAb--T0IvyiWOpJYCVyVqHsG&cnr=14&ratebypass=yes&dur=3784.202&lmt=1608554057249458&mt=1624990614&fvip=4&fexp=24001373%2C24007246&c=WEB&txp=5535432&n=F2fgXBWLvpdOeddw7hn1C&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgO4smakhMdV_6v1pELbLwhPOei9Ui3kLs9ofWe8LHiQ4CIQDt9__1xOiFsMhjq6QAxP62vTqnZYTeB6DMo4F5U4gcfg%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhANAJi9LLDQalgM3TmeATG73KHx7fDZRJukHO-WNIe-boAiBQ4-WB_HdYeAL8ZQN0O8o9qvRwdjCMl6a2WddQsEicrg%3D%3D",'none at present 3' );
         '''
       );
-
-      
-    },);
+    },
+    );
   } // initialise database
 
 

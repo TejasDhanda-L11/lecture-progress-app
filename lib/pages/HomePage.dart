@@ -18,10 +18,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     
-    _lectureProgressHelper.initialiseDatabase().then((value) async {
+    _lectureProgressHelper.database.then((value) async {
       
       print('database__________________initialised__________________________');
-      db = await _lectureProgressHelper.database;
+      db = value;
       _finalSortedList = await db.rawQuery('select * from subjects order by id');
       databaseInitialised = true;
       setState(() {
