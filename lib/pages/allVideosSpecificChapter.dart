@@ -41,7 +41,6 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                   child: Container(
 
                         width: double.infinity,
-                        height: 150,
                         margin: EdgeInsets.only(
                             left: 20, right: 20, top: 20, bottom: 20),
                         decoration: BoxDecoration(
@@ -52,13 +51,39 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                         ),
                         child: Padding(
                           padding:  EdgeInsets.only(left:10, top:10),
-                          child: Text(
-                            '${e['video_lecture_number']}. ${e['video_title']}',
-                            style: TextStyle(
-                              letterSpacing: 3,
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w900),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                '${e['video_lecture_number']}. ${e['video_title']}',
+                                style: TextStyle(
+
+                                  letterSpacing: 3,
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w900),
+                                    
+                              ),
+                              
+                              Divider(height: 20,indent: 10, endIndent: 20,thickness: 1,),
+                              
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  SizedBox(width: 10),
+                                  Text(
+                                    
+                                    '${(e['duration']/3600).floor()}:${((e['duration']/60).floor()-(((e['duration']/3600).floor())*60)).toString().padLeft(2,"0")}:${ ((e['duration'])-((e['duration']/60).floor()-(((e['duration']/3600).floor())*60))*60-((e['duration']/3600).floor())*3600 ).toString().padLeft(2,"0")}' ,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700
+                                    ),
+                                    ),
+                                ],
+                              )
+                            ],
                           ),
                         ),
                       ),
