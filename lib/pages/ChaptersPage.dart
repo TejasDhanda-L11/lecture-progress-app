@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/routes/routes.dart';
 import 'package:sqflite/sqflite.dart';
@@ -42,20 +43,11 @@ class _ChaptersPageState extends State<ChaptersPage> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (gotAllDataFromDB){
               return Scaffold(
-                floatingActionButton: FloatingActionButton(onPressed: (){
-                  Navigator.popAndPushNamed(
-                    context, 
-                    RouteManager.inputPlayUrl_page,
-                    arguments: {
-                      'subject_id':widget.subject_id,
-                      'dbInstance': widget.db
-                    }
-                    );
-                }),
+                
                 body: SingleChildScrollView(
                   child: Column(
                     children: dataFromDB_table_chapters
-                        .map((e) => GestureDetector(
+                        .map<Widget>((e) => GestureDetector(
                           onTap: ()async{
                              Navigator.pushNamed(
                               context,
@@ -83,28 +75,60 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                   color: Colors.white,
 
                                 ),
-                                child: Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    // Chapter Name
-                                    Positioned(
-                                      top: 10,
-                                      left: 10,
-                                      child: Text(
-                                        '${e['chapter_name']}',
-                                        style: TextStyle(
-                                          letterSpacing: 3,
-                                            fontSize: 30,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                    ),
-
-
-                                  ],
+                                child: Padding(
+                                  padding:  EdgeInsets.only(top: 10, left: 10),
+                                  child: Text(
+                                    '${e['chapter_name']}',
+                                    style: TextStyle(
+                                      letterSpacing: 3,
+                                        fontSize: 29,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w900),
+                                    softWrap: true
+                                  ),
                                 ),
                               ),
-                        ))
+                        )
+                        )
+                        .followedBy([
+                    // add subject sign stuff
+                    Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      child: DottedBorder(
+                        dashPattern: [2, 5, 10, 20],
+                        color: Color(0xFFEAECFF),
+                        strokeWidth: 2,
+                        borderType: BorderType.RRect,
+                        radius: Radius.circular(10),
+                        child: Container(
+                          width: double.infinity,
+                          child: FlatButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              color: Colors.grey[50],
+                              height: 150,
+                              onPressed: () {
+                                Navigator.popAndPushNamed(
+                                  context, 
+                                  RouteManager.inputPlayUrl_page,
+                                  arguments: {
+                                    'subject_id':widget.subject_id,
+                                    'dbInstance': widget.db
+                                  }
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Icon(Icons.add_circle_outline_outlined,size: 40,),
+                                  Text('Add Chapter',style: TextStyle(fontSize: 20),)
+                                ],
+                              )),
+                        ),
+                      ),
+                    )
+                  ])
                         .toList(),
                   ),
                 ),

@@ -50,25 +50,16 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                           color: Colors.white,
 
                         ),
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            // Chapter Name
-                            Positioned(
-                              top: 10,
-                              left: 10,
-                              child: Text(
-                                '${e['video_lecture_number']}. ${e['video_title']}',
-                                style: TextStyle(
-                                  letterSpacing: 3,
-                                    fontSize: 30,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w900),
-                              ),
-                            ),
-
-
-                          ],
+                        child: Padding(
+                          padding:  EdgeInsets.only(left:10, top:10),
+                          child: Text(
+                            '${e['video_lecture_number']}. ${e['video_title']}',
+                            style: TextStyle(
+                              letterSpacing: 3,
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w900),
+                          ),
                         ),
                       ),
                 ))
