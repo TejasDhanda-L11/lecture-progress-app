@@ -3,7 +3,6 @@ import 'package:lecture_progress/extra/youtubePlayer.dart';
 import 'package:lecture_progress/pages/ChaptersPage.dart';
 import 'package:lecture_progress/pages/HomePage.dart';
 import 'package:lecture_progress/pages/allVideosSpecificChapter.dart';
-import 'package:lecture_progress/pages/inputPlayUrl_page.dart';
 
 class RouteManager {
   static const String homePage = '/';
@@ -11,7 +10,6 @@ class RouteManager {
   static const String allVideosSpecificChapterPage =
       '/allVideosSpecificChapterPage';
   static const String singleVideoCustomPlayer = '/singleVideoCustomPlayer'; 
-  static const String inputPlayUrl_page = '/inputPlayUrl_page'; 
 
   
 
@@ -37,11 +35,7 @@ class RouteManager {
       case singleVideoCustomPlayer:
         return MaterialPageRoute(builder: (context) => CustomYoutubePlayer(dataReq_youtubePlayer: valuePassed?['dataReq_youtubePlayer'] ?? 1,));
 
-      case inputPlayUrl_page:
-        return MaterialPageRoute(builder: (context)=> inputPlaylistURLPage(
-          dbInstance: valuePassed!['dbInstance'],
-          subject_id:  valuePassed['subject_id']
-        ));
+      
 
       default:
         throw FormatException('Wrong route, route doesn\'t exist');
