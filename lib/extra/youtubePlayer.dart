@@ -197,6 +197,22 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
             },
             icon: Icon(Icons.done_outline_rounded),
             label: Text('Done')),
+        FlatButton.icon(
+            onPressed: () async {
+              print('id ---------------------------------------- ${widget.idOfVideo}');
+              await widget.dbInstance.rawQuery(
+                '''
+                UPDATE specific_videos
+                SET lectureCompleted = 'F'
+                WHERE id = ${widget.idOfVideo}
+                '''
+              );
+              // setState(() {
+                
+              // });
+            },
+            icon: Icon(Icons.close_outlined),
+            label: Text('Not Done'))
       ],
     );
   }
