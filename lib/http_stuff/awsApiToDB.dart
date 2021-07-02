@@ -18,7 +18,7 @@ class AWSApiToDB {
     print('link = ${link}');
     var url = Uri.parse(link);
     var response = await http.get(url);
-    print('Response: ${jsonDecode(response.body)}');
+    // print('Response: ${jsonDecode(response.body)}');
     return jsonDecode(response.body);
   }
   Future<void> AWSApiToDB_func({required Database dbInstance, required int subject_id}) async {
@@ -36,9 +36,9 @@ class AWSApiToDB {
       VALUES 
       (
         $subject_id,
-        '${dataReturned_fromAPI['title']}',
-        "${this.playlistUrl}",
-        "${dataReturned_fromAPI['uploader']}",
+        "${dataReturned_fromAPI['title'].toString() }",
+        "${this.playlistUrl.toString()}",
+        "${dataReturned_fromAPI['uploader'].toString()}",
         ${dataReturned_fromAPI['number_of_videos']}
         
       )
@@ -73,12 +73,12 @@ class AWSApiToDB {
         ${chapter_id[0]['id']},
         $subject_id,
         ${i+1},
-        "${dataReturned_fromAPI['video']["$i"]['URLVid']}",
-        "${dataReturned_fromAPI['video']["$i"]['titleVid']}",
-        "${dataReturned_fromAPI['video']["$i"]['description']}",
+        "${dataReturned_fromAPI['video']['$i']['URLVid'].toString()}",
+        "${dataReturned_fromAPI['video']['$i']['titleVid'].toString()}",
         "none",
-        ${dataReturned_fromAPI['video']["$i"]['duration']},
-        "${dataReturned_fromAPI['video']["$i"]['thumbnail']}"
+        "none",
+        ${dataReturned_fromAPI['video']['$i']['duration']},
+        "${dataReturned_fromAPI['video']['$i']['thumbnail'].toString()}"
 
         
         
