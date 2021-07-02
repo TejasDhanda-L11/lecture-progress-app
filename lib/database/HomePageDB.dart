@@ -8,7 +8,7 @@ final int _databaseVersion = 7;
 
 class LectureProgressHelper {
 
-  bool deletePreviousDB = true;
+  bool deletePreviousDB = false;
   static Database? _database;
   static LectureProgressHelper?  lectureProgressHelper;
 

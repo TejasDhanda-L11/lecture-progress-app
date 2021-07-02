@@ -46,13 +46,10 @@ class _ChaptersPageState extends State<ChaptersPage> {
                               Navigator.pushNamed(context,
                                   RouteManager.allVideosSpecificChapterPage,
                                   arguments: {
-                                    'dataRequiredEL':
-                                        await widget.db.rawQuery('''
-                                select * from specific_videos
-                                where subject_id = ${widget.subject_id}
-                                and
-                                chapter_id = ${e['id']}
-                                ''')
+                                    
+                                    'dbInstance': widget.db,
+                                    'subject_id' :widget.subject_id,
+                                    'chapter_id':e['id']
                                   });
                             },
                             child: Container(

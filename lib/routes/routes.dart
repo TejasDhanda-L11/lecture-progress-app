@@ -9,16 +9,12 @@ class RouteManager {
   static const String chaptersPage = '/chaptersPage';
   static const String allVideosSpecificChapterPage =
       '/allVideosSpecificChapterPage';
-  static const String singleVideoCustomPlayer = '/singleVideoCustomPlayer'; 
-
-  
-
+  static const String singleVideoCustomPlayer = '/singleVideoCustomPlayer';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
-
     Map<dynamic, dynamic>? valuePassed;
 
-    if (settings.arguments != null){
+    if (settings.arguments != null) {
       valuePassed = settings.arguments as Map<dynamic, dynamic>;
     }
 
@@ -27,15 +23,27 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => HomePage());
 
       case chaptersPage:
-        return MaterialPageRoute(builder: (context) => ChaptersPage(subject_id: valuePassed?['subject'] ?? 1, db: valuePassed?['dbInstance'] ?? 'none is subject',));
-      
-      case allVideosSpecificChapterPage:
-        return MaterialPageRoute(builder: (context) => AllVideoSpecificChapter(dataRequiredEL : valuePassed?['dataRequiredEL'] ?? 1));
-      
-      case singleVideoCustomPlayer:
-        return MaterialPageRoute(builder: (context) => CustomYoutubePlayer(dataReq_youtubePlayer: valuePassed?['dataReq_youtubePlayer'] ?? 1,));
+        return MaterialPageRoute(
+            builder: (context) => ChaptersPage(
+                  subject_id: valuePassed?['subject'] ?? 1,
+                  db: valuePassed?['dbInstance'] ?? 'none is subject',
+                ));
 
-      
+      case allVideosSpecificChapterPage:
+        return MaterialPageRoute(
+            builder: (context) => AllVideoSpecificChapter(
+                  dbInstance: valuePassed?['dbInstance'] ?? 'none instance',
+                  subject_id: valuePassed!['subject_id'],
+                  chapter_id: valuePassed['chapter_id'],
+                ));
+
+      case singleVideoCustomPlayer:
+        return MaterialPageRoute(
+            builder: (context) => CustomYoutubePlayer(
+                  dataReq_youtubePlayer:
+                      valuePassed?['dataReq_youtubePlayer'] ?? 1,
+                  dbInstance: valuePassed?['dbInstance'] ?? 'none instance',
+                ));
 
       default:
         throw FormatException('Wrong route, route doesn\'t exist');
