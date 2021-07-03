@@ -47,8 +47,8 @@ class RouteManager {
                   dbInstance: valuePassed?['dbInstance'] ?? 'none instance',
                 ));
 
-      // case timerPage:
-      //   return MaterialPageRoute(builder: (context) => TimerPage());
+      case timerPage:
+        return MaterialPageRoute(builder: (context) => TimerPage());
 
       default:
         throw FormatException('Wrong route, route doesn\'t exist');
