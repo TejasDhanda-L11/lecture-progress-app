@@ -66,24 +66,23 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
   void dispose() {
     super.dispose();
 
-    if (chewieController.isPlaying) {
-          try {
-            // chewieController.pause();
-            Future.delayed(Duration.zero, () {
-              // print('----------------------doing1');
-              // videoPlayerController?.dispose();
-              // print('----------------------doing2');
-              // videoPlayerController.removeListener(() { });
-              chewieController.videoPlayerController.removeListener(() { });
-              chewieController.videoPlayerController.dispose();
-              chewieController.removeListener(() { });
-              chewieController.dispose();
-              // print('----------------------done3');
-            });
-          } catch (e) {
-            debugPrint('Error1------------------------------------------- $e');
-          }
-        }
+      try {
+        // chewieController.pause();
+        Future.delayed(Duration.zero, () {
+          // print('----------------------doing1');
+          // videoPlayerController?.dispose();
+          // print('----------------------doing2');
+          // videoPlayerController.removeListener(() { });
+          chewieController.videoPlayerController.removeListener(() { });
+          chewieController.videoPlayerController.dispose();
+          chewieController.removeListener(() { });
+          chewieController.dispose();
+          // print('----------------------done3');
+        });
+      } catch (e) {
+        debugPrint('Error1------------------------------------------- $e');
+      }
+        
 
     
   }
