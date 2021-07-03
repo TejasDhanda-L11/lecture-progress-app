@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/pages/timer_page.dart';
 import 'package:lecture_progress/routes/routes.dart';
 
 //link to server =
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: RouteManager.homePage,
       onGenerateRoute: RouteManager.generateRoute,
       debugShowCheckedModeBanner: false,
-
+      // home: TimerPage()
     );
   }
 }
