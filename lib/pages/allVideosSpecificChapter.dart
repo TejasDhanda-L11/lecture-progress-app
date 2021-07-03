@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/routes/routes.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -20,6 +21,7 @@ class AllVideoSpecificChapter extends StatefulWidget {
 
 class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
   late List<Map<String, dynamic>> dataRequiredEL;
+  late List<Map<String, dynamic>> dataRequired_chapter;
 
   bool gotDataFromDB = false;
   Future<void> gettingImportantDataFromDB() async {
@@ -29,6 +31,11 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                                 where subject_id = ${widget.subject_id}
                                 and
                                 chapter_id = ${widget.chapter_id}
+                                ''');
+    dataRequired_chapter = await widget.dbInstance.rawQuery('''
+                                select * from chapters
+                                where 
+                                id = ${widget.chapter_id}
                                 ''');
     debugPrint('done --------------------------------');
     gotDataFromDB = true;
@@ -54,6 +61,22 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (gotDataFromDB) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                await AWSApiToDB(
+                        playlistUrl:
+                            dataRequired_chapter[0]["playlist_url"] as String)
+                    .AWSApiUpdateDB_func(
+                        dbInstance: widget.dbInstance,
+                        subject_id: widget.subject_id,
+                        chapter_id: widget.chapter_id);
+                debugPrint(
+                    'in youtube page refresh donnnnnneeee ---------------------------');
+              },
+              child: Icon(Icons.refresh_rounded),
+              backgroundColor: Colors.white54,
+              foregroundColor: Colors.black38,
+            ),
             body: LiquidPullToRefresh(
               height: 80,
               onRefresh: () async {
@@ -94,7 +117,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                                 // height: 100,
                                 child: Image.network(
                                   e['thumbnail'],
-                                  ),
+                                ),
                                 color: Colors.white,
                               ),
                               Text(
