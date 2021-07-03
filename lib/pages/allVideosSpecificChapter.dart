@@ -115,10 +115,20 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                               Container(
                                 width: double.infinity,
                                 // height: 100,
-                                child: Image.network(
-                                  e['thumbnail'],
-                                ),
-                                color: Colors.white,
+
+                                // child: Image.network(
+
+                                //   e['thumbnail'],
+                                // ),
+                                child:
+                                    Opacity(
+                                      opacity: isLectureCompleted == 'F'
+                                        ? 1
+                                        : 0.3,
+                                      child: Image(
+                                        image: NetworkImage(e['thumbnail'])),
+                                    ),
+                                // color: Colors.white,
                               ),
                               Text(
                                 '${e['video_lecture_number']}. ${e['video_title']}',
