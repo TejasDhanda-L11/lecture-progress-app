@@ -94,7 +94,6 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
           }
         }
         return Future.value(true);
-        
       },
       child: Scaffold(
           // floatingActionButton: FloatingActionButton(onPressed: (){
@@ -122,6 +121,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
                 dbInstance: widget.dbInstance,
                 chewieController: chewieController,
                 titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
+                doneVideo: widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'? true:false,
               );
             } else {
               debugPrint(
@@ -150,9 +150,12 @@ class CustomPortraitOrientation extends StatefulWidget {
   final ChewieController chewieController;
   final String titleOfVideo;
   final int idOfVideo;
+  bool doneVideo;
   CustomPortraitOrientation(
-      {required this.idOfVideo,
-        required this.chewieController,
+      {
+        required this.doneVideo,
+        required this.idOfVideo,
+      required this.chewieController,
       required this.titleOfVideo,
       required this.dbInstance});
   @override
@@ -181,38 +184,73 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
             ),
           ),
         ),
-        FlatButton.icon(
-            onPressed: () async {
-              print('id ---------------------------------------- ${widget.idOfVideo}');
-              await widget.dbInstance.rawQuery(
-                '''
-                UPDATE specific_videos
-                SET lectureCompleted = 'T'
-                WHERE id = ${widget.idOfVideo}
-                '''
-              );
-              // setState(() {
-                
-              // });
-            },
-            icon: Icon(Icons.done_outline_rounded),
-            label: Text('Done')),
-        FlatButton.icon(
-            onPressed: () async {
-              print('id ---------------------------------------- ${widget.idOfVideo}');
-              await widget.dbInstance.rawQuery(
-                '''
-                UPDATE specific_videos
-                SET lectureCompleted = 'F'
-                WHERE id = ${widget.idOfVideo}
-                '''
-              );
-              // setState(() {
-                
-              // });
-            },
-            icon: Icon(Icons.close_outlined),
-            label: Text('Not Done'))
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                    color: Colors.black12,
+                    // offset: Offset(0.0, 1.0), //(x,y)
+                    blurRadius: 3.0,
+                    spreadRadius: 2,
+                  ),
+            ]
+          ),
+          width: double.infinity,
+          padding: EdgeInsets.only(left: 10, right: 10, top:7, bottom: 7),
+          child: Text(
+              widget.titleOfVideo,
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700,letterSpacing: 2.5  ),
+            ),
+        ),
+        // Card(
+        //   elevation: 7,
+        //   child: Container(
+        //     width: 500,
+        //     child: Text(
+        //       widget.titleOfVideo,
+        //       textAlign: TextAlign.center,
+        //       style: TextStyle(fontSize: 20),
+        //     ),
+        //   ),
+        // ),
+        Visibility(
+          visible: !widget.doneVideo,
+          child: FlatButton.icon(
+              onPressed: () async {
+                print(
+                    'id ---------------------------------------- ${widget.idOfVideo}');
+                await widget.dbInstance.rawQuery('''
+                  UPDATE specific_videos
+                  SET lectureCompleted = 'T'
+                  WHERE id = ${widget.idOfVideo}
+                  ''');
+                // setState(() {
+        
+                // });
+              },
+              icon: Icon(Icons.done_outline_rounded),
+              label: Text('Done')),
+        ),
+        Visibility(
+          visible: widget.doneVideo,
+          child: FlatButton.icon(
+              onPressed: () async {
+                print(
+                    'id ---------------------------------------- ${widget.idOfVideo}');
+                await widget.dbInstance.rawQuery('''
+                  UPDATE specific_videos
+                  SET lectureCompleted = 'F'
+                  WHERE id = ${widget.idOfVideo}
+                  ''');
+                // setState(() {
+        
+                // });
+              },
+              icon: Icon(Icons.close_outlined),
+              label: Text('Not Done')),
+        )
       ],
     );
   }
