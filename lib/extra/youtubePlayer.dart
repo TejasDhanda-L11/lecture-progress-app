@@ -64,16 +64,28 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
   @override
   void dispose() {
-    // if (chewieController.isPlaying){
-    //       try{
-    //       chewieController.pause();
-    //       chewieController.dispose();
-    //       }
-    //       catch (e){
-    //         debugPrint('Errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr2 $e');
-    //       }
-    //     }
     super.dispose();
+
+    if (chewieController.isPlaying) {
+          try {
+            // chewieController.pause();
+            Future.delayed(Duration.zero, () {
+              // print('----------------------doing1');
+              // videoPlayerController?.dispose();
+              // print('----------------------doing2');
+              // videoPlayerController.removeListener(() { });
+              chewieController.videoPlayerController.removeListener(() { });
+              chewieController.videoPlayerController.dispose();
+              chewieController.removeListener(() { });
+              chewieController.dispose();
+              // print('----------------------done3');
+            });
+          } catch (e) {
+            debugPrint('Error1------------------------------------------- $e');
+          }
+        }
+
+    
   }
 
   @override
@@ -82,66 +94,55 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
     debugPrint('stateSet Started');
 
     SystemChrome.setEnabledSystemUIOverlays([]);
-    return WillPopScope(
-      onWillPop: () {
-        if (chewieController.isPlaying) {
-          try {
-            chewieController.pause();
-            // chewieController.dispose();
-            // videoPlayerController.dispose();
-          } catch (e) {
-            debugPrint('Errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr1 $e');
+    return Scaffold(
+        // floatingActionButton: FloatingActionButton(onPressed: (){
+        //   debugPrint('clicked present state ${chewieController.isFullScreen}');
+        // }),
+        body: FutureBuilder(
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (chewieController_initialised == false)
+          return CircularProgressIndicator();
+        else {
+          debugPrint(
+              'final orientation ======================= ${orientation}');
+          if (orientation == Orientation.portrait) {
+            debugPrint(
+                '00000000000000000000000000000000000000000000000000000000 ${chewieController.isFullScreen}');
+            Future.delayed(Duration.zero, () {
+              if (chewieController.isFullScreen) {
+                debugPrint(
+                    'full screnn removeddddddddddddddddddddddddddddddddd');
+                Navigator.pop(context);
+              }
+            });
+            return CustomPortraitOrientation(
+              idOfVideo: widget.dataReq_youtubePlayer["id"],
+              dbInstance: widget.dbInstance,
+              chewieController: chewieController,
+              titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
+              doneVideo:
+                  widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'
+                      ? true
+                      : false,
+            );
+          } else {
+            debugPrint(
+                '1111111111111111111111111111111111111111111111111111111111 ${chewieController.isFullScreen}');
+            Future.delayed(Duration.zero, () {
+              if (!chewieController.isFullScreen) {
+                debugPrint(
+                    'full screnn removeddddddddddddddddddddddddddddddddd');
+                chewieController.enterFullScreen();
+              }
+            });
+
+            return CustomLandscapeOrientation(
+              chewieController: chewieController,
+            );
           }
         }
-        return Future.value(true);
       },
-      child: Scaffold(
-          // floatingActionButton: FloatingActionButton(onPressed: (){
-          //   debugPrint('clicked present state ${chewieController.isFullScreen}');
-          // }),
-          body: FutureBuilder(
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (chewieController_initialised == false)
-            return CircularProgressIndicator();
-          else {
-            debugPrint(
-                'final orientation ======================= ${orientation}');
-            if (orientation == Orientation.portrait) {
-              debugPrint(
-                  '00000000000000000000000000000000000000000000000000000000 ${chewieController.isFullScreen}');
-              Future.delayed(Duration.zero, () {
-                if (chewieController.isFullScreen) {
-                  debugPrint(
-                      'full screnn removeddddddddddddddddddddddddddddddddd');
-                  Navigator.pop(context);
-                }
-              });
-              return CustomPortraitOrientation(
-                idOfVideo: widget.dataReq_youtubePlayer["id"],
-                dbInstance: widget.dbInstance,
-                chewieController: chewieController,
-                titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
-                doneVideo: widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'? true:false,
-              );
-            } else {
-              debugPrint(
-                  '1111111111111111111111111111111111111111111111111111111111 ${chewieController.isFullScreen}');
-              Future.delayed(Duration.zero, () {
-                if (!chewieController.isFullScreen) {
-                  debugPrint(
-                      'full screnn removeddddddddddddddddddddddddddddddddd');
-                  chewieController.enterFullScreen();
-                }
-              });
-
-              return CustomLandscapeOrientation(
-                chewieController: chewieController,
-              );
-            }
-          }
-        },
-      )),
-    );
+    ));
   }
 }
 
@@ -152,9 +153,8 @@ class CustomPortraitOrientation extends StatefulWidget {
   final int idOfVideo;
   bool doneVideo;
   CustomPortraitOrientation(
-      {
-        required this.doneVideo,
-        required this.idOfVideo,
+      {required this.doneVideo,
+      required this.idOfVideo,
       required this.chewieController,
       required this.titleOfVideo,
       required this.dbInstance});
@@ -185,24 +185,22 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
           ),
         ),
         Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                    color: Colors.black12,
-                    // offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 3.0,
-                    spreadRadius: 2,
-                  ),
-            ]
-          ),
-          width: double.infinity,
-          padding: EdgeInsets.only(left: 10, right: 10, top:7, bottom: 7),
-          child: Text(
-              widget.titleOfVideo,
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700,letterSpacing: 2.5  ),
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              // offset: Offset(0.0, 1.0), //(x,y)
+              blurRadius: 3.0,
+              spreadRadius: 2,
             ),
+          ]),
+          width: double.infinity,
+          padding: EdgeInsets.only(left: 10, right: 10, top: 7, bottom: 7),
+          child: Text(
+            widget.titleOfVideo,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 19, fontWeight: FontWeight.w700, letterSpacing: 2.5),
+          ),
         ),
         // Card(
         //   elevation: 7,
@@ -227,7 +225,7 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
                   WHERE id = ${widget.idOfVideo}
                   ''');
                 // setState(() {
-        
+
                 // });
               },
               icon: Icon(Icons.done_outline_rounded),
@@ -245,7 +243,7 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
                   WHERE id = ${widget.idOfVideo}
                   ''');
                 // setState(() {
-        
+
                 // });
               },
               icon: Icon(Icons.close_outlined),
