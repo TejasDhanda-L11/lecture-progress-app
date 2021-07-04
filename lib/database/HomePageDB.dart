@@ -26,7 +26,7 @@ class LectureProgressHelper {
   Future<Database> initialiseDatabase() async{
 
     String initialPrefixPath = await getDatabasesPath();
-    String pathToDatabase = '${initialPrefixPath}/${_databaseName}';
+    String pathToDatabase = '$initialPrefixPath/$_databaseName';
     // print('pathToDatabase = $pathToDatabase');
     if (deletePreviousDB) {
       await deleteDatabase(pathToDatabase);
@@ -70,12 +70,12 @@ class LectureProgressHelper {
           "video_lecture_number"	INTEGER NOT NULL,
           "video_url"	VARCHAR(500) NOT NULL UNIQUE,
           "video_title"	VARCHAR(50) NOT NULL UNIQUE,
-          "chapter_description_box"	VARCHAR(500) NOT NULL DEFAULT 'none',
+          "chapter_description_box"	VARCHAR(1000) NOT NULL DEFAULT 'none',
           "notes_location"	VARCHAR(100) NOT NULL ,
           "duration" INTEGER,
           "thumbnail" VARCHAR(500),
           "lectureCompleted" TEXT CHECK(lectureCompleted IN ('T','F')) NOT NULL DEFAULT 'F',
-          "lengthCompletedLecture" TIME NOT NULL DEFAULT '00-00-00',
+          "lengthCompleted" TIME NOT NULL DEFAULT '00-00-00',
           FOREIGN KEY("chapter_id") REFERENCES "chapters"("id"),
           FOREIGN KEY("subject_id") REFERENCES "subjects"("id")
         );
@@ -85,6 +85,37 @@ class LectureProgressHelper {
         '''
         INSERT INTO subjects(subject_name)
           VALUES ('physics'),('mathematics'),('chemistry');
+        '''
+      );
+      ///// for day_logger inserter
+      ///INSERT INTO day_logger('date')
+      // values ('05-07-2021'),('06-07-2021')
+
+      /////
+      ///
+      ///
+      ///
+      await db.execute(
+        '''
+        CREATE TABLE "day_logger" (
+          "id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+          "date"	date UNIQUE,
+          "hours_studied"	time NOT NULL DEFAULT '00-00-00'
+        );
+        '''
+      );
+      await db.execute(
+        '''
+        CREATE TABLE 'log_deatils' (
+          "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+          "day_logger_id" INTEGER not NULL,
+          "specific_video_id" INTEGER not NULL,
+          "how_much_time_spend" TIME not null DEFAULT '00-00-00',
+          
+          FOREIGN KEY("day_logger_id") REFERENCES "day_logger"("id"),
+            FOREIGN KEY("specific_video_id") REFERENCES "specific_videos"("id")
+	
+        );
         '''
       );
       // await db.execute(

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AWSApiToDB {
@@ -50,6 +51,8 @@ class AWSApiToDB {
     // debugPrint(dataReturned_fromAPI['video'].toString());
     for (int i = 0; i < dataReturned_fromAPI['number_of_videos']; i++) {
       // debugPrint("dataReturned_fromAPI['video'][$i]['URLVid'] = ${dataReturned_fromAPI['video']['0']}");
+      String description = dataReturned_fromAPI['video']['$i']['description'].toString().replaceAll('"', '_').replaceAll("'", '_');
+      customPrint(description,object2: 'DESCRIPTION ----------------------------------------');
       await dbInstance.rawQuery('''
       INSERT INTO specific_videos(
         chapter_id,
@@ -69,7 +72,7 @@ class AWSApiToDB {
         ${i + 1},
         "${dataReturned_fromAPI['video']['$i']['URLVid'].toString()}",
         "${dataReturned_fromAPI['video']['$i']['titleVid'].toString()}",
-        "none",
+        "$description",
         "none",
         ${dataReturned_fromAPI['video']['$i']['duration']},
         "${dataReturned_fromAPI['video']['$i']['thumbnail'].toString()}"

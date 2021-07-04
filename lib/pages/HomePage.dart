@@ -13,6 +13,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
+
+
   LectureProgressHelper _lectureProgressHelper = LectureProgressHelper();
   bool databaseInitialised = false;
   late Database db;
@@ -28,12 +32,12 @@ class _HomePageState extends State<HomePage> {
       databaseInitialised = true;
       setState(() {});
     });
-
     super.initState();
   }
   
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: GestureDetector(
         
@@ -56,7 +60,8 @@ class _HomePageState extends State<HomePage> {
             if (databaseInitialised) {
               return Scaffold(
                 floatingActionButton: FloatingActionButton(onPressed: () {
-                  // customPrint()
+    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: Container(color: Colors.orange,height: 100,width: 100,), actions: []));
                 }),
                 body: SingleChildScrollView(
                   child: Column(

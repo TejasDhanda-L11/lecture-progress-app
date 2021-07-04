@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/functions/allSpecificChapterVideos_funcs.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:lecture_progress/widgets/allSpecificChapterVideos_singlList_widget.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
@@ -59,17 +61,15 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: GestureDetector(
-        onHorizontalDragEnd: (details){
-            // velocity = details.velocity;
-            customPrint(details.velocity,object2: 'all video specific chapter');
-          if (details.velocity.pixelsPerSecond.dx > 1000){
+        onHorizontalDragEnd: (details) {
+          // velocity = details.velocity;
+          customPrint(details.velocity, object2: 'all video specific chapter');
+          if (details.velocity.pixelsPerSecond.dx > 1000) {
             // if (checkerTimer == null){
-            if (true){
-            Navigator.pushNamed(context, RouteManager.timerPage);
-
-            } 
+            if (true) {
+              Navigator.pushNamed(context, RouteManager.timerPage);
+            }
           }
-
         },
         child: FutureBuilder(
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -100,87 +100,27 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: dataRequiredEL.map((e) {
+
+                      Duration totalLength_Duration =
+                          Duration(seconds: e['duration']);
+                      // customPrint(totalLength_Duration);
+
+                      Duration lengthCompleted_Duration = Duration(
+                          hours: int.parse(
+                              e['lengthCompleted'].toString().split('-')[0]),
+                          minutes: int.parse(
+                              e['lengthCompleted'].toString().split('-')[1]),
+                          seconds: int.parse(
+                              e['lengthCompleted'].toString().split('-')[2]));
+                      // customPrint(lengthCompleted_Duration);
+
+                      Duration lengthLeftToCover = Duration(
+                          seconds: (totalLength_Duration.inSeconds -
+                              lengthCompleted_Duration.inSeconds));
+                      // customPrint(lengthLeftToCover);
+
                       String isLectureCompleted = e["lectureCompleted"];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, RouteManager.singleVideoCustomPlayer,
-                              arguments: {
-                                'dataReq_youtubePlayer': e,
-                                'dbInstance': widget.dbInstance
-                              });
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.only(
-                              left: 20, right: 20, top: 20, bottom: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(23),
-                            color: isLectureCompleted == 'F'
-                                ? Colors.white
-                                : Colors.grey[50],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10, top: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  // height: 100,
-      
-                                  // child: Image.network(
-      
-                                  //   e['thumbnail'],
-                                  // ),
-                                  child:
-                                      Opacity(
-                                        opacity: isLectureCompleted == 'F'
-                                          ? 1
-                                          : 0.3,
-                                        child: Image(
-                                          image: NetworkImage(e['thumbnail'])),
-                                      ),
-                                  // color: Colors.white,
-                                ),
-                                Text(
-                                  '${e['video_lecture_number']}. ${e['video_title']}',
-                                  style: TextStyle(
-                                      letterSpacing: 3,
-                                      fontSize: 20,
-                                      color: isLectureCompleted == 'F'
-                                          ? Colors.black
-                                          : Colors.black12,
-                                      fontWeight: FontWeight.w900),
-                                ),
-                                Divider(
-                                  height: 20,
-                                  indent: 10,
-                                  endIndent: 20,
-                                  thickness: 1,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    SizedBox(width: 10),
-                                    Text(
-                                      '${(e['duration'] / 3600).floor()}:${((e['duration'] / 60).floor() - (((e['duration'] / 3600).floor()) * 60)).toString().padLeft(2, "0")}:${((e['duration']) - ((e['duration'] / 60).floor() - (((e['duration'] / 3600).floor()) * 60)) * 60 - ((e['duration'] / 3600).floor()) * 3600).toString().padLeft(2, "0")}',
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: isLectureCompleted == 'F'
-                                              ? Colors.black
-                                              : Colors.black12),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                      return AllSpecificChapterVideos_singleList_stfWidget(e:  e, isLectureCompleted:isLectureCompleted, lengthLeftToCover:lengthLeftToCover,dbInstance:  widget.dbInstance,);
                     }).toList(),
                   ),
                 ),
@@ -193,4 +133,6 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
       ),
     );
   }
+
+  
 }
