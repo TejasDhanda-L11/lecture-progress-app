@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AllSpecificChapterVideos_singleList_stfWidget extends StatefulWidget {
@@ -41,11 +42,9 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
           // thumbnail
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(
-                  context, RouteManager.singleVideoCustomPlayer, arguments: {
-                'dataReq_youtubePlayer': widget.e,
-                'dbInstance': widget.dbInstance
-              });
+              gapv_dataReq_youtubePlayer = widget.e;
+              Navigator.popAndPushNamed(
+                  context, RouteManager.singleVideoCustomPlayer, );
             },
             child: Container(
               width: double.infinity,

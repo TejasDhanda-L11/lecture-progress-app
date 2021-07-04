@@ -47,6 +47,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
 
   @override
   void initState() {
+    customPrint('initialised_init the allVideosSpecificPage');
     super.initState();
     // print('dataRequiredEL = ${dataRequiredEL}');
     // isLectureCompleted = dataRequiredEL[0]["lectureCompleted"] as String;
@@ -59,77 +60,84 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onHorizontalDragEnd: (details) {
-          // velocity = details.velocity;
-          customPrint(details.velocity, object2: 'all video specific chapter');
-          if (details.velocity.pixelsPerSecond.dx > 1000) {
-            // if (checkerTimer == null){
-            if (true) {
-              Navigator.pushNamed(context, RouteManager.timerPage);
+    return WillPopScope(
+      onWillPop: () {  
+        Navigator.popAndPushNamed(context, RouteManager.chaptersPage);
+        return Future.value(true);
+
+      },
+      child: SafeArea(
+        child: GestureDetector(
+          onHorizontalDragEnd: (details) {
+            // velocity = details.velocity;
+            customPrint(details.velocity, object2: 'all video specific chapter');
+            if (details.velocity.pixelsPerSecond.dx > 1000) {
+              // if (checkerTimer == null){
+              if (true) {
+                Navigator.pushNamed(context, RouteManager.timerPage);
+              }
             }
-          }
-        },
-        child: FutureBuilder(
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (gotDataFromDB) {
-            return Scaffold(
-              floatingActionButton: FloatingActionButton(
-                onPressed: () async {
-                  await AWSApiToDB(
-                          playlistUrl:
-                              dataRequired_chapter[0]["playlist_url"] as String)
-                      .AWSApiUpdateDB_func(
-                          dbInstance: widget.dbInstance,
-                          subject_id: widget.subject_id,
-                          chapter_id: widget.chapter_id);
-                  debugPrint(
-                      'in youtube page refresh donnnnnneeee ---------------------------');
-                },
-                child: Icon(Icons.refresh_rounded),
-                backgroundColor: Colors.white54,
-                foregroundColor: Colors.black38,
-              ),
-              body: LiquidPullToRefresh(
-                height: 80,
-                onRefresh: () async {
-                  await gettingImportantDataFromDB();
-                  setState(() {});
-                },
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: dataRequiredEL.map((e) {
-
-                      Duration totalLength_Duration =
-                          Duration(seconds: e['duration']);
-                      // customPrint(totalLength_Duration);
-
-                      Duration lengthCompleted_Duration = Duration(
-                          hours: int.parse(
-                              e['lengthCompleted'].toString().split('-')[0]),
-                          minutes: int.parse(
-                              e['lengthCompleted'].toString().split('-')[1]),
-                          seconds: int.parse(
-                              e['lengthCompleted'].toString().split('-')[2]));
-                      // customPrint(lengthCompleted_Duration);
-
-                      Duration lengthLeftToCover = Duration(
-                          seconds: (totalLength_Duration.inSeconds -
-                              lengthCompleted_Duration.inSeconds));
-                      // customPrint(lengthLeftToCover);
-
-                      String isLectureCompleted = e["lectureCompleted"];
-                      return AllSpecificChapterVideos_singleList_stfWidget(e:  e, isLectureCompleted:isLectureCompleted, lengthLeftToCover:lengthLeftToCover,dbInstance:  widget.dbInstance,);
-                    }).toList(),
+          },
+          child: FutureBuilder(
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (gotDataFromDB) {
+              return Scaffold(
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () async {
+                    await AWSApiToDB(
+                            playlistUrl:
+                                dataRequired_chapter[0]["playlist_url"] as String)
+                        .AWSApiUpdateDB_func(
+                            dbInstance: widget.dbInstance,
+                            subject_id: widget.subject_id,
+                            chapter_id: widget.chapter_id);
+                    debugPrint(
+                        'in youtube page refresh donnnnnneeee ---------------------------');
+                  },
+                  child: Icon(Icons.refresh_rounded),
+                  backgroundColor: Colors.white54,
+                  foregroundColor: Colors.black38,
+                ),
+                body: LiquidPullToRefresh(
+                  height: 80,
+                  onRefresh: () async {
+                    await gettingImportantDataFromDB();
+                    setState(() {});
+                  },
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: dataRequiredEL.map((e) {
+    
+                        Duration totalLength_Duration =
+                            Duration(seconds: e['duration']);
+                        // customPrint(totalLength_Duration);
+    
+                        Duration lengthCompleted_Duration = Duration(
+                            hours: int.parse(
+                                e['lengthCompleted'].toString().split('-')[0]),
+                            minutes: int.parse(
+                                e['lengthCompleted'].toString().split('-')[1]),
+                            seconds: int.parse(
+                                e['lengthCompleted'].toString().split('-')[2]));
+                        // customPrint(lengthCompleted_Duration);
+    
+                        Duration lengthLeftToCover = Duration(
+                            seconds: (totalLength_Duration.inSeconds -
+                                lengthCompleted_Duration.inSeconds));
+                        // customPrint(lengthLeftToCover);
+    
+                        String isLectureCompleted = e["lectureCompleted"];
+                        return AllSpecificChapterVideos_singleList_stfWidget(e:  e, isLectureCompleted:isLectureCompleted, lengthLeftToCover:lengthLeftToCover,dbInstance:  widget.dbInstance,);
+                      }).toList(),
+                    ),
                   ),
                 ),
-              ),
-            );
-          } else {
-            return CircularProgressIndicator();
-          }
-        }),
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+          }),
+        ),
       ),
     );
   }

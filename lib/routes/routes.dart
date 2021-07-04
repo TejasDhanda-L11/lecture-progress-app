@@ -4,6 +4,7 @@ import 'package:lecture_progress/pages/ChaptersPage.dart';
 import 'package:lecture_progress/pages/HomePage.dart';
 import 'package:lecture_progress/pages/allVideosSpecificChapter.dart';
 import 'package:lecture_progress/pages/timer_page.dart';
+import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 
 class RouteManager {
   static const String homePage = '/';
@@ -14,11 +15,15 @@ class RouteManager {
   static const String timerPage = '/timerPage';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    Map<dynamic, dynamic>? valuePassed;
+    // Map<dynamic, dynamic>? valuePassed;
 
-    if (settings.arguments != null) {
-      valuePassed = settings.arguments as Map<dynamic, dynamic>;
-    }
+    // if (settings.arguments != null) {
+    //   valuePassed = settings.arguments as Map<dynamic, dynamic>;
+    // }
+
+
+
+
 
     switch (settings.name) {
       case homePage:
@@ -27,24 +32,24 @@ class RouteManager {
       case chaptersPage:
         return MaterialPageRoute(
             builder: (context) => ChaptersPage(
-                  subject_id: valuePassed?['subject'] ?? 1,
-                  db: valuePassed?['dbInstance'] ?? 'none is subject',
+                  subject_id: gapv_subject_presently_id!,
+                  db: gapv_dbInstance!,
                 ));
 
       case allVideosSpecificChapterPage:
         return MaterialPageRoute(
             builder: (context) => AllVideoSpecificChapter(
-                  dbInstance: valuePassed?['dbInstance'] ?? 'none instance',
-                  subject_id: valuePassed!['subject_id'],
-                  chapter_id: valuePassed['chapter_id'],
+                  dbInstance: gapv_dbInstance!,
+                  subject_id: gapv_subject_presently_id!,
+                  chapter_id: gapv_chapter_presently_id!,
                 ));
 
       case singleVideoCustomPlayer:
         return MaterialPageRoute(
             builder: (context) => CustomYoutubePlayer(
                   dataReq_youtubePlayer:
-                      valuePassed?['dataReq_youtubePlayer'] ?? 1,
-                  dbInstance: valuePassed?['dbInstance'] ?? 'none instance',
+                      gapv_dataReq_youtubePlayer!,
+                  dbInstance: gapv_dbInstance!,
                 ));
 
       case timerPage:

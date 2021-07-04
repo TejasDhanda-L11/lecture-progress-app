@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ChaptersPage extends StatefulWidget {
@@ -34,154 +35,156 @@ class _ChaptersPageState extends State<ChaptersPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onHorizontalDragEnd: (details){
-            // velocity = details.velocity;
-            customPrint(details.velocity,object2: 'chapters');
-          if (details.velocity.pixelsPerSecond.dx > 1000){
-            // if (checkerTimer == null){
-            if (true){
-            Navigator.pushNamed(context, RouteManager.timerPage);
-
-            } 
-          }
-
-        },
-        child: FutureBuilder(
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (gotAllDataFromDB) {
-              return Scaffold(
-                body: SingleChildScrollView(
-                  child: Column(
-                    children: dataFromDB_table_chapters
-                        .map<Widget>((e) => GestureDetector(
-                              onTap: () async {
-                                Navigator.pushNamed(context,
-                                    RouteManager.allVideosSpecificChapterPage,
-                                    arguments: {
-                                      
-                                      'dbInstance': widget.db,
-                                      'subject_id' :widget.subject_id,
-                                      'chapter_id':e['id']
-                                    });
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                height: 150,
-                                margin: EdgeInsets.only(
-                                    left: 20, right: 20, top: 20, bottom: 20),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(23),
-                                  color: Colors.white,
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 10, left: 10),
-                                  child: Text('${e['chapter_name']}',
-                                      style: TextStyle(
-                                          letterSpacing: 3,
-                                          fontSize: 29,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w900),
-                                      softWrap: true),
-                                ),
-                              ),
-                            ))
-                        .followedBy([
-                      // add subject sign stuff
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: DottedBorder(
-                          dashPattern: [2, 5, 10, 20],
-                          color: Color(0xFFEAECFF),
-                          strokeWidth: 2,
-                          borderType: BorderType.RRect,
-                          radius: Radius.circular(10),
-                          child: Container(
-                            width: double.infinity,
-                            child: FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                color: Colors.grey[50],
-                                height: 150,
-                                onPressed: () {
-                                  showModalBottomSheet<void>(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(10))),
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Container(
-                                                height: 100,
-                                                child: TextField(
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  maxLines: null,
-                                                  style: TextStyle(
-                                                    fontSize: 23,
-                                                    color: Colors.black,
-                                                  ),
-                                                  autofocus: true,
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                  ),
-                                                  onSubmitted: (text) async {
-                                                    // print(text);
-      
-                                                    Navigator.pop(context);
-                                                    await AWSApiToDB(
-                                                            playlistUrl: text)
-                                                        .AWSApiToDB_func(
-                                                            dbInstance: widget.db,
-                                                            subject_id: widget
-                                                                .subject_id);
-      
-                                                    dataFromDB_table_chapters =
-                                                        await widget.db.rawQuery(
-                                                            'select * from chapters where subject_id = ${widget.subject_id}');
-      
-                                                    setState(() {});
-                                                    ;
-                                                  },
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                },
-                                child: Column(
-                                  children: [
-                                    Icon(
-                                      Icons.add_circle_outline_outlined,
-                                      size: 40,
-                                    ),
-                                    Text(
-                                      'Add Chapter',
-                                      style: TextStyle(fontSize: 20),
-                                    )
-                                  ],
-                                )),
-                          ),
-                        ),
-                      )
-                    ]).toList(),
-                  ),
-                ),
-              );
-            } else {
-              return CircularProgressIndicator();
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.popAndPushNamed(context, RouteManager.homePage);
+        return Future.value(true);
+      },
+      child: SafeArea(
+        child: GestureDetector(
+          onHorizontalDragEnd: (details){
+              // velocity = details.velocity;
+              customPrint(details.velocity,object2: 'chapters');
+            if (details.velocity.pixelsPerSecond.dx > 1000){
+              // if (checkerTimer == null){
+              if (true){
+              Navigator.pushNamed(context, RouteManager.timerPage);
+    
+              } 
             }
+    
           },
+          child: FutureBuilder(
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (gotAllDataFromDB) {
+                return Scaffold(
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: dataFromDB_table_chapters
+                          .map<Widget>((e) => GestureDetector(
+                                onTap: () async {
+                                  gapv_chapter_presently_id = e['id'];
+                                  Navigator.popAndPushNamed(context,
+                                      RouteManager.allVideosSpecificChapterPage,
+                                      );
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 150,
+                                  margin: EdgeInsets.only(
+                                      left: 20, right: 20, top: 20, bottom: 20),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(23),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 10, left: 10),
+                                    child: Text('${e['chapter_name']}',
+                                        style: TextStyle(
+                                            letterSpacing: 3,
+                                            fontSize: 29,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w900),
+                                        softWrap: true),
+                                  ),
+                                ),
+                              ))
+                          .followedBy([
+                        // add subject sign stuff
+                        Container(
+                          margin:
+                              EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          child: DottedBorder(
+                            dashPattern: [2, 5, 10, 20],
+                            color: Color(0xFFEAECFF),
+                            strokeWidth: 2,
+                            borderType: BorderType.RRect,
+                            radius: Radius.circular(10),
+                            child: Container(
+                              width: double.infinity,
+                              child: FlatButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10))),
+                                  color: Colors.grey[50],
+                                  height: 150,
+                                  onPressed: () {
+                                    showModalBottomSheet<void>(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(10))),
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                            padding:
+                                                MediaQuery.of(context).viewInsets,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                  height: 100,
+                                                  child: TextField(
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    maxLines: null,
+                                                    style: TextStyle(
+                                                      fontSize: 23,
+                                                      color: Colors.black,
+                                                    ),
+                                                    autofocus: true,
+                                                    decoration: InputDecoration(
+                                                      border: InputBorder.none,
+                                                    ),
+                                                    onSubmitted: (text) async {
+                                                      // print(text);
+        
+                                                      Navigator.pop(context);
+                                                      await AWSApiToDB(
+                                                              playlistUrl: text)
+                                                          .AWSApiToDB_func(
+                                                              dbInstance: widget.db,
+                                                              subject_id: widget
+                                                                  .subject_id);
+        
+                                                      dataFromDB_table_chapters =
+                                                          await widget.db.rawQuery(
+                                                              'select * from chapters where subject_id = ${widget.subject_id}');
+        
+                                                      setState(() {});
+                                                      ;
+                                                    },
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        });
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Icon(
+                                        Icons.add_circle_outline_outlined,
+                                        size: 40,
+                                      ),
+                                      Text(
+                                        'Add Chapter',
+                                        style: TextStyle(fontSize: 20),
+                                      )
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        )
+                      ]).toList(),
+                    ),
+                  ),
+                );
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          ),
         ),
       ),
     );
