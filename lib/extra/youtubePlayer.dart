@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/widgets/youtubePlayerWidgets/done_not_done_button.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';
 
@@ -67,25 +69,22 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
   void dispose() {
     super.dispose();
 
-      try {
-        // chewieController.pause();
-        Future.delayed(Duration.zero, () {
-          // print('----------------------doing1');
-          // videoPlayerController?.dispose();
-          // print('----------------------doing2');
-          // videoPlayerController.removeListener(() { });
-          chewieController.videoPlayerController.removeListener(() { });
-          chewieController.videoPlayerController.dispose();
-          chewieController.removeListener(() { });
-          chewieController.dispose();
-          // print('----------------------done3');
-        });
-      } catch (e) {
-        debugPrint('Error1------------------------------------------- $e');
-      }
-        
-
-    
+    try {
+      // chewieController.pause();
+      Future.delayed(Duration.zero, () {
+        // print('----------------------doing1');
+        // videoPlayerController?.dispose();
+        // print('----------------------doing2');
+        // videoPlayerController.removeListener(() { });
+        chewieController.videoPlayerController.removeListener(() {});
+        chewieController.videoPlayerController.dispose();
+        chewieController.removeListener(() {});
+        chewieController.dispose();
+        // print('----------------------done3');
+      });
+    } catch (e) {
+      debugPrint('Error1------------------------------------------- $e');
+    }
   }
 
   @override
@@ -95,27 +94,22 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     return WillPopScope(
-      onWillPop: () {  
-        Navigator.popAndPushNamed(context, RouteManager.allVideosSpecificChapterPage);
+      onWillPop: () {
+        Navigator.popAndPushNamed(
+            context, RouteManager.allVideosSpecificChapterPage);
         return Future.value(true);
       },
       child: GestureDetector(
-    
-    
-        onHorizontalDragEnd: (details){
-              // velocity = details.velocity;
-              customPrint(details.velocity,object2: 'homepage');
-            if (details.velocity.pixelsPerSecond.dx > 1000){
-              // if (checkerTimer == null){
-              if (true){
+        onHorizontalDragEnd: (details) {
+          // velocity = details.velocity;
+          customPrint(details.velocity, object2: 'homepage');
+          if (details.velocity.pixelsPerSecond.dx > 1000) {
+            // if (checkerTimer == null){
+            if (true) {
               Navigator.pushNamed(context, RouteManager.timerPage);
-    
-              } 
             }
-    
-          },
-    
-    
+          }
+        },
         child: Scaffold(
             // floatingActionButton: FloatingActionButton(onPressed: (){
             //   debugPrint('clicked present state ${chewieController.isFullScreen}');
@@ -137,15 +131,15 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
                     Navigator.pop(context);
                   }
                 });
+                // gapv_isVideoDone = widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'
+                //           ? true
+                //           : false;
                 return CustomPortraitOrientation(
                   idOfVideo: widget.dataReq_youtubePlayer["id"],
                   dbInstance: widget.dbInstance,
                   chewieController: chewieController,
                   titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
-                  doneVideo:
-                      widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'
-                          ? true
-                          : false,
+                  
                 );
               } else {
                 debugPrint(
@@ -157,7 +151,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
                     chewieController.enterFullScreen();
                   }
                 });
-      
+
                 return CustomLandscapeOrientation(
                   chewieController: chewieController,
                 );
@@ -175,9 +169,8 @@ class CustomPortraitOrientation extends StatefulWidget {
   final ChewieController chewieController;
   final String titleOfVideo;
   final int idOfVideo;
-  bool doneVideo;
   CustomPortraitOrientation(
-      {required this.doneVideo,
+      {
       required this.idOfVideo,
       required this.chewieController,
       required this.titleOfVideo,
@@ -237,43 +230,11 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
         //     ),
         //   ),
         // ),
-        Visibility(
-          visible: !widget.doneVideo,
-          child: FlatButton.icon(
-              onPressed: () async {
-                print(
-                    'id ---------------------------------------- ${widget.idOfVideo}');
-                await widget.dbInstance.rawQuery('''
-                  UPDATE specific_videos
-                  SET lectureCompleted = 'T'
-                  WHERE id = ${widget.idOfVideo}
-                  ''');
-                // setState(() {
-
-                // });
-              },
-              icon: Icon(Icons.done_outline_rounded),
-              label: Text('Done')),
+        Done_Not_DoneButton_YoutubePlayer(
+          idOfVideo: widget.idOfVideo,
+          
         ),
-        Visibility(
-          visible: widget.doneVideo,
-          child: FlatButton.icon(
-              onPressed: () async {
-                print(
-                    'id ---------------------------------------- ${widget.idOfVideo}');
-                await widget.dbInstance.rawQuery('''
-                  UPDATE specific_videos
-                  SET lectureCompleted = 'F'
-                  WHERE id = ${widget.idOfVideo}
-                  ''');
-                // setState(() {
-
-                // });
-              },
-              icon: Icon(Icons.close_outlined),
-              label: Text('Not Done')),
-        )
-      ],
+        ],
     );
   }
 }
