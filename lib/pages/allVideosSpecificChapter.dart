@@ -3,7 +3,7 @@ import 'package:lecture_progress/functions/allSpecificChapterVideos_funcs.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/routes/routes.dart';
-import 'package:lecture_progress/widgets/allSpecificChapterVideos_singlList_widget.dart';
+import 'package:lecture_progress/widgets/allSpecificChapterVideos_widgets/allSpecificChapterVideos_singlList_widget.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
