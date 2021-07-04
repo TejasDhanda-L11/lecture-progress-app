@@ -50,6 +50,7 @@ class RouteManager {
                   dataReq_youtubePlayer:
                       gapv_dataReq_youtubePlayer!,
                   dbInstance: gapv_dbInstance!,
+                  positionToSeekTo: gapv_psotionToSeekTo,
                 ));
 
       case timerPage:

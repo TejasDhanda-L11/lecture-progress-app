@@ -43,6 +43,11 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
           GestureDetector(
             onTap: () {
               gapv_dataReq_youtubePlayer = widget.e;
+              gapv_psotionToSeekTo = Duration(hours: int.parse(widget.e['lengthCompleted'].toString().split('-')[0]),
+              minutes: int.parse(widget.e['lengthCompleted'].toString().split('-')[1]),
+              seconds: int.parse(widget.e['lengthCompleted'].toString().split('-')[2])
+
+              );
               Navigator.popAndPushNamed(
                   context, RouteManager.singleVideoCustomPlayer, );
             },

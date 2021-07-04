@@ -10,10 +10,13 @@ import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';
 
 class CustomYoutubePlayer extends StatefulWidget {
+  final Duration positionToSeekTo;
   final Database dbInstance;
   final Map<String, dynamic> dataReq_youtubePlayer;
   CustomYoutubePlayer(
-      {required this.dataReq_youtubePlayer, required this.dbInstance});
+      {required this.dataReq_youtubePlayer,
+      required this.dbInstance,
+      required this.positionToSeekTo});
   @override
   _CustomYoutubePlayerState createState() => _CustomYoutubePlayerState();
 }
@@ -33,8 +36,8 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
     chewieController = ChewieController(
         autoInitialize: false,
         videoPlayerController: videoPlayerController,
-        autoPlay: false,
-        looping: true,
+        autoPlay: true,
+        looping: false,
         // allowedScreenSleep: false,
         allowFullScreen: true,
         deviceOrientationsOnEnterFullScreen: [
@@ -50,7 +53,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
           DeviceOrientation.landscapeLeft,
         ],
         aspectRatio: 16 / 9);
-
+    chewieController.videoPlayerController.seekTo(widget.positionToSeekTo);
     setState(() {
       // debugPrint(
       //     '444444444444444444444444444444444444444444444444444444444444');
@@ -93,8 +96,20 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
     debugPrint('stateSet Started');
 
     SystemChrome.setEnabledSystemUIOverlays([]);
+
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: () async {
+        // ignore: non_constant_identifier_names
+        Duration? positionOfVideo_Duration =
+            await chewieController.videoPlayerController.position;
+        // ignore: non_constant_identifier_names
+        String positionOfVideo_String =
+            '${positionOfVideo_Duration!.inHours.toString().padLeft(2, "0")}-${positionOfVideo_Duration.inMinutes.remainder(60).toString().padLeft(2, "0")}-${positionOfVideo_Duration.inSeconds.remainder(60).toString().padLeft(2, "0")}';
+        await widget.dbInstance.rawQuery('''
+            UPDATE specific_videos
+              SET "lengthCompleted" = '$positionOfVideo_String'
+                WHERE id = ${widget.dataReq_youtubePlayer["id"]}
+          ''');
         Navigator.popAndPushNamed(
             context, RouteManager.allVideosSpecificChapterPage);
         return Future.value(true);
@@ -111,9 +126,9 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
           }
         },
         child: Scaffold(
-            // floatingActionButton: FloatingActionButton(onPressed: (){
-            //   debugPrint('clicked present state ${chewieController.isFullScreen}');
-            // }),
+            //   floatingActionButton: FloatingActionButton(onPressed: () async {
+            // // customPrint( positionOfVideo_String , object2: 'position');
+            //   }),
             body: FutureBuilder(
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (chewieController_initialised == false)
@@ -131,15 +146,11 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
                     Navigator.pop(context);
                   }
                 });
-                // gapv_isVideoDone = widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'
-                //           ? true
-                //           : false;
                 return CustomPortraitOrientation(
                   idOfVideo: widget.dataReq_youtubePlayer["id"],
                   dbInstance: widget.dbInstance,
                   chewieController: chewieController,
                   titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
-                  
                 );
               } else {
                 debugPrint(
@@ -170,8 +181,7 @@ class CustomPortraitOrientation extends StatefulWidget {
   final String titleOfVideo;
   final int idOfVideo;
   CustomPortraitOrientation(
-      {
-      required this.idOfVideo,
+      {required this.idOfVideo,
       required this.chewieController,
       required this.titleOfVideo,
       required this.dbInstance});
@@ -232,9 +242,8 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
         // ),
         Done_Not_DoneButton_YoutubePlayer(
           idOfVideo: widget.idOfVideo,
-          
         ),
-        ],
+      ],
     );
   }
 }

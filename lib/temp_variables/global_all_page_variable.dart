@@ -8,3 +8,4 @@ int? gapv_chapter_presently_id;
 // Youtube Player Specific
 Map<String,dynamic>? gapv_dataReq_youtubePlayer;
 bool? gapv_isVideoDone;
+Duration gapv_psotionToSeekTo = Duration.zero;
