@@ -1,7 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/database/HomePageDB.dart';
+import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:lecture_progress/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/widgets/addContainer_Widget.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -15,138 +17,160 @@ class _HomePageState extends State<HomePage> {
   bool databaseInitialised = false;
   late Database db;
   late List<Map<String, dynamic>> _finalSortedList;
-
+  Velocity velocity = Velocity.zero;
   @override
   void initState() {
     _lectureProgressHelper.database.then((value) async {
       print('database__________________initialised__________________________');
       db = value;
-      _finalSortedList = await db.rawQuery('select * from subjects order by id');
+      _finalSortedList =
+          await db.rawQuery('select * from subjects order by id');
       databaseInitialised = true;
       setState(() {});
     });
 
     super.initState();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: FutureBuilder(
-          builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-            
-            if (databaseInitialised ) {
-              return GestureDetector(
-                // onHorizontalDragDown: (onHorizontalDragDown){
-                //   print('object----------------------------------');
-                // },
-                child: Scaffold(
-                  floatingActionButton: FloatingActionButton(onPressed: (){
-                    Navigator.pushNamed(context, RouteManager.timerPage);
-                  }),
-                  body: SingleChildScrollView(
-                    child: Column(
-                      children: _finalSortedList
-                          .map<Widget>((e) => GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, RouteManager.chaptersPage,
-                                      arguments: {
-                                        'subject': e['id'],
-                                        'dbInstance': db
-                                      });
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 150,
-                                  margin: EdgeInsets.only(
-                                      left: 20, right: 20, top: 20, bottom: 20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(23),
-                                    color: Colors.grey[50],
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment(0, -0.7),
-                                    child: Text(
-                                      '${e['subject_name']}',
-                                      style: TextStyle(
-                                          fontSize: 40,
-                                          color: Colors.black,
-                
-                                          fontWeight: FontWeight.w900),
-                                    ),
+      child: GestureDetector(
+        
+        
+        onHorizontalDragEnd: (details){
+            // velocity = details.velocity;
+            customPrint(details.velocity,object2: 'homepage');
+          if (details.velocity.pixelsPerSecond.dx > 1000){
+            // if (checkerTimer == null){
+            if (true){
+            Navigator.pushNamed(context, RouteManager.timerPage);
+
+            } 
+          }
+
+        },
+        child: FutureBuilder(
+          builder: (BuildContext context,
+              AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+            if (databaseInitialised) {
+              return Scaffold(
+                floatingActionButton: FloatingActionButton(onPressed: () {
+                  // customPrint()
+                }),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: _finalSortedList
+                        .map<Widget>((e) => GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouteManager.chaptersPage,
+                                    arguments: {
+                                      'subject': e['id'],
+                                      'dbInstance': db
+                                    });
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                height: 150,
+                                margin: EdgeInsets.only(
+                                    left: 20, right: 20, top: 20, bottom: 20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(23),
+                                  color: Colors.grey[50],
+                                ),
+                                child: Align(
+                                  alignment: Alignment(0, -0.7),
+                                  child: Text(
+                                    '${e['subject_name']}',
+                                    style: TextStyle(
+                                        fontSize: 40,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w900),
                                   ),
                                 ),
-                              ))
-                          .followedBy([
-                        // add subject sign stuff
-                        Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                          child: DottedBorder(
-                            dashPattern: [2, 5, 10, 20],
-                            color: Color(0xFFEAECFF),
-                            strokeWidth: 2,
-                            borderType: BorderType.RRect,
-                            radius: Radius.circular(10),
-                            child: Container(
-                              width: double.infinity,
-                              child: FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10))),
-                                  color: Colors.grey[50],
-                                  height: 150,
-                                  onPressed: () {
-                                    showModalBottomSheet<void>(
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+                              ),
+                            ))
+                        .followedBy([
+                      // add subject sign stuff
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        child: DottedBorder(
+                          dashPattern: [2, 5, 10, 20],
+                          color: Color(0xFFEAECFF),
+                          strokeWidth: 2,
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(10),
+                          child: Container(
+                            width: double.infinity,
+                            child: FlatButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                color: Colors.grey[50],
+                                height: 150,
+                                onPressed: () {
+                                  showModalBottomSheet<void>(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(10))),
                                       isScrollControlled: true,
-                                      context: context, 
-                                      builder: (BuildContext context){
-                                      return Container(
-                                        padding: MediaQuery.of(context).viewInsets,
-                                        
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              height: 100,
-                                              child: TextField(
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w900
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          padding:
+                                              MediaQuery.of(context).viewInsets,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                height: 100,
+                                                child: TextField(
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w900),
+                                                  autofocus: true,
+                                                  onSubmitted:
+                                                      (String text) async {
+                                                    await db
+                                                        .rawQuery(
+                                                            'INSERT INTO subjects(subject_name) VALUES ("$text")')
+                                                        .then((value) =>
+                                                            Navigator.pop(
+                                                                context,
+                                                                RouteManager
+                                                                    .homePage));
+                                                    _finalSortedList =
+                                                        await db.rawQuery(
+                                                            'select * from subjects order by id');
+                                                    setState(() {});
+                                                  },
                                                 ),
-                                                autofocus: true,
-                                                onSubmitted: (String text)async{
-                                                  await db.rawQuery('INSERT INTO subjects(subject_name) VALUES ("$text")').then((value) => 
-                                                  Navigator.pop(context,RouteManager.homePage));
-                                                  _finalSortedList = await db.rawQuery('select * from subjects order by id');
-                                                  setState(() {
-                                                    
-                                                  });
-              
-                                                },
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      );
-                                    })
-                                    
-                                    ;
-                                  },
-                                  child: Column(
-                                    children: [
-                                      Icon(Icons.add_circle_outline_outlined,size: 40,),
-                                      Text('Add Subject',style: TextStyle(fontSize: 20),)
-                                    ],
-                                  )),
-                            ),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                },
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.add_circle_outline_outlined,
+                                      size: 40,
+                                    ),
+                                    Text(
+                                      'Add Subject',
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  ],
+                                )),
                           ),
-                        )
-                      ]).toList(),
-                    ),
+                        ),
+                      )
+                    ]).toList(),
                   ),
                 ),
               );
@@ -155,7 +179,7 @@ class _HomePageState extends State<HomePage> {
             }
           },
         ),
-      
+      ),
     );
   }
 }

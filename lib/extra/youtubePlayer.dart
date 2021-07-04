@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/routes/routes.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';
@@ -93,55 +94,73 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
     debugPrint('stateSet Started');
 
     SystemChrome.setEnabledSystemUIOverlays([]);
-    return Scaffold(
-        // floatingActionButton: FloatingActionButton(onPressed: (){
-        //   debugPrint('clicked present state ${chewieController.isFullScreen}');
-        // }),
-        body: FutureBuilder(
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (chewieController_initialised == false)
-          return CircularProgressIndicator();
-        else {
-          debugPrint(
-              'final orientation ======================= ${orientation}');
-          if (orientation == Orientation.portrait) {
-            debugPrint(
-                '00000000000000000000000000000000000000000000000000000000 ${chewieController.isFullScreen}');
-            Future.delayed(Duration.zero, () {
-              if (chewieController.isFullScreen) {
-                debugPrint(
-                    'full screnn removeddddddddddddddddddddddddddddddddd');
-                Navigator.pop(context);
-              }
-            });
-            return CustomPortraitOrientation(
-              idOfVideo: widget.dataReq_youtubePlayer["id"],
-              dbInstance: widget.dbInstance,
-              chewieController: chewieController,
-              titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
-              doneVideo:
-                  widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'
-                      ? true
-                      : false,
-            );
-          } else {
-            debugPrint(
-                '1111111111111111111111111111111111111111111111111111111111 ${chewieController.isFullScreen}');
-            Future.delayed(Duration.zero, () {
-              if (!chewieController.isFullScreen) {
-                debugPrint(
-                    'full screnn removeddddddddddddddddddddddddddddddddd');
-                chewieController.enterFullScreen();
-              }
-            });
+    return GestureDetector(
 
-            return CustomLandscapeOrientation(
-              chewieController: chewieController,
-            );
+
+      onHorizontalDragEnd: (details){
+            // velocity = details.velocity;
+            customPrint(details.velocity,object2: 'homepage');
+          if (details.velocity.pixelsPerSecond.dx > 1000){
+            // if (checkerTimer == null){
+            if (true){
+            Navigator.pushNamed(context, RouteManager.timerPage);
+
+            } 
           }
-        }
-      },
-    ));
+
+        },
+
+
+      child: Scaffold(
+          // floatingActionButton: FloatingActionButton(onPressed: (){
+          //   debugPrint('clicked present state ${chewieController.isFullScreen}');
+          // }),
+          body: FutureBuilder(
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (chewieController_initialised == false)
+            return CircularProgressIndicator();
+          else {
+            debugPrint(
+                'final orientation ======================= ${orientation}');
+            if (orientation == Orientation.portrait) {
+              debugPrint(
+                  '00000000000000000000000000000000000000000000000000000000 ${chewieController.isFullScreen}');
+              Future.delayed(Duration.zero, () {
+                if (chewieController.isFullScreen) {
+                  debugPrint(
+                      'full screnn removeddddddddddddddddddddddddddddddddd');
+                  Navigator.pop(context);
+                }
+              });
+              return CustomPortraitOrientation(
+                idOfVideo: widget.dataReq_youtubePlayer["id"],
+                dbInstance: widget.dbInstance,
+                chewieController: chewieController,
+                titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
+                doneVideo:
+                    widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'
+                        ? true
+                        : false,
+              );
+            } else {
+              debugPrint(
+                  '1111111111111111111111111111111111111111111111111111111111 ${chewieController.isFullScreen}');
+              Future.delayed(Duration.zero, () {
+                if (!chewieController.isFullScreen) {
+                  debugPrint(
+                      'full screnn removeddddddddddddddddddddddddddddddddd');
+                  chewieController.enterFullScreen();
+                }
+              });
+    
+              return CustomLandscapeOrientation(
+                chewieController: chewieController,
+              );
+            }
+          }
+        },
+      )),
+    );
   }
 }
 
