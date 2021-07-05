@@ -28,7 +28,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 13,horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 13, horizontal: 10),
       margin: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(23),
@@ -43,13 +43,17 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
           GestureDetector(
             onTap: () {
               gapv_dataReq_youtubePlayer = widget.e;
-              gapv_psotionToSeekTo = Duration(hours: int.parse(widget.e['lengthCompleted'].toString().split('-')[0]),
-              minutes: int.parse(widget.e['lengthCompleted'].toString().split('-')[1]),
-              seconds: int.parse(widget.e['lengthCompleted'].toString().split('-')[2])
-
-              );
+              gapv_psotionToSeekTo = Duration(
+                  hours: int.parse(
+                      widget.e['lengthCompleted'].toString().split('-')[0]),
+                  minutes: int.parse(
+                      widget.e['lengthCompleted'].toString().split('-')[1]),
+                  seconds: int.parse(
+                      widget.e['lengthCompleted'].toString().split('-')[2]));
               Navigator.popAndPushNamed(
-                  context, RouteManager.singleVideoCustomPlayer, );
+                context,
+                RouteManager.singleVideoCustomPlayer,
+              );
             },
             child: Container(
               width: double.infinity,
@@ -69,11 +73,9 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
           // Lecture Name Text
           GestureDetector(
             onTap: () {
-              
-                isDropOpen = !isDropOpen;
-                // customPrint(isDropOpen);
-                setState(() {});
-              
+              isDropOpen = !isDropOpen;
+              // customPrint(isDropOpen);
+              setState(() {});
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -107,7 +109,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                               children: [
                                 // length left
                                 Text(
-                                  '${widget.lengthLeftToCover.inHours}:${widget.lengthLeftToCover.inMinutes.remainder(60)}:${widget.lengthLeftToCover.inSeconds.remainder(60)}',
+                                  'L:${widget.lengthLeftToCover.inHours}:${widget.lengthLeftToCover.inMinutes.remainder(60).toString().padLeft(2, '0')}:${widget.lengthLeftToCover.inSeconds.remainder(60).toString().padLeft(2, '0')}',
                                   // 'hi1',
                                   maxLines: 1,
                                   style: TextStyle(
@@ -123,7 +125,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                                 ),
                                 // completed length
                                 Text(
-                                  '${int.parse(widget.e['lengthCompleted'].toString().split('-')[0])}:${widget.e['lengthCompleted'].toString().split('-')[1]}:${widget.e['lengthCompleted'].toString().split('-')[2]}',
+                                  'D:${int.parse(widget.e['lengthCompleted'].toString().split('-')[0])}:${widget.e['lengthCompleted'].toString().split('-')[1]}:${widget.e['lengthCompleted'].toString().split('-')[2]}',
                                   maxLines: 1,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
@@ -138,7 +140,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                                 ),
                                 // Total length
                                 Text(
-                                  '${(widget.e['duration'] / 3600).floor()}:${((widget.e['duration'] / 60).floor() - (((widget.e['duration'] / 3600).floor()) * 60)).toString().padLeft(2, "0")}:${((widget.e['duration']) - ((widget.e['duration'] / 60).floor() - (((widget.e['duration'] / 3600).floor()) * 60)) * 60 - ((widget.e['duration'] / 3600).floor()) * 3600).toString().padLeft(2, "0")}',
+                                  'T:${(widget.e['duration'] / 3600).floor()}:${((widget.e['duration'] / 60).floor() - (((widget.e['duration'] / 3600).floor()) * 60)).toString().padLeft(2, "0")}:${((widget.e['duration']) - ((widget.e['duration'] / 60).floor() - (((widget.e['duration'] / 3600).floor()) * 60)) * 60 - ((widget.e['duration'] / 3600).floor()) * 3600).toString().padLeft(2, "0")}',
                                   // '${Timeform}'.
                                   maxLines: 1,
                                   style: TextStyle(
@@ -159,11 +161,8 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                 Visibility(
                   visible: isDropOpen,
                   child: Column(
-                    
                     mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(widget.e['chapter_description_box'])
-                    ],
+                    children: [Text(widget.e['chapter_description_box'])],
                   ),
                 )
               ],

@@ -37,7 +37,6 @@ class _TimerPageState extends State<TimerPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
     // debugPrint('PAGE------------------------------------------------');
     // debugPrint('howLong = $howLong ---------------------------------');
     // debugPrint('timeSpent = $timeSpent ---------------------------------');

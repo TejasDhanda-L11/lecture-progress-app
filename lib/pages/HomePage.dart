@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lecture_progress/database/HomePageDB.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/routes/routes.dart';
@@ -25,7 +26,9 @@ class _HomePageState extends State<HomePage> {
   Velocity velocity = Velocity.zero;
   @override
   void initState() {
-    customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_init');
+        SystemChrome.setEnabledSystemUIOverlays([]);
+
+    // customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_init');
     if (!gapv_isDBInitialised)  {
       _lectureProgressHelper.database.then((value) async {
       print('database__________________initialised__________________________');
@@ -50,13 +53,13 @@ class _HomePageState extends State<HomePage> {
   
   @override
   Widget build(BuildContext context) {
-    customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_build');
-    customPrint(_finalSortedList_initialised,object2: '_finalSortedList_initialised_build');
+    // customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_build');
+    // customPrint(_finalSortedList_initialised,object2: '_finalSortedList_initialised_build');
 
     return WillPopScope(
       
       onWillPop: () {
-        customPrint('not allowed to exit');
+        // customPrint('not allowed to exit');
         return Future.value(false);
       },
       child: SafeArea(
@@ -65,7 +68,7 @@ class _HomePageState extends State<HomePage> {
           
           onHorizontalDragEnd: (details){
               // velocity = details.velocity;
-              customPrint(details.velocity,object2: 'homepage');
+              // customPrint(details.velocity,object2: 'homepage');
             if (details.velocity.pixelsPerSecond.dx > 1000){
               // if (checkerTimer == null){
               if (true){
@@ -80,10 +83,10 @@ class _HomePageState extends State<HomePage> {
                 AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
               if (gapv_isDBInitialised && _finalSortedList_initialised) {
                 return Scaffold(
-                  floatingActionButton: FloatingActionButton(onPressed: () {
-      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      // ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: Container(color: Colors.orange,height: 100,width: 100,), actions: []));
-                  }),
+      //             floatingActionButton: FloatingActionButton(onPressed: () {
+      // // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      // // ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: Container(color: Colors.orange,height: 100,width: 100,), actions: []));
+      //             }),
                   body: SingleChildScrollView(
                     child: Column(
                       children: _finalSortedList

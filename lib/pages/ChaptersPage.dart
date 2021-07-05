@@ -4,6 +4,7 @@ import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functio
 import 'package:lecture_progress/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/routes/routes.dart';
 import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/widgets/chaptersPage_widgets/listView_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ChaptersPage extends StatefulWidget {
@@ -22,6 +23,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
   void initialDataFunc() async {
     dataFromDB_table_chapters = await widget.db.rawQuery(
         'select * from chapters where subject_id = ${widget.subject_id}');
+    
     debugPrint('dataFromDB_table_chapters = $dataFromDB_table_chapters');
     gotAllDataFromDB = true;
     setState(() {});
@@ -61,34 +63,9 @@ class _ChaptersPageState extends State<ChaptersPage> {
                   body: SingleChildScrollView(
                     child: Column(
                       children: dataFromDB_table_chapters
-                          .map<Widget>((e) => GestureDetector(
-                                onTap: () async {
-                                  gapv_chapter_presently_id = e['id'];
-                                  Navigator.popAndPushNamed(context,
-                                      RouteManager.allVideosSpecificChapterPage,
-                                      );
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 150,
-                                  margin: EdgeInsets.only(
-                                      left: 20, right: 20, top: 20, bottom: 20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(23),
-                                    color: Colors.white,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 10, left: 10),
-                                    child: Text('${e['chapter_name']}',
-                                        style: TextStyle(
-                                            letterSpacing: 3,
-                                            fontSize: 29,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w900),
-                                        softWrap: true),
-                                  ),
-                                ),
-                              ))
+                          .map<Widget>((e) => 
+                            ListViewChaptersPage(e: e,dbInstance: widget.db,)
+                          )
                           .followedBy([
                         // add subject sign stuff
                         Container(
@@ -190,3 +167,4 @@ class _ChaptersPageState extends State<ChaptersPage> {
     );
   }
 }
+// '${totalTimeLeft_Duration.inHours}:${totalTimeLeft_Duration.inMinutes.remainder(60)}:${totalTimeLeft_Duration.inSeconds.remainder(60)}'

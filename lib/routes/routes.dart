@@ -3,6 +3,7 @@ import 'package:lecture_progress/extra/youtubePlayer.dart';
 import 'package:lecture_progress/pages/ChaptersPage.dart';
 import 'package:lecture_progress/pages/HomePage.dart';
 import 'package:lecture_progress/pages/allVideosSpecificChapter.dart';
+import 'package:lecture_progress/pages/calender_page.dart';
 import 'package:lecture_progress/pages/timer_page.dart';
 import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 
@@ -13,6 +14,7 @@ class RouteManager {
       '/allVideosSpecificChapterPage';
   static const String singleVideoCustomPlayer = '/singleVideoCustomPlayer';
   static const String timerPage = '/timerPage';
+  static const String calenderPage = '/calenderPage';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Map<dynamic, dynamic>? valuePassed;
@@ -55,6 +57,9 @@ class RouteManager {
 
       case timerPage:
         return MaterialPageRoute(builder: (context) => TimerPage());
+
+      case calenderPage:
+        return MaterialPageRoute(builder: (context) => CalenderPage());
 
       default:
         throw FormatException('Wrong route, route doesn\'t exist');
