@@ -9,6 +9,7 @@ import 'package:lecture_progress/routes/routes.dart';
 import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/widgets/addContainer_Widget.dart';
+import 'package:lecture_progress/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
@@ -97,119 +98,127 @@ class _HomePageState extends State<HomePage> {
                   //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   //   // ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: Container(color: Colors.orange,height: 100,width: 100,), actions: []));
                   // }),
-                  body: SingleChildScrollView(
-                    child: Column(
-                      children: _finalSortedList
-                          .map<Widget>((e) => GestureDetector(
-                                onTap: () {
-                                  gapv_subject_presently_id = e['id'];
-                                  Navigator.popAndPushNamed(
-                                    context,
-                                    RouteManager.chaptersPage,
-                                  );
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 150,
-                                  margin: EdgeInsets.only(
-                                      left: 20, right: 20, top: 20, bottom: 20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(23),
-                                    color: Colors.grey[50],
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment(0, -0.7),
-                                    child: Text(
-                                      '${e['subject_name']}',
-                                      style: TextStyle(
-                                          fontSize: 40,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w900),
-                                    ),
+                  body: Column(
+                    children: [
+                                            TimerStatusOnTopOfPage(),
+
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: _finalSortedList
+                                .map<Widget>((e) => GestureDetector(
+                                      onTap: () {
+                                        gapv_subject_presently_id = e['id'];
+                                        Navigator.popAndPushNamed(
+                                          context,
+                                          RouteManager.chaptersPage,
+                                        );
+                                      },
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 150,
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20, top: 20, bottom: 20),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(23),
+                                          color: Colors.grey[50],
+                                        ),
+                                        child: Align(
+                                          alignment: Alignment(0, -0.7),
+                                          child: Text(
+                                            '${e['subject_name']}',
+                                            style: TextStyle(
+                                                fontSize: 40,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w900),
+                                          ),
+                                        ),
+                                      ),
+                                    ))
+                                .followedBy([
+                              // add subject sign stuff
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                child: DottedBorder(
+                                  dashPattern: [2, 5, 10, 20],
+                                  color: Color(0xFFEAECFF),
+                                  strokeWidth: 2,
+                                  borderType: BorderType.RRect,
+                                  radius: Radius.circular(10),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: FlatButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        color: Colors.grey[50],
+                                        height: 150,
+                                        onPressed: () {
+                                          showModalBottomSheet<void>(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.vertical(
+                                                      top: Radius.circular(10))),
+                                              isScrollControlled: true,
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                  padding: MediaQuery.of(context)
+                                                      .viewInsets,
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Container(
+                                                        height: 100,
+                                                        child: TextField(
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight.w900),
+                                                          autofocus: true,
+                                                          onSubmitted:
+                                                              (String text) async {
+                                                            await db
+                                                                .rawQuery(
+                                                                    'INSERT INTO subjects(subject_name) VALUES ("$text")')
+                                                                .then((value) =>
+                                                                    Navigator.pop(
+                                                                        context,
+                                                                        RouteManager
+                                                                            .homePage));
+                                                            _finalSortedList =
+                                                                await db.rawQuery(
+                                                                    'select * from subjects order by id');
+                                                            setState(() {});
+                                                          },
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.add_circle_outline_outlined,
+                                              size: 40,
+                                            ),
+                                            Text(
+                                              'Add Subject',
+                                              style: TextStyle(fontSize: 20),
+                                            )
+                                          ],
+                                        )),
                                   ),
                                 ),
-                              ))
-                          .followedBy([
-                        // add subject sign stuff
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
-                          child: DottedBorder(
-                            dashPattern: [2, 5, 10, 20],
-                            color: Color(0xFFEAECFF),
-                            strokeWidth: 2,
-                            borderType: BorderType.RRect,
-                            radius: Radius.circular(10),
-                            child: Container(
-                              width: double.infinity,
-                              child: FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  color: Colors.grey[50],
-                                  height: 150,
-                                  onPressed: () {
-                                    showModalBottomSheet<void>(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(10))),
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Container(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                  height: 100,
-                                                  child: TextField(
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.w900),
-                                                    autofocus: true,
-                                                    onSubmitted:
-                                                        (String text) async {
-                                                      await db
-                                                          .rawQuery(
-                                                              'INSERT INTO subjects(subject_name) VALUES ("$text")')
-                                                          .then((value) =>
-                                                              Navigator.pop(
-                                                                  context,
-                                                                  RouteManager
-                                                                      .homePage));
-                                                      _finalSortedList =
-                                                          await db.rawQuery(
-                                                              'select * from subjects order by id');
-                                                      setState(() {});
-                                                    },
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        });
-                                  },
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.add_circle_outline_outlined,
-                                        size: 40,
-                                      ),
-                                      Text(
-                                        'Add Subject',
-                                        style: TextStyle(fontSize: 20),
-                                      )
-                                    ],
-                                  )),
-                            ),
+                              )
+                            ]).toList(),
                           ),
-                        )
-                      ]).toList(),
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               } else {

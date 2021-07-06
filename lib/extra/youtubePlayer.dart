@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/routes/routes.dart';
 import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:lecture_progress/widgets/youtubePlayerWidgets/done_not_done_button.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';
@@ -247,6 +248,8 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
         Done_Not_DoneButton_YoutubePlayer(
           idOfVideo: widget.idOfVideo,
         ),
+                              Align(alignment: Alignment(0, 1), child: TimerStatusOnTopOfPage()),
+
       ],
     );
   }

@@ -5,6 +5,7 @@ import 'package:lecture_progress/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/routes/routes.dart';
 import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/widgets/allSpecificChapterVideos_widgets/allSpecificChapterVideos_singlList_widget.dart';
+import 'package:lecture_progress/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
@@ -108,36 +109,44 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                     await gettingImportantDataFromDB();
                     setState(() {});
                   },
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: dataRequiredEL.map((e) {
-                        Duration totalLength_Duration =
-                            Duration(seconds: e['duration']);
-                        // customPrint(totalLength_Duration);
-
-                        Duration lengthCompleted_Duration = Duration(
-                            hours: int.parse(
-                                e['lengthCompleted'].toString().split('-')[0]),
-                            minutes: int.parse(
-                                e['lengthCompleted'].toString().split('-')[1]),
-                            seconds: int.parse(
-                                e['lengthCompleted'].toString().split('-')[2]));
-                        // customPrint(lengthCompleted_Duration);
-
-                        Duration lengthLeftToCover = Duration(
-                            seconds: (totalLength_Duration.inSeconds -
-                                lengthCompleted_Duration.inSeconds));
-                        // customPrint(lengthLeftToCover);
-
-                        String isLectureCompleted = e["lectureCompleted"];
-                        return AllSpecificChapterVideos_singleList_stfWidget(
-                          e: e,
-                          isLectureCompleted: isLectureCompleted,
-                          lengthLeftToCover: lengthLeftToCover,
-                          dbInstance: widget.dbInstance,
-                        );
-                      }).toList(),
-                    ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TimerStatusOnTopOfPage(),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: dataRequiredEL.map((e) {
+                              Duration totalLength_Duration =
+                                  Duration(seconds: e['duration']);
+                              // customPrint(totalLength_Duration);
+                        
+                              Duration lengthCompleted_Duration = Duration(
+                                  hours: int.parse(
+                                      e['lengthCompleted'].toString().split('-')[0]),
+                                  minutes: int.parse(
+                                      e['lengthCompleted'].toString().split('-')[1]),
+                                  seconds: int.parse(
+                                      e['lengthCompleted'].toString().split('-')[2]));
+                              // customPrint(lengthCompleted_Duration);
+                        
+                              Duration lengthLeftToCover = Duration(
+                                  seconds: (totalLength_Duration.inSeconds -
+                                      lengthCompleted_Duration.inSeconds));
+                              // customPrint(lengthLeftToCover);
+                        
+                              String isLectureCompleted = e["lectureCompleted"];
+                              return AllSpecificChapterVideos_singleList_stfWidget(
+                                e: e,
+                                isLectureCompleted: isLectureCompleted,
+                                lengthLeftToCover: lengthLeftToCover,
+                                dbInstance: widget.dbInstance,
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 
-
+// timer complete dialog 
 void timerCompleteDailog() {
   BuildContext context = gapv_presentlyTopContext!;
 
@@ -49,7 +49,7 @@ Widget cutomDiaglog ({required BuildContext context}){
 
 
 
-
+// timer running on each page
 
 
 

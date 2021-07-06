@@ -18,3 +18,6 @@ Timer? checkerTimer;
 
 int notificationId = 1;
 int onGoingTimerNotificationID = 2;
+
+// top timer on pages
+late Function setState_TOP_TIMER_WIDGET_func;

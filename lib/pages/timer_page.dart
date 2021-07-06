@@ -54,6 +54,8 @@ class _TimerPageState extends State<TimerPage> {
             // customPrint(
                 // '${temp_t_v.timeSpent.inSeconds} // ${temp_t_v.howLong.inSeconds}');
             showOngoingTimerNotification(message_to_show: '${durationToStringTime(duration: (temp_t_v.howLong - temp_t_v.timeSpent))} timer has completed');
+            // top of the page timer
+            temp_t_v.setState_TOP_TIMER_WIDGET_func((){});
 
             if (temp_t_v.setState_c_func.toString() != 'Closure: () => Null' ) {
               // customPrint('not null setState_c_func');
