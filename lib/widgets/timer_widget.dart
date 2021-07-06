@@ -53,9 +53,9 @@ class _TimerWidgetState extends State<TimerWidget> {
     // debugPrint('came_into_timer_widget--------------------------------');
     // debugPrint('howLong_timer_widget_inside = ${widget.howLong}');
     // debugPrint('timeSpent_timer_widget_inside = ${widget.timeSpent}');
-    debugPrint('howLong_timer_widget_inside___h = ${widget.howLong.inHours}');
-    debugPrint('howLong_timer_widget_inside___m = ${widget.howLong.inMinutes}');
-    debugPrint('howLong_timer_widget_inside___s = ${widget.howLong.inSeconds}');
+    // debugPrint('howLong_timer_widget_inside___h = ${widget.howLong.inHours}');
+    // debugPrint('howLong_timer_widget_inside___m = ${widget.howLong.inMinutes}');
+    // debugPrint('howLong_timer_widget_inside___s = ${widget.howLong.inSeconds}');
 
     // timeSpent += 1 ;
     return Container(

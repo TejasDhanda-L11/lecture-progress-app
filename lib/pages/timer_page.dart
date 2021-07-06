@@ -21,7 +21,7 @@ class _TimerPageState extends State<TimerPage> {
   @override
   void initState() {
     super.initState();
-    debugPrint('hi');
+    // debugPrint('hi');
     if (!temp_t_v.isLastPageStillActive) {
       temp_t_v.setState_c_func = setState;
     }
@@ -31,7 +31,7 @@ class _TimerPageState extends State<TimerPage> {
   @override
   void dispose() {
     temp_t_v.setState_c_func = () => null;
-    customPrint('disposed the setState_func');
+    // customPrint('disposed the setState_func');
     temp_t_v.isLastPageStillActive = false;
     super.dispose();
   }
@@ -47,13 +47,13 @@ class _TimerPageState extends State<TimerPage> {
         temp_t_v.checkerTimer = Timer.periodic(Duration(seconds: 1), (timer) {
           if (temp_t_v.howLong > temp_t_v.timeSpent) {
             temp_t_v.timeSpent += Duration(seconds: 1);
-            customPrint(
-                '${temp_t_v.timeSpent.inSeconds} // ${temp_t_v.howLong.inSeconds}');
+            // customPrint(
+                // '${temp_t_v.timeSpent.inSeconds} // ${temp_t_v.howLong.inSeconds}');
             showOngoingTimerNotification(message_to_show: '${durationToStringTime(duration: (temp_t_v.howLong - temp_t_v.timeSpent))} timer has completed');
 
             if (temp_t_v.setState_c_func.toString() != 'Closure: () => Null' ) {
-              customPrint('not null setState_c_func');
-              customPrint('${temp_t_v.setState_c_func.toString()}');
+              // customPrint('not null setState_c_func');
+              // customPrint('${temp_t_v.setState_c_func.toString()}');
               // I/flutter (23298): Closure: (() => void) => void from Function 'setState':.
               // Closure: () => Null
 
@@ -89,7 +89,7 @@ class _TimerPageState extends State<TimerPage> {
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         // velocity = details.velocity;
-        customPrint(details.velocity, object2: 'timerpage');
+        // customPrint(details.velocity, object2: 'timerpage');
         if (details.velocity.pixelsPerSecond.dx < -1000) {
           Navigator.pop(context);
         }
@@ -167,7 +167,7 @@ class _TimerPageState extends State<TimerPage> {
                                     temp_t_v.isMainTimerWorking = true;
                                   } else if (temp_t_v.isTimerPaused) {
                                     temp_t_v.isTimerPaused = false;
-                                    customPrint('made temp_t_v.isTimerPaused false');
+                                    // customPrint('made temp_t_v.isTimerPaused false');
                                   }
                                   setState(() {});
                                 },

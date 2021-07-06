@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      initialRoute: RouteManager.timerPage,
+      initialRoute: RouteManager.homePage,
       onGenerateRoute: RouteManager.generateRoute,
       debugShowCheckedModeBanner: false,
       // home: TimerPage()
