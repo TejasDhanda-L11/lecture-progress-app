@@ -15,3 +15,6 @@ bool isTimerPaused = false;
 bool isLastPageStillActive = false;
 
 Timer? checkerTimer;
+
+int notificationId = 1;
+int onGoingTimerNotificationID = 2;

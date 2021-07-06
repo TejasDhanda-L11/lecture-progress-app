@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'package:lecture_progress/notification_functionality/timer_notifications.dart';
 import 'package:lecture_progress/routes/routes.dart';
 import 'package:lecture_progress/temp_variables/temp_variables_timer.dart'
     as temp_t_v;
@@ -46,8 +47,9 @@ class _TimerPageState extends State<TimerPage> {
         temp_t_v.checkerTimer = Timer.periodic(Duration(seconds: 1), (timer) {
           if (temp_t_v.howLong > temp_t_v.timeSpent) {
             temp_t_v.timeSpent += Duration(seconds: 1);
-            debugPrint(
+            customPrint(
                 '${temp_t_v.timeSpent.inSeconds} // ${temp_t_v.howLong.inSeconds}');
+            showOngoingTimerNotification(message_to_show: '${durationToStringTime(duration: (temp_t_v.howLong - temp_t_v.timeSpent))} timer has completed');
 
             if (temp_t_v.setState_c_func.toString() != 'Closure: () => Null' ) {
               customPrint('not null setState_c_func');
@@ -67,7 +69,7 @@ class _TimerPageState extends State<TimerPage> {
             debugPrint('done with timer ------------------------');
             temp_t_v.isTimerCheckerRunning = false;
             temp_t_v.isMainTimerWorking = false;
-
+            showTimerCompleteNotification(message_to_show: '${durationToStringTime(duration: temp_t_v.howLong)} timer has completed');
             timer.cancel();
             if (temp_t_v.setState_c_func.toString() != 'Closure: () => Null' ) {
               try {
