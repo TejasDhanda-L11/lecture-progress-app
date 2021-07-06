@@ -52,7 +52,7 @@ class AWSApiToDB {
     for (int i = 0; i < dataReturned_fromAPI['number_of_videos']; i++) {
       // debugPrint("dataReturned_fromAPI['video'][$i]['URLVid'] = ${dataReturned_fromAPI['video']['0']}");
       String description = dataReturned_fromAPI['video']['$i']['description'].toString().replaceAll('"', '_').replaceAll("'", '_');
-      customPrint(description,object2: 'DESCRIPTION ----------------------------------------');
+      // customPrint(description,object2: 'DESCRIPTION ----------------------------------------');
       await dbInstance.rawQuery('''
       INSERT INTO specific_videos(
         chapter_id,

@@ -96,7 +96,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
     gapv_presentlyTopContext = context;
 
     orientation = MediaQuery.of(context).orientation;
-    debugPrint('stateSet Started');
+    // debugPrint('stateSet Started');
 
     SystemChrome.setEnabledSystemUIOverlays([]);
 
@@ -120,7 +120,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
       child: GestureDetector(
         onHorizontalDragEnd: (details) {
           // velocity = details.velocity;
-          customPrint(details.velocity, object2: 'homepage');
+          // customPrint(details.velocity, object2: 'homepage');
           if (details.velocity.pixelsPerSecond.dx > 1000) {
             // if (checkerTimer == null){
             if (true) {
@@ -139,15 +139,15 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
             if (chewieController_initialised == false)
               return CircularProgressIndicator();
             else {
-              debugPrint(
-                  'final orientation ======================= ${orientation}');
+              // debugPrint(
+              //     'final orientation ======================= ${orientation}');
               if (orientation == Orientation.portrait) {
-                debugPrint(
-                    '00000000000000000000000000000000000000000000000000000000 ${chewieController.isFullScreen}');
+                // debugPrint(
+                //     '00000000000000000000000000000000000000000000000000000000 ${chewieController.isFullScreen}');
                 Future.delayed(Duration.zero, () {
                   if (chewieController.isFullScreen) {
-                    debugPrint(
-                        'full screnn removeddddddddddddddddddddddddddddddddd');
+                    // debugPrint(
+                    //     'full screnn removeddddddddddddddddddddddddddddddddd');
                     Navigator.pop(context);
                   }
                 });
@@ -158,12 +158,12 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
                   titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
                 );
               } else {
-                debugPrint(
-                    '1111111111111111111111111111111111111111111111111111111111 ${chewieController.isFullScreen}');
+                // debugPrint(
+                //     '1111111111111111111111111111111111111111111111111111111111 ${chewieController.isFullScreen}');
                 Future.delayed(Duration.zero, () {
                   if (!chewieController.isFullScreen) {
-                    debugPrint(
-                        'full screnn removeddddddddddddddddddddddddddddddddd');
+                    // debugPrint(
+                    //     'full screnn removeddddddddddddddddddddddddddddddddd');
                     chewieController.enterFullScreen();
                   }
                 });

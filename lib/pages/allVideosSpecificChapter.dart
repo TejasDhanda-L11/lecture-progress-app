@@ -30,7 +30,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
 
   bool gotDataFromDB = false;
   Future<void> gettingImportantDataFromDB() async {
-    debugPrint('getting started --------------------------------');
+    // debugPrint('getting started --------------------------------');
     dataRequiredEL = await widget.dbInstance.rawQuery('''
                                 select * from specific_videos
                                 where subject_id = ${widget.subject_id}
@@ -42,14 +42,14 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                                 where 
                                 id = ${widget.chapter_id}
                                 ''');
-    debugPrint('done --------------------------------');
+    // debugPrint('done --------------------------------');
     gotDataFromDB = true;
     setState(() {});
   }
 
   @override
   void initState() {
-    customPrint('initialised_init the allVideosSpecificPage');
+    // customPrint('initialised_init the allVideosSpecificPage');
     super.initState();
     // print('dataRequiredEL = ${dataRequiredEL}');
     // isLectureCompleted = dataRequiredEL[0]["lectureCompleted"] as String;
@@ -72,8 +72,8 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
             // velocity = details.velocity;
-            customPrint(details.velocity,
-                object2: 'all video specific chapter');
+            // customPrint(details.velocity,
+            //     object2: 'all video specific chapter');
             if (details.velocity.pixelsPerSecond.dx > 1000) {
               // if (checkerTimer == null){
               if (true) {
@@ -96,8 +96,8 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                             dbInstance: widget.dbInstance,
                             subject_id: widget.subject_id,
                             chapter_id: widget.chapter_id);
-                    debugPrint(
-                        'in youtube page refresh donnnnnneeee ---------------------------');
+                    // debugPrint(
+                    //     'in youtube page refresh donnnnnneeee ---------------------------');
                   },
                   child: Icon(Icons.refresh_rounded),
                   backgroundColor: Colors.white54,

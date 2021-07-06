@@ -35,11 +35,11 @@ class _Done_Not_DoneButton_YoutubePlayerState
           } else {
             T_F_toBeSetOnClick = 'T';
           }
-          customPrint(T_F_toBeSetOnClick);
+          // customPrint(T_F_toBeSetOnClick);
           return FlatButton.icon(
               onPressed: () async {
-                print(
-                    'id ---------------------------------------- ${widget.idOfVideo}');
+                // print(
+                //     'id ---------------------------------------- ${widget.idOfVideo}');
                 widget.dbInstance.rawQuery('''
                     UPDATE specific_videos
                     SET lectureCompleted = '${T_F_toBeSetOnClick}'

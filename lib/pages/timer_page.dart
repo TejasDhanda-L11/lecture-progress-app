@@ -72,7 +72,7 @@ class _TimerPageState extends State<TimerPage> {
               }
             }
           } else {
-            debugPrint('done with timer ------------------------');
+            // debugPrint('done with timer ------------------------');
             timerCompleteDailog();
             temp_t_v.isTimerCheckerRunning = false;
             temp_t_v.isMainTimerWorking = false;

@@ -25,7 +25,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
     dataFromDB_table_chapters = await widget.db.rawQuery(
         'select * from chapters where subject_id = ${widget.subject_id}');
 
-    debugPrint('dataFromDB_table_chapters = $dataFromDB_table_chapters');
+    // debugPrint('dataFromDB_table_chapters = $dataFromDB_table_chapters');
     gotAllDataFromDB = true;
     setState(() {});
   }
@@ -48,7 +48,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
             // velocity = details.velocity;
-            customPrint(details.velocity, object2: 'chapters');
+            // customPrint(details.velocity, object2: 'chapters');
             if (details.velocity.pixelsPerSecond.dx > 1000) {
               // if (checkerTimer == null){
               if (true) {
