@@ -1,7 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lecture_progress/database/HomePageDB.dart';
+import 'package:lecture_progress/functions/global_functions/timerCompleteDialog_func.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/routes/routes.dart';
 import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
@@ -15,9 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
-
 
   LectureProgressHelper _lectureProgressHelper = LectureProgressHelper();
   late Database db;
@@ -26,67 +26,77 @@ class _HomePageState extends State<HomePage> {
   Velocity velocity = Velocity.zero;
   @override
   void initState() {
-        SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
     // customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_init');
-    if (!gapv_isDBInitialised)  {
+    if (!gapv_isDBInitialised) {
       _lectureProgressHelper.database.then((value) async {
-      print('database__________________initialised__________________________');
-      gapv_dbInstance = value;
-      db = gapv_dbInstance!;
-      gapv_isDBInitialised = true;
-      _finalSortedList = await db.rawQuery('select * from subjects order by id');
-      _finalSortedList_initialised = true;
-      setState(() {});
-    });
-    } else  {
+        print(
+            'database__________________initialised__________________________');
+        gapv_dbInstance = value;
+        db = gapv_dbInstance!;
+        gapv_isDBInitialised = true;
+        _finalSortedList =
+            await db.rawQuery('select * from subjects order by id');
+        _finalSortedList_initialised = true;
+        setState(() {});
+      });
+    } else {
       db = gapv_dbInstance!;
       () async {
-       _finalSortedList = await db.rawQuery('select * from subjects order by id');
-      _finalSortedList_initialised = true;
-       setState(() {});
+        _finalSortedList =
+            await db.rawQuery('select * from subjects order by id');
+        _finalSortedList_initialised = true;
+        setState(() {});
       }.call();
     }
-    
+
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    gapv_presentlyTopContext = context;
     // customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_build');
     // customPrint(_finalSortedList_initialised,object2: '_finalSortedList_initialised_build');
 
     return WillPopScope(
-      
       onWillPop: () {
         // customPrint('not allowed to exit');
         return Future.value(false);
       },
       child: SafeArea(
         child: GestureDetector(
-          
-          
-          onHorizontalDragEnd: (details){
-              // velocity = details.velocity;
-              // customPrint(details.velocity,object2: 'homepage');
-            if (details.velocity.pixelsPerSecond.dx > 1000){
+          onHorizontalDragEnd: (details) {
+            // velocity = details.velocity;
+            // customPrint(details.velocity,object2: 'homepage');
+            if (details.velocity.pixelsPerSecond.dx > 1000) {
               // if (checkerTimer == null){
-              if (true){
-              Navigator.pushNamed(context, RouteManager.timerPage);
-    
-              } 
+              if (true) {
+                gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
+                Navigator.pushNamed(context, RouteManager.timerPage);
+              }
             }
-    
           },
           child: FutureBuilder(
             builder: (BuildContext context,
                 AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
               if (gapv_isDBInitialised && _finalSortedList_initialised) {
                 return Scaffold(
-      //             floatingActionButton: FloatingActionButton(onPressed: () {
-      // // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      // // ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: Container(color: Colors.orange,height: 100,width: 100,), actions: []));
-      //             }),
+                  // floatingActionButton: FloatingActionButton(onPressed: () {
+                  //   // custom_showDialog(context: context);
+                  //   // showCupertinoDialog(
+                  //   //     context: context,
+                  //   //     builder: (context) {
+                  //   //       return Container(
+                  //   //         height: 100,
+                  //   //         width: 100,
+                  //   //         color: Colors.red,
+                  //   //       );
+                  //   //     });
+                  //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  //   // ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: Container(color: Colors.orange,height: 100,width: 100,), actions: []));
+                  // }),
                   body: SingleChildScrollView(
                     child: Column(
                       children: _finalSortedList
@@ -94,8 +104,9 @@ class _HomePageState extends State<HomePage> {
                                 onTap: () {
                                   gapv_subject_presently_id = e['id'];
                                   Navigator.popAndPushNamed(
-                                      context, RouteManager.chaptersPage,
-                                      );
+                                    context,
+                                    RouteManager.chaptersPage,
+                                  );
                                 },
                                 child: Container(
                                   width: double.infinity,
@@ -121,8 +132,8 @@ class _HomePageState extends State<HomePage> {
                           .followedBy([
                         // add subject sign stuff
                         Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
                           child: DottedBorder(
                             dashPattern: [2, 5, 10, 20],
                             color: Color(0xFFEAECFF),
@@ -133,8 +144,8 @@ class _HomePageState extends State<HomePage> {
                               width: double.infinity,
                               child: FlatButton(
                                   shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10))),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
                                   color: Colors.grey[50],
                                   height: 150,
                                   onPressed: () {
@@ -146,8 +157,8 @@ class _HomePageState extends State<HomePage> {
                                         context: context,
                                         builder: (BuildContext context) {
                                           return Container(
-                                            padding:
-                                                MediaQuery.of(context).viewInsets,
+                                            padding: MediaQuery.of(context)
+                                                .viewInsets,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [

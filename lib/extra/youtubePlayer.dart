@@ -92,6 +92,8 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
   @override
   Widget build(BuildContext context) {
+    gapv_presentlyTopContext = context;
+
     orientation = MediaQuery.of(context).orientation;
     debugPrint('stateSet Started');
 
@@ -121,6 +123,8 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
           if (details.velocity.pixelsPerSecond.dx > 1000) {
             // if (checkerTimer == null){
             if (true) {
+              gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
+
               Navigator.pushNamed(context, RouteManager.timerPage);
             }
           }

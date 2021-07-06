@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:lecture_progress/functions/global_functions/timerCompleteDialog_func.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/notification_functionality/timer_notifications.dart';
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/temp_variables/temp_variables_timer.dart'
     as temp_t_v;
 import 'package:lecture_progress/widgets/timer_widget.dart';
@@ -30,6 +32,7 @@ class _TimerPageState extends State<TimerPage> {
 
   @override
   void dispose() {
+    gapv_presentlyTopContext = gapv_presentlyLast_Top_Before_opening_Timer_Context;
     temp_t_v.setState_c_func = () => null;
     // customPrint('disposed the setState_func');
     temp_t_v.isLastPageStillActive = false;
@@ -38,6 +41,7 @@ class _TimerPageState extends State<TimerPage> {
 
   @override
   Widget build(BuildContext context) {
+    gapv_presentlyTopContext = context;
     // debugPrint('PAGE------------------------------------------------');
     // debugPrint('howLong = $howLong ---------------------------------');
     // debugPrint('timeSpent = $timeSpent ---------------------------------');
@@ -67,6 +71,7 @@ class _TimerPageState extends State<TimerPage> {
             }
           } else {
             debugPrint('done with timer ------------------------');
+            timerCompleteDailog();
             temp_t_v.isTimerCheckerRunning = false;
             temp_t_v.isMainTimerWorking = false;
             showTimerCompleteNotification(message_to_show: '${durationToStringTime(duration: temp_t_v.howLong)} timer has completed');

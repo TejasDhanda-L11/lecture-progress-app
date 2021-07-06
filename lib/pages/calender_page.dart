@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalenderPage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _CalenderPageState extends State<CalenderPage> {
 
   @override
   Widget build(BuildContext context) {
-    
+    gapv_presentlyTopContext = context;
     return Scaffold(
       body: Container(
         height: double.infinity,

@@ -23,7 +23,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
   void initialDataFunc() async {
     dataFromDB_table_chapters = await widget.db.rawQuery(
         'select * from chapters where subject_id = ${widget.subject_id}');
-    
+
     debugPrint('dataFromDB_table_chapters = $dataFromDB_table_chapters');
     gotAllDataFromDB = true;
     setState(() {});
@@ -37,6 +37,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
 
   @override
   Widget build(BuildContext context) {
+    gapv_presentlyTopContext = context;
     return WillPopScope(
       onWillPop: () {
         Navigator.popAndPushNamed(context, RouteManager.homePage);
@@ -44,17 +45,17 @@ class _ChaptersPageState extends State<ChaptersPage> {
       },
       child: SafeArea(
         child: GestureDetector(
-          onHorizontalDragEnd: (details){
-              // velocity = details.velocity;
-              customPrint(details.velocity,object2: 'chapters');
-            if (details.velocity.pixelsPerSecond.dx > 1000){
+          onHorizontalDragEnd: (details) {
+            // velocity = details.velocity;
+            customPrint(details.velocity, object2: 'chapters');
+            if (details.velocity.pixelsPerSecond.dx > 1000) {
               // if (checkerTimer == null){
-              if (true){
-              Navigator.pushNamed(context, RouteManager.timerPage);
-    
-              } 
+              if (true) {
+                gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
+
+                Navigator.pushNamed(context, RouteManager.timerPage);
+              }
             }
-    
           },
           child: FutureBuilder(
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -63,14 +64,15 @@ class _ChaptersPageState extends State<ChaptersPage> {
                   body: SingleChildScrollView(
                     child: Column(
                       children: dataFromDB_table_chapters
-                          .map<Widget>((e) => 
-                            ListViewChaptersPage(e: e,dbInstance: widget.db,)
-                          )
+                          .map<Widget>((e) => ListViewChaptersPage(
+                                e: e,
+                                dbInstance: widget.db,
+                              ))
                           .followedBy([
                         // add subject sign stuff
                         Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
                           child: DottedBorder(
                             dashPattern: [2, 5, 10, 20],
                             color: Color(0xFFEAECFF),
@@ -81,8 +83,8 @@ class _ChaptersPageState extends State<ChaptersPage> {
                               width: double.infinity,
                               child: FlatButton(
                                   shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10))),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
                                   color: Colors.grey[50],
                                   height: 150,
                                   onPressed: () {
@@ -94,8 +96,8 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                         context: context,
                                         builder: (BuildContext context) {
                                           return Container(
-                                            padding:
-                                                MediaQuery.of(context).viewInsets,
+                                            padding: MediaQuery.of(context)
+                                                .viewInsets,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
@@ -115,19 +117,20 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                                     ),
                                                     onSubmitted: (text) async {
                                                       // print(text);
-        
+
                                                       Navigator.pop(context);
                                                       await AWSApiToDB(
                                                               playlistUrl: text)
                                                           .AWSApiToDB_func(
-                                                              dbInstance: widget.db,
+                                                              dbInstance:
+                                                                  widget.db,
                                                               subject_id: widget
                                                                   .subject_id);
-        
+
                                                       dataFromDB_table_chapters =
                                                           await widget.db.rawQuery(
                                                               'select * from chapters where subject_id = ${widget.subject_id}');
-        
+
                                                       setState(() {});
                                                       ;
                                                     },

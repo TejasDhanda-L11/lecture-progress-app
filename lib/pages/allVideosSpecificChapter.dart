@@ -3,6 +3,7 @@ import 'package:lecture_progress/functions/allSpecificChapterVideos_funcs.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/widgets/allSpecificChapterVideos_widgets/allSpecificChapterVideos_singlList_widget.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -60,20 +61,23 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
 
   @override
   Widget build(BuildContext context) {
+    gapv_presentlyTopContext = context;
     return WillPopScope(
-      onWillPop: () {  
+      onWillPop: () {
         Navigator.popAndPushNamed(context, RouteManager.chaptersPage);
         return Future.value(true);
-
       },
       child: SafeArea(
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
             // velocity = details.velocity;
-            customPrint(details.velocity, object2: 'all video specific chapter');
+            customPrint(details.velocity,
+                object2: 'all video specific chapter');
             if (details.velocity.pixelsPerSecond.dx > 1000) {
               // if (checkerTimer == null){
               if (true) {
+                gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
+
                 Navigator.pushNamed(context, RouteManager.timerPage);
               }
             }
@@ -85,8 +89,8 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                 floatingActionButton: FloatingActionButton(
                   onPressed: () async {
                     await AWSApiToDB(
-                            playlistUrl:
-                                dataRequired_chapter[0]["playlist_url"] as String)
+                            playlistUrl: dataRequired_chapter[0]["playlist_url"]
+                                as String)
                         .AWSApiUpdateDB_func(
                             dbInstance: widget.dbInstance,
                             subject_id: widget.subject_id,
@@ -107,11 +111,10 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: dataRequiredEL.map((e) {
-    
                         Duration totalLength_Duration =
                             Duration(seconds: e['duration']);
                         // customPrint(totalLength_Duration);
-    
+
                         Duration lengthCompleted_Duration = Duration(
                             hours: int.parse(
                                 e['lengthCompleted'].toString().split('-')[0]),
@@ -120,14 +123,19 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                             seconds: int.parse(
                                 e['lengthCompleted'].toString().split('-')[2]));
                         // customPrint(lengthCompleted_Duration);
-    
+
                         Duration lengthLeftToCover = Duration(
                             seconds: (totalLength_Duration.inSeconds -
                                 lengthCompleted_Duration.inSeconds));
                         // customPrint(lengthLeftToCover);
-    
+
                         String isLectureCompleted = e["lectureCompleted"];
-                        return AllSpecificChapterVideos_singleList_stfWidget(e:  e, isLectureCompleted:isLectureCompleted, lengthLeftToCover:lengthLeftToCover,dbInstance:  widget.dbInstance,);
+                        return AllSpecificChapterVideos_singleList_stfWidget(
+                          e: e,
+                          isLectureCompleted: isLectureCompleted,
+                          lengthLeftToCover: lengthLeftToCover,
+                          dbInstance: widget.dbInstance,
+                        );
                       }).toList(),
                     ),
                   ),
@@ -141,6 +149,4 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
       ),
     );
   }
-
-  
 }
