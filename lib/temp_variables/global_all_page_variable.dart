@@ -15,3 +15,6 @@ Duration gapv_psotionToSeekTo = Duration.zero;
 // Alert Dialog Box Related
 BuildContext? gapv_presentlyTopContext;
 BuildContext? gapv_presentlyLast_Top_Before_opening_Timer_Context;
+
+// If Chapters Page is ON or Not 
+bool gapv_isChaptersPageOn = false;

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/temp_variables/intentRelated/YotubePlaylistIntentRelated.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:lecture_progress/routes/routes.dart';
+import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'dart:async';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 //link to server =
 // http://13.127.186.252:8080/pl?l=https://www.youtube.com/playlist?list=PLF_7kfnwLFCEQgs5WwjX45bLGex2bLLwY
 
@@ -48,8 +53,63 @@ void main() async {
 
 
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  StreamSubscription? _intentDataStreamSubscription;
+  List<SharedMediaFile>? _sharedFiles;
+  String? _sharedText;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // // For sharing images coming from outside the app while the app is in the memory
+    // _intentDataStreamSubscription =
+    //     ReceiveSharingIntent.getMediaStream().listen((List<SharedMediaFile> value) {
+    //   setState(() {
+    //     customPrint("Shared:" + (_sharedFiles?.map((f)=> f.path).join(",") ?? ""));
+    //     _sharedFiles = value;
+    //   });
+    // }, onError: (err) {
+    //   customPrint("getIntentDataStream error: $err");
+    // });
+
+    // // For sharing images coming from outside the app while the app is closed
+    // ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
+    //   setState(() {
+    //     _sharedFiles = value;
+    //   });
+    // });
+
+    // For sharing or opening urls/text coming from outside the app while the app is in the memory
+    _intentDataStreamSubscription =
+        ReceiveSharingIntent.getTextStream().listen((String value) {
+          customPrint(value);
+          YPIR_youtubePlaylistLink = value;
+          Navigator.pushNamed(gapv_presentlyTopContext!, RouteManager.chooseSubjectForYoutubePlaylist);
+      // setState(() {
+      //   _sharedText = value;
+      // });
+    }, onError: (err) {
+      customPrint("getLinkStream error: $err");
+    });
+
+    // For sharing or opening urls/text coming from outside the app while the app is closed
+    ReceiveSharingIntent.getInitialText().then((value) {
+      
+      setState(() {
+        _sharedText = value ?? 'nothingcl';
+      });
+    });
+    customPrint('initialised recieve intent');
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

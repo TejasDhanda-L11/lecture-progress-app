@@ -34,6 +34,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
   void initState() {
     super.initState();
     initialDataFunc();
+    gapv_isChaptersPageOn = true;
   }
 
   @override
@@ -41,6 +42,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
     gapv_presentlyTopContext = context;
     return WillPopScope(
       onWillPop: () {
+        gapv_isChaptersPageOn = false;
         Navigator.popAndPushNamed(context, RouteManager.homePage);
         return Future.value(true);
       },
@@ -64,8 +66,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
                 return Scaffold(
                   body: Column(
                     children: [
-                                            TimerStatusOnTopOfPage(),
-
+                      TimerStatusOnTopOfPage(),
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
@@ -96,49 +97,62 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                         onPressed: () {
                                           showModalBottomSheet<void>(
                                               shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.vertical(
-                                                      top: Radius.circular(10))),
+                                                  borderRadius:
+                                                      BorderRadius.vertical(
+                                                          top: Radius.circular(
+                                                              10))),
                                               isScrollControlled: true,
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return Container(
-                                                  padding: MediaQuery.of(context)
-                                                      .viewInsets,
+                                                  padding:
+                                                      MediaQuery.of(context)
+                                                          .viewInsets,
                                                   child: Column(
-                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
                                                     children: [
                                                       Container(
                                                         height: 100,
                                                         child: TextField(
                                                           keyboardType:
-                                                              TextInputType.text,
+                                                              TextInputType
+                                                                  .text,
                                                           maxLines: null,
                                                           style: TextStyle(
                                                             fontSize: 23,
                                                             color: Colors.black,
                                                           ),
                                                           autofocus: true,
-                                                          decoration: InputDecoration(
-                                                            border: InputBorder.none,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            border: InputBorder
+                                                                .none,
                                                           ),
-                                                          onSubmitted: (text) async {
+                                                          onSubmitted:
+                                                              (text) async {
                                                             // print(text);
-                      
-                                                            Navigator.pop(context);
+
+                                                            Navigator.pop(
+                                                                context);
                                                             await AWSApiToDB(
-                                                                    playlistUrl: text)
+                                                                    playlistUrl:
+                                                                        text)
                                                                 .AWSApiToDB_func(
                                                                     dbInstance:
-                                                                        widget.db,
-                                                                    subject_id: widget
-                                                                        .subject_id);
-                      
+                                                                        widget
+                                                                            .db,
+                                                                    subject_id:
+                                                                        widget
+                                                                            .subject_id);
+
                                                             dataFromDB_table_chapters =
-                                                                await widget.db.rawQuery(
-                                                                    'select * from chapters where subject_id = ${widget.subject_id}');
-                      
+                                                                await widget.db
+                                                                    .rawQuery(
+                                                                        'select * from chapters where subject_id = ${widget.subject_id}');
+
                                                             setState(() {});
-                                                            ;
+                                                            
                                                           },
                                                         ),
                                                       )

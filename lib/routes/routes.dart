@@ -4,6 +4,8 @@ import 'package:lecture_progress/pages/ChaptersPage.dart';
 import 'package:lecture_progress/pages/HomePage.dart';
 import 'package:lecture_progress/pages/allVideosSpecificChapter.dart';
 import 'package:lecture_progress/pages/calender_page.dart';
+import 'package:lecture_progress/pages/chooseChapterForIntentYotubePlaylist_Page.dart';
+import 'package:lecture_progress/pages/gotYoutubePlaylistIntentPage.dart';
 import 'package:lecture_progress/pages/timer_page.dart';
 import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
 
@@ -15,6 +17,8 @@ class RouteManager {
   static const String singleVideoCustomPlayer = '/singleVideoCustomPlayer';
   static const String timerPage = '/timerPage';
   static const String calenderPage = '/calenderPage';
+  // static const String intentFromYoutubePlaylist = '/intentFromYoutubePlaylist';
+  static const String chooseSubjectForYoutubePlaylist = '/chooseSubjectForYoutubePlaylist';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Map<dynamic, dynamic>? valuePassed;
@@ -28,6 +32,10 @@ class RouteManager {
 
 
     switch (settings.name) {
+      // case intentFromYoutubePlaylist:
+      //   return MaterialPageRoute(builder: (context) => gotYoutubePlaylistIntentPage());
+      case chooseSubjectForYoutubePlaylist:
+        return MaterialPageRoute(builder: (context)=> ChooseChapterForIntentYotubePlaylistPage());
       case homePage:
         return MaterialPageRoute(builder: (context) => HomePage());
 

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lecture_progress/database/HomePageDB.dart';
+import 'package:lecture_progress/functions/global_functions/file_picker_func.dart';
 import 'package:lecture_progress/functions/global_functions/timerCompleteDialog_func.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/routes/routes.dart';
@@ -18,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
+  // final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
 
   LectureProgressHelper _lectureProgressHelper = LectureProgressHelper();
   late Database db;
@@ -84,7 +85,9 @@ class _HomePageState extends State<HomePage> {
                 AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
               if (gapv_isDBInitialised && _finalSortedList_initialised) {
                 return Scaffold(
-                  // floatingActionButton: FloatingActionButton(onPressed: () {
+                  floatingActionButton: FloatingActionButton(onPressed: () {
+
+                    // file_picker_simple();
                   //   // custom_showDialog(context: context);
                   //   // showCupertinoDialog(
                   //   //     context: context,
@@ -97,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                   //   //     });
                   //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   //   // ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: Container(color: Colors.orange,height: 100,width: 100,), actions: []));
-                  // }),
+                  }),
                   body: Column(
                     children: [
                                             TimerStatusOnTopOfPage(),
