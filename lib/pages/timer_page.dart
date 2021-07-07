@@ -94,7 +94,8 @@ class _TimerPageState extends State<TimerPage> {
             temp_t_v.isMainTimerWorking = false;
             temp_t_v.timeSpent = Duration.zero;
 
-            updateTimeStudiedInDB(
+            if (temp_t_v.studied_last_time){
+              updateTimeStudiedInDB(
                     database: gapv_dbInstance!,
                     date: dateTimeIn_dd_mm_yyyy_formatNow(),
                     studyTimeToBeAdded: temp_t_v.howLong)
@@ -110,6 +111,7 @@ class _TimerPageState extends State<TimerPage> {
                       temp_t_v.setState_TOP_TIMER_WIDGET_func(() {});
                       customPrint('alpha 3');
                     }.call());
+            }
 
             timerCompleteDailog();
 
@@ -117,6 +119,8 @@ class _TimerPageState extends State<TimerPage> {
                 message_to_show:
                     '${durationToStringTime(duration: temp_t_v.howLong)} timer has completed');
             timer.cancel();
+            temp_t_v.howLong = Duration.zero;
+            temp_t_v.setState_TOP_TIMER_WIDGET_func(() {});
             if (temp_t_v.setState_c_func.toString() != 'Closure: () => Null') {
               try {
                 temp_t_v.setState_c_func(() {});
