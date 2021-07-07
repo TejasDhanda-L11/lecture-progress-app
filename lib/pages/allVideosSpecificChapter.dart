@@ -9,7 +9,6 @@ import 'package:lecture_progress/widgets/allSpecificChapterVideos_widgets/allSpe
 import 'package:lecture_progress/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class AllVideoSpecificChapter extends StatefulWidget {

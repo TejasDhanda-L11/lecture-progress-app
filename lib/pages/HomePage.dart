@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lecture_progress/database/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/database/HomePageDB.dart';
 import 'package:lecture_progress/functions/global_functions/file_picker_func.dart';
 import 'package:lecture_progress/functions/global_functions/timerCompleteDialog_func.dart';
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         _finalSortedList =
             await db.rawQuery('select * from subjects order by id');
         _finalSortedList_initialised = true;
+        TVT_studiedTime = await getHoursStudiedFromDayLoggerDB(database: gapv_dbInstance!,date: dateTimeIn_dd_mm_yyyy_formatNow());
         setState(() {});
       });
     } else {
@@ -49,6 +51,8 @@ class _HomePageState extends State<HomePage> {
         _finalSortedList =
             await db.rawQuery('select * from subjects order by id');
         _finalSortedList_initialised = true;
+        TVT_studiedTime = await getHoursStudiedFromDayLoggerDB(database: gapv_dbInstance!,date: dateTimeIn_dd_mm_yyyy_formatNow());
+
         setState(() {});
       }.call();
     }
@@ -85,8 +89,8 @@ class _HomePageState extends State<HomePage> {
                 AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
               if (gapv_isDBInitialised && _finalSortedList_initialised) {
                 return Scaffold(
-                  floatingActionButton: FloatingActionButton(onPressed: () {
-
+                  // floatingActionButton: FloatingActionButton(onPressed: () {
+                    // customPrint(DateTime.now().toString());
                     // file_picker_simple();
                   //   // custom_showDialog(context: context);
                   //   // showCupertinoDialog(
@@ -100,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                   //   //     });
                   //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   //   // ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(content: Container(color: Colors.orange,height: 100,width: 100,), actions: []));
-                  }),
+                  // }),
                   body: Column(
                     children: [
                                             TimerStatusOnTopOfPage(),

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:lecture_progress/database/DatabaseQueries/DatabaseQueries.dart';
+
 
 //////// Timer_Page Variables
 Duration howLong = Duration.zero;
@@ -37,5 +39,5 @@ int onGoingTimerNotificationID = 2;
 // top timer on pages
 late Function setState_TOP_TIMER_WIDGET_func;
 
-Duration TVT_studiedTime = Duration.zero;
+late Duration TVT_studiedTime;
 

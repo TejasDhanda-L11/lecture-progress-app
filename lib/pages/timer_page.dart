@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:lecture_progress/database/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/functions/global_functions/timerCompleteDialog_func.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/notification_functionality/timer_notifications.dart';
@@ -61,7 +62,7 @@ class _TimerPageState extends State<TimerPage> {
                 message_to_show:
                     '${durationToStringTime(duration: (temp_t_v.howLong - temp_t_v.timeSpent))} timer has completed');
             // top of the page timer
-            
+
             temp_t_v.setState_TOP_TIMER_WIDGET_func(() {});
 
             if (temp_t_v.setState_c_func.toString() != 'Closure: () => Null') {
@@ -78,11 +79,11 @@ class _TimerPageState extends State<TimerPage> {
                         'ERROR  ERROR  ERROR  ERROR  ERROR  ERROR  ERROR  ');
               }
             }
-          } 
+          }
           // after completion of timer
           else {
             // debugPrint('done with timer ------------------------');
-            if (temp_t_v.isStudyingAtPresent){
+            if (temp_t_v.isStudyingAtPresent) {
               temp_t_v.studied_last_time = true;
             } else if (temp_t_v.isTakingBreakAtPresent) {
               temp_t_v.studied_last_time = false;
@@ -92,9 +93,26 @@ class _TimerPageState extends State<TimerPage> {
             temp_t_v.isTimerCheckerRunning = false;
             temp_t_v.isMainTimerWorking = false;
             temp_t_v.timeSpent = Duration.zero;
-            temp_t_v.setState_TOP_TIMER_WIDGET_func(() {});
+
+            updateTimeStudiedInDB(
+                    database: gapv_dbInstance!,
+                    date: dateTimeIn_dd_mm_yyyy_formatNow(),
+                    studyTimeToBeAdded: temp_t_v.howLong)
+                .then((value) => () async {
+                      customPrint('alpha 1');
+                      temp_t_v.TVT_studiedTime =
+                          await getHoursStudiedFromDayLoggerDB(
+                              date: dateTimeIn_dd_mm_yyyy_formatNow(),
+                              database: gapv_dbInstance!);
+                      customPrint('alpha 2');
+                      customPrint(temp_t_v.TVT_studiedTime);
+
+                      temp_t_v.setState_TOP_TIMER_WIDGET_func(() {});
+                      customPrint('alpha 3');
+                    }.call());
+
             timerCompleteDailog();
-            
+
             showTimerCompleteNotification(
                 message_to_show:
                     '${durationToStringTime(duration: temp_t_v.howLong)} timer has completed');
@@ -137,17 +155,17 @@ class _TimerPageState extends State<TimerPage> {
                 ))),
                 // Container(height: 100, width: 100, color: Colors.orange,),
                 GestureDetector(
-                  child: temp_t_v.showPomondoroPicker?
-                      PomondoroTypePicker() :
-                      CustomSelectTime(
-                      checkerTimer: temp_t_v.checkerTimer,
-                      timeSpent: temp_t_v.timeSpent,
-                      isTimerPaused: temp_t_v.isTimerPaused,
-                      isTimerCheckerRunning: temp_t_v.isTimerCheckerRunning,
-                      isMainTimerWorking: temp_t_v.isMainTimerWorking,
-                      howLong: temp_t_v.howLong,
-                      setState_func: setState,)
-                      ,
+                  child: temp_t_v.showPomondoroPicker
+                      ? PomondoroTypePicker()
+                      : CustomSelectTime(
+                          checkerTimer: temp_t_v.checkerTimer,
+                          timeSpent: temp_t_v.timeSpent,
+                          isTimerPaused: temp_t_v.isTimerPaused,
+                          isTimerCheckerRunning: temp_t_v.isTimerCheckerRunning,
+                          isMainTimerWorking: temp_t_v.isMainTimerWorking,
+                          howLong: temp_t_v.howLong,
+                          setState_func: setState,
+                        ),
                 )
               ],
             )),

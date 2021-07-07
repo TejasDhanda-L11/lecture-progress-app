@@ -55,7 +55,7 @@ class LectureProgressHelper {
           "uploader_name" VARCHAR(50) ,
           "number_of_lectures" INTEGER,
           "chapterCompleted" TEXT CHECK(chapterCompleted IN ('T','F')) NOT NULL DEFAULT 'F',
-          "lengthCompletedLecture" TIME NOT NULL DEFAULT '00-00-00',
+          "lengthCompletedLecture" TIME NOT NULL DEFAULT '00:00:00',
           "videosCompleted" INTEGER NOT NULL DEFAULT 0,
           FOREIGN KEY("subject_id") REFERENCES "subjects"("id")
         );
@@ -75,7 +75,7 @@ class LectureProgressHelper {
           "duration" INTEGER,
           "thumbnail" VARCHAR(500),
           "lectureCompleted" TEXT CHECK(lectureCompleted IN ('T','F')) NOT NULL DEFAULT 'F',
-          "lengthCompleted" TIME NOT NULL DEFAULT '00-00-00',
+          "lengthCompleted" TIME NOT NULL DEFAULT '00:00:00',
           FOREIGN KEY("chapter_id") REFERENCES "chapters"("id"),
           FOREIGN KEY("subject_id") REFERENCES "subjects"("id")
         );
@@ -100,7 +100,7 @@ class LectureProgressHelper {
         CREATE TABLE "day_logger" (
           "id"	INTEGER PRIMARY KEY AUTOINCREMENT,
           "date"	date UNIQUE,
-          "hours_studied"	time NOT NULL DEFAULT '00-00-00'
+          "hours_studied"	time NOT NULL DEFAULT '00:00:00'
         );
         '''
       );
@@ -110,7 +110,7 @@ class LectureProgressHelper {
           "id" INTEGER PRIMARY KEY AUTOINCREMENT,
           "day_logger_id" INTEGER not NULL,
           "specific_video_id" INTEGER not NULL,
-          "how_much_time_spend" TIME not null DEFAULT '00-00-00',
+          "how_much_time_spend" TIME not null DEFAULT '00:00:00',
           
           FOREIGN KEY("day_logger_id") REFERENCES "day_logger"("id"),
             FOREIGN KEY("specific_video_id") REFERENCES "specific_videos"("id")

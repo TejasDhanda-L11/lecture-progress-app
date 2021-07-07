@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 100,
+            "driver": "SQLite",
+            "name": "lp_dev",
+            "database": "/home/tejas/Desktop/flp.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

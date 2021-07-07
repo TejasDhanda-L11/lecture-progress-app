@@ -20,10 +20,12 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
   void initState() {
     super.initState();
     temp_t_v.setState_TOP_TIMER_WIDGET_func = setState;
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    customPrint('setstate of top timer widget');
     String boxOfFocus_Break_None = 'NONE';
     if (temp_t_v.isStudyingAtPresent) {
       boxOfFocus_Break_None = 'Focus';
@@ -77,7 +79,7 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
           Row(
             children: [
               Text(
-                '${TVT_studiedTime}/500',
+                '${TVT_studiedTime.inMinutes}/500',
                 style: TextStyle(fontSize: fontSize,
                 fontWeight: FontWeight.w800
                 
