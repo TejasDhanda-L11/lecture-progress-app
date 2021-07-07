@@ -1,8 +1,8 @@
 import 'dart:async';
 
 
-// Timer_Page Variables
-Duration howLong = Duration(seconds: 1);
+//////// Timer_Page Variables
+Duration howLong = Duration.zero;
 Duration timeSpent = Duration.zero;
 
 // ignore: non_constant_identifier_names
@@ -16,8 +16,23 @@ bool isLastPageStillActive = false;
 
 Timer? checkerTimer;
 
+bool showPomondoroPicker = true;
+
+// Pomondoro Stuff
+bool isStudyingAtPresent = false;
+bool isTakingBreakAtPresent = false;
+
+bool studied_last_time = false;
+int currentPomondoroTimer_id = 1;
+
+
+
+// notification
 int notificationId = 1;
 int onGoingTimerNotificationID = 2;
+
+
+
 
 // top timer on pages
 late Function setState_TOP_TIMER_WIDGET_func;
