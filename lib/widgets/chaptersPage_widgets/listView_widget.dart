@@ -171,7 +171,7 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
             ),
           );
         } else {
-          return CircularProgressIndicator();
+          return gapv_loadingScreen;
         }
       },
     );

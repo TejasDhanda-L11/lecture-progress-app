@@ -102,7 +102,7 @@ class _ChooseChapterForIntentYotubePlaylistPageState
                       ),
                     );
                   } else {
-                    return CircularProgressIndicator();
+                    return gapv_loadingScreen;
                   }
                 },
               ),

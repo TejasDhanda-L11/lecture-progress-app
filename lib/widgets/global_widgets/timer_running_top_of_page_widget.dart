@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/temp_variables/temp_variables_timer.dart'
     as temp_t_v;
+import 'package:lecture_progress/temp_variables/temp_variables_timer.dart';
 
 class TimerStatusOnTopOfPage extends StatefulWidget {
   @override
@@ -12,6 +13,9 @@ class TimerStatusOnTopOfPage extends StatefulWidget {
 }
 
 class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
+
+
+
   @override
   void initState() {
     super.initState();
@@ -21,9 +25,9 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
   @override
   Widget build(BuildContext context) {
     String boxOfFocus_Break_None = 'NONE';
-    if (temp_t_v. isStudyingAtPresent){
+    if (temp_t_v.isStudyingAtPresent) {
       boxOfFocus_Break_None = 'Focus';
-    } else if (temp_t_v. isTakingBreakAtPresent){
+    } else if (temp_t_v.isTakingBreakAtPresent) {
       boxOfFocus_Break_None = 'Rest';
     }
 
@@ -33,38 +37,53 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
       padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
       // height: 50,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: 10,
+          Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Timer',
+                style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                durationToStringTime(
+                    duration: temp_t_v.howLong - temp_t_v.timeSpent),
+                style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                '[${boxOfFocus_Break_None}]',
+                style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1),
+              )
+            ],
           ),
-          Text(
-            'Timer',
-            style: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
-            durationToStringTime(
-                duration: temp_t_v.howLong - temp_t_v.timeSpent),
-            style: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
-            '[${boxOfFocus_Break_None}]',
-            style: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1),
+          Row(
+            children: [
+              Text(
+                '${TVT_studiedTime}/500',
+                style: TextStyle(fontSize: fontSize,
+                fontWeight: FontWeight.w800
+                
+                ),
+              ),
+            ],
           )
         ],
       ),

@@ -137,7 +137,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
             body: FutureBuilder(
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (chewieController_initialised == false)
-              return CircularProgressIndicator();
+              return gapv_loadingScreen;
             else {
               // debugPrint(
               //     'final orientation ======================= ${orientation}');

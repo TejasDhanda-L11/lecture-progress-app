@@ -52,7 +52,7 @@ class _Done_Not_DoneButton_YoutubePlayerState
                   : Icon(Icons.close_outlined),
               label: isVideoDone == false ? Text('Done') : Text('Not Done'));
         } else {
-          return CircularProgressIndicator();
+          return gapv_loadingScreen;
         }
       },
     );

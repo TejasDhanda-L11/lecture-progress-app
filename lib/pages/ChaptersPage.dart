@@ -184,7 +184,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
                   ),
                 );
               } else {
-                return CircularProgressIndicator();
+                return gapv_loadingScreen;
               }
             },
           ),

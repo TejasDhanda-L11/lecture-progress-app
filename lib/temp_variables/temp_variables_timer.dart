@@ -36,3 +36,6 @@ int onGoingTimerNotificationID = 2;
 
 // top timer on pages
 late Function setState_TOP_TIMER_WIDGET_func;
+
+Duration TVT_studiedTime = Duration.zero;
+
