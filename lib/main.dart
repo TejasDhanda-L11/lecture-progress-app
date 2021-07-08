@@ -11,7 +11,6 @@ import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 //link to server =
 // http://13.127.186.252:8080/pl?l=https://www.youtube.com/playlist?list=PLF_7kfnwLFCEQgs5WwjX45bLGex2bLLwY
 
-
 // var loggerNoStack = Logger(
 //   printer: PrettyPrinter(methodCount: 0),
 // );
@@ -20,7 +19,6 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 void main() async {
-
   // notification
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -33,8 +31,7 @@ void main() async {
       onDidReceiveLocalNotification:
           (int id, String? title, String? body, String? payload) async {});
   var initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS);
+      android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
       onSelectNotification: (String? payload) async {
     if (payload != null) {
@@ -42,16 +39,12 @@ void main() async {
     }
   });
 
-
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Kolkata'));
 //
 
   runApp(MyApp());
-
 }
-
-
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
@@ -60,19 +53,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  
   // String? _sharedText;
 
   @override
   void initState() {
     super.initState();
 
-    
-      StreamSubscription? _intentDataStreamSubscription;
-  List<SharedMediaFile>? _sharedFiles;
+    StreamSubscription? _intentDataStreamSubscription;
+    List<SharedMediaFile>? _sharedFiles;
 
-      customPrint('yoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyo');
+    customPrint('yoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyo');
 
 // // For sharing images coming from outside the app while the app is in the memory
     // _intentDataStreamSubscription =
@@ -96,35 +86,35 @@ class _MyAppState extends State<MyApp> {
     _intentDataStreamSubscription =
         // ReceiveSharingIntent.getTextStreamAsUri().listen((String value) {
         ReceiveSharingIntent.getTextStream().listen((String value) {
-          customPrint(value);
-          YPIR_youtubePlaylistLink = value;
-          Navigator.pushNamed(gapv_presentlyTopContext!, RouteManager.chooseSubjectForYoutubePlaylist);
+      customPrint(value);
+      YPIR_youtubePlaylistLink = value;
+      Navigator.pushNamed(gapv_presentlyTopContext!,
+          RouteManager.chooseSubjectForYoutubePlaylist);
       // setState(() {
       //   _sharedText = value;
       // });
     }, onError: (err) {
       customPrint("getLinkStream error: $err");
     });
-    _intentDataStreamSubscription =
-        ReceiveSharingIntent.getTextStreamAsUri().listen(( value) {
-        print(value);
-    }, onError: (err) {
-      customPrint("getLinkStream error: $err",object2: 'eroor1');
-    });
-    _intentDataStreamSubscription =
-        ReceiveSharingIntent.getMediaStream().listen(( value) {
-          customPrint(value);
-    }, onError: (err) {
-      customPrint("getLinkStream error: $err");
-    });
-    // For sharing or opening urls/text coming from outside the app while the app is closed
-    // ReceiveSharingIntent.getInitialText().then((value) {
-      
-    //   customPrint(value ?? 'got nothing');
-    //       YPIR_youtubePlaylistLink = value ?? 'got nothing';
-    //       Navigator.pushNamed(gapv_presentlyTopContext!, RouteManager.chooseSubjectForYoutubePlaylist);
-      
+    // _intentDataStreamSubscription =
+    //     ReceiveSharingIntent.getTextStreamAsUri().listen(( value) {
+    //     print(value);
+    // }, onError: (err) {
+    //   customPrint("getLinkStream error: $err",object2: 'eroor1');
     // });
+    // _intentDataStreamSubscription =
+    //     ReceiveSharingIntent.getMediaStream().listen(( value) {
+    //       customPrint(value);
+    // }, onError: (err) {
+    //   customPrint("getLinkStream error: $err");
+    // });
+    // For sharing or opening urls/text coming from outside the app while the app is closed
+    ReceiveSharingIntent.getInitialText().then((value) {
+      customPrint(value ?? 'got nothing');
+      YPIR_youtubePlaylistLink = value ?? 'got nothing';
+      Navigator.pushNamed(gapv_presentlyTopContext!,
+          RouteManager.chooseSubjectForYoutubePlaylist);
+    });
 
     // customPrint(ReceiveSharingIntent.getInitialMedia(),object2: 'ReceiveSharingIntent.getInitialMedia');
     // customPrint(ReceiveSharingIntent.getInitialText(),object2: 'ReceiveSharingIntent.getInitialMedia');
@@ -135,34 +125,11 @@ class _MyAppState extends State<MyApp> {
     // customPrint(ReceiveSharingIntent.(),object2: 'ReceiveSharingIntent.getInitialMedia');
 
     customPrint('initialised recieve intent');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       initialRoute: RouteManager.homePage,
       onGenerateRoute: RouteManager.generateRoute,
       debugShowCheckedModeBanner: false,
