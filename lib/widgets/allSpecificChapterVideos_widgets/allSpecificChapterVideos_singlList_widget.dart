@@ -43,13 +43,14 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
           GestureDetector(
             onTap: () {
               gapv_dataReq_youtubePlayer = widget.e;
+              String splitBy = widget.e['lengthCompleted'].toString().contains('-')? '-':':';
               gapv_psotionToSeekTo = Duration(
                   hours: int.parse(
-                      widget.e['lengthCompleted'].toString().split('-')[0]),
+                      widget.e['lengthCompleted'].toString().split(widget.e['lengthCompleted'].toString().contains('-')? '-':':')[0]),
                   minutes: int.parse(
-                      widget.e['lengthCompleted'].toString().split('-')[1]),
+                      widget.e['lengthCompleted'].toString().split(widget.e['lengthCompleted'].toString().contains('-')? '-':':')[1]),
                   seconds: int.parse(
-                      widget.e['lengthCompleted'].toString().split('-')[2]));
+                      widget.e['lengthCompleted'].toString().split(widget.e['lengthCompleted'].toString().contains('-')? '-':':')[2]));
               Navigator.popAndPushNamed(
                 context,
                 RouteManager.singleVideoCustomPlayer,
@@ -125,7 +126,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                                 ),
                                 // completed length
                                 Text(
-                                  'D:${int.parse(widget.e['lengthCompleted'].toString().split('-')[0])}:${widget.e['lengthCompleted'].toString().split('-')[1]}:${widget.e['lengthCompleted'].toString().split('-')[2]}',
+                                  'D:${int.parse(widget.e['lengthCompleted'].toString().split(widget.e['lengthCompleted'].toString().contains('-')? '-':':')[0])}:${widget.e['lengthCompleted'].toString().split(widget.e['lengthCompleted'].toString().contains('-')? '-':':')[1]}:${widget.e['lengthCompleted'].toString().split(widget.e['lengthCompleted'].toString().contains('-')? '-':':')[2]}',
                                   maxLines: 1,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,

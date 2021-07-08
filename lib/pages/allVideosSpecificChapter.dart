@@ -130,21 +130,21 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                                     Duration totalLength_Duration =
                                         Duration(seconds: e['duration']);
                                     // customPrint(totalLength_Duration);
-
+                                    String splitBy = e['lengthCompleted'].toString().contains('-')? '-':':';
                                     Duration lengthCompleted_Duration =
                                         Duration(
                                             hours: int.parse(
                                                 e['lengthCompleted']
                                                     .toString()
-                                                    .split('-')[0]),
+                                                    .split(e['lengthCompleted'].toString().contains('-')? '-':':')[0]),
                                             minutes: int.parse(
                                                 e['lengthCompleted']
                                                     .toString()
-                                                    .split('-')[1]),
+                                                    .split(e['lengthCompleted'].toString().contains('-')? '-':':')[1]),
                                             seconds: int.parse(
                                                 e['lengthCompleted']
                                                     .toString()
-                                                    .split('-')[2]));
+                                                    .split(e['lengthCompleted'].toString().contains('-')? '-':':')[2]));
                                     // customPrint(lengthCompleted_Duration);
 
                                     Duration lengthLeftToCover = Duration(

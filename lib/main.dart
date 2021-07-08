@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(minutes: 2),).then((value) {
+    
       StreamSubscription? _intentDataStreamSubscription;
   List<SharedMediaFile>? _sharedFiles;
 
@@ -155,7 +155,7 @@ class _MyAppState extends State<MyApp> {
 
 
 
-    });
+    
 
   }
 
