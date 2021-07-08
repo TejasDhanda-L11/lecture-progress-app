@@ -61,15 +61,20 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  StreamSubscription? _intentDataStreamSubscription;
-  List<SharedMediaFile>? _sharedFiles;
-  String? _sharedText;
+  
+  // String? _sharedText;
 
   @override
   void initState() {
     super.initState();
 
-    // // For sharing images coming from outside the app while the app is in the memory
+    Future.delayed(Duration(minutes: 2),).then((value) {
+      StreamSubscription? _intentDataStreamSubscription;
+  List<SharedMediaFile>? _sharedFiles;
+
+      customPrint('yoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyo');
+
+// // For sharing images coming from outside the app while the app is in the memory
     // _intentDataStreamSubscription =
     //     ReceiveSharingIntent.getMediaStream().listen((List<SharedMediaFile> value) {
     //   setState(() {
@@ -89,6 +94,7 @@ class _MyAppState extends State<MyApp> {
 
     // For sharing or opening urls/text coming from outside the app while the app is in the memory
     _intentDataStreamSubscription =
+        // ReceiveSharingIntent.getTextStreamAsUri().listen((String value) {
         ReceiveSharingIntent.getTextStream().listen((String value) {
           customPrint(value);
           YPIR_youtubePlaylistLink = value;
@@ -99,15 +105,58 @@ class _MyAppState extends State<MyApp> {
     }, onError: (err) {
       customPrint("getLinkStream error: $err");
     });
-
-    // For sharing or opening urls/text coming from outside the app while the app is closed
-    ReceiveSharingIntent.getInitialText().then((value) {
-      
-      setState(() {
-        _sharedText = value ?? 'nothingcl';
-      });
+    _intentDataStreamSubscription =
+        ReceiveSharingIntent.getTextStreamAsUri().listen(( value) {
+        print(value);
+    }, onError: (err) {
+      customPrint("getLinkStream error: $err",object2: 'eroor1');
     });
+    _intentDataStreamSubscription =
+        ReceiveSharingIntent.getMediaStream().listen(( value) {
+          customPrint(value);
+    }, onError: (err) {
+      customPrint("getLinkStream error: $err");
+    });
+    // For sharing or opening urls/text coming from outside the app while the app is closed
+    // ReceiveSharingIntent.getInitialText().then((value) {
+      
+    //   customPrint(value ?? 'got nothing');
+    //       YPIR_youtubePlaylistLink = value ?? 'got nothing';
+    //       Navigator.pushNamed(gapv_presentlyTopContext!, RouteManager.chooseSubjectForYoutubePlaylist);
+      
+    // });
+
+    // customPrint(ReceiveSharingIntent.getInitialMedia(),object2: 'ReceiveSharingIntent.getInitialMedia');
+    // customPrint(ReceiveSharingIntent.getInitialText(),object2: 'ReceiveSharingIntent.getInitialMedia');
+    // customPrint(ReceiveSharingIntent.getInitialTextAsUri(),object2: 'ReceiveSharingIntent.getInitialMedia');
+    // customPrint(ReceiveSharingIntent.getMediaStream(),object2: 'ReceiveSharingIntent.getInitialMedia');
+    // customPrint(ReceiveSharingIntent.getTextStream(),object2: 'ReceiveSharingIntent.getInitialMedia');
+    // customPrint(ReceiveSharingIntent.getTextStreamAsUri(),object2: 'ReceiveSharingIntent.getInitialMedia');
+    // customPrint(ReceiveSharingIntent.(),object2: 'ReceiveSharingIntent.getInitialMedia');
+
     customPrint('initialised recieve intent');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+
   }
 
   @override

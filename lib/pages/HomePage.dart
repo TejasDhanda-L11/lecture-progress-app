@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: () {
         // customPrint('not allowed to exit');
-        return Future.value(false);
+        return Future.value(true);
       },
       child: SafeArea(
         child: GestureDetector(
