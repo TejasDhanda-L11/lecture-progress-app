@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:lecture_progress/temp_variables/global_all_page_variable.dart';
-import 'package:lecture_progress/temp_variables/intentRelated/YotubePlaylistIntentRelated.dart';
+import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/mainImplementation/temp_variables/intentRelated/YotubePlaylistIntentRelated.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:lecture_progress/routes/routes.dart';
-import 'package:lecture_progress/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'package:lecture_progress/mainImplementation/routes/routes.dart';
+import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'dart:async';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+
+import 'mainImplementation/temp_variables/intentRelated/YotubePlaylistIntentRelated.dart';
 //link to server =
 // http://13.127.186.252:8080/pl?l=https://www.youtube.com/playlist?list=PLF_7kfnwLFCEQgs5WwjX45bLGex2bLLwY
 
@@ -110,10 +112,15 @@ class _MyAppState extends State<MyApp> {
     // });
     // For sharing or opening urls/text coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialText().then((value) {
-      customPrint(value ?? 'got nothing');
-      YPIR_youtubePlaylistLink = value ?? 'got nothing';
+      if (value != null)
+      {
+        customPrint(value );
+      YPIR_youtubePlaylistLink = value ;
       Navigator.pushNamed(gapv_presentlyTopContext!,
           RouteManager.chooseSubjectForYoutubePlaylist);
+      } else {
+        customPrint('got nothing as intent');
+      }
     });
 
     // customPrint(ReceiveSharingIntent.getInitialMedia(),object2: 'ReceiveSharingIntent.getInitialMedia');
