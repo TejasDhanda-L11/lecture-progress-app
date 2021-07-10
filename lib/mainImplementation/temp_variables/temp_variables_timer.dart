@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
 
 
 //////// Timer_Page Variables

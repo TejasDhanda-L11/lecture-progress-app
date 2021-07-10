@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
-import 'package:lecture_progress/resources/functions/allSpecificChapterVideos_funcs.dart';
 import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/allVideoSpecificChapterVariables.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';

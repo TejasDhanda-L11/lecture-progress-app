@@ -1,12 +1,8 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
-import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
-import 'package:lecture_progress/resources/onPressed/ChaptersPage/addChapter_onPressedFunc.dart';
 import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/addChapter_ChaptersPage_stfWidget.dart';
 import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/listView_widget.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
@@ -29,6 +25,13 @@ class _ChaptersPageState extends State<ChaptersPage> {
     super.initState();
     gapv_isChaptersPageOn = true;
     STATE_ChaptersPage = setState;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    STATE_ChaptersPage = null;
   }
 
   @override

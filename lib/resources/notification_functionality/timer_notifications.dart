@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:lecture_progress/main.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
