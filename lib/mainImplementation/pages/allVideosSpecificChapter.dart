@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
-import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/allVideoSpecificChapterVariables.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/resources/widgets/allSpecificChapterVideos_widgets/allSpecificChapterVideos_singlList_widget.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class AllVideoSpecificChapter extends StatefulWidget {
   final Database dbInstance;
@@ -112,13 +110,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                         backgroundColor: Colors.white54,
                         foregroundColor: Colors.black38,
                       ),
-                      body: LiquidPullToRefresh(
-                        height: 80,
-                        onRefresh: () async {
-                          await gettingImportantDataFromDB();
-                          setState(() {});
-                        },
-                        child: Column(
+                      body: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             TimerStatusOnTopOfPage(),
@@ -172,7 +164,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                             ),
                           ],
                         ),
-                      ),
+                      
                     );
             } else {
               return gapv_loadingScreen;
