@@ -15,14 +15,13 @@ class ListViewChaptersPage extends StatefulWidget {
 }
 
 class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
-  bool gotDataAboutTotalTimeLeftForWholeChapter = false;
   late List<Map<String, dynamic>> totalTimeLeft;
   late Duration totalTimeLeft_Duration;
   late List<Map<String, dynamic>> totalTimeTotal;
   late Duration totalTimeTotal_Duration;
   late List<Map<String, dynamic>> totalTimeDone;
   late Duration totalTimeDone_Duration;
-  void gettingTimeLeft_from_DB_current_chapter() async {
+  Future<bool> done_gettingDataOfTimeAndImplementingToAllTimeRelatedVariables() async {
     totalTimeLeft = await widget.dbInstance.rawQuery('''
         select (
           (
@@ -81,22 +80,20 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
     totalTimeDone_Duration =
         Duration(seconds: (totalTimeDone[0]['time_done'].round()));
 
-
-    gotDataAboutTotalTimeLeftForWholeChapter = true;
-    setState(() {});
+    return Future.value(true);
   }
 
   @override
   void initState() {
     super.initState();
-    gettingTimeLeft_from_DB_current_chapter();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (gotDataAboutTotalTimeLeftForWholeChapter) {
+      future: done_gettingDataOfTimeAndImplementingToAllTimeRelatedVariables(),
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
           return GestureDetector(
             onTap: () async {
               gapv_chapter_presently_id = widget.e['id'];

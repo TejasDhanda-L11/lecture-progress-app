@@ -2,9 +2,12 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
+import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
+import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
-import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/resources/onPressed/ChaptersPage/addChapter_onPressedFunc.dart';
+import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/addChapter_ChaptersPage_stfWidget.dart';
 import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/listView_widget.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
@@ -20,24 +23,12 @@ class ChaptersPage extends StatefulWidget {
 
 class _ChaptersPageState extends State<ChaptersPage> {
   late List<Map<String, dynamic>> dataFromDB_table_chapters;
-  bool gotAllDataFromDB = false;
-
-  void initialDataFunc() async {
-    dataFromDB_table_chapters = await widget.db.rawQuery(
-        'select * from chapters where subject_id = ${widget.subject_id}');
-
-    // debugPrint('dataFromDB_table_chapters = $dataFromDB_table_chapters');
-    gotAllDataFromDB = true;
-    setState(() {});
-  }
 
   @override
   void initState() {
     super.initState();
-    initialDataFunc();
     gapv_isChaptersPageOn = true;
     STATE_ChaptersPage = setState;
-
   }
 
   @override
@@ -46,7 +37,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
     return WillPopScope(
       onWillPop: () {
         gapv_isChaptersPageOn = false;
-        
+        NAVIGATION_onBackButtonChaptersPage();
         return Future.value(true);
       },
       child: SafeArea(
@@ -64,8 +55,12 @@ class _ChaptersPageState extends State<ChaptersPage> {
             }
           },
           child: FutureBuilder(
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (gotAllDataFromDB) {
+            future: dataFromDB_specificChapter_forSpecificSubject(
+                database: widget.db, subject_id: widget.subject_id),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+              if (snapshot.hasData) {
+                dataFromDB_table_chapters = snapshot.data ?? [];
                 return Scaffold(
                   body: Column(
                     children: [
@@ -80,104 +75,8 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                     ))
                                 .followedBy([
                               // add subject sign stuff
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                child: DottedBorder(
-                                  dashPattern: [2, 5, 10, 20],
-                                  color: Color(0xFFEAECFF),
-                                  strokeWidth: 2,
-                                  borderType: BorderType.RRect,
-                                  radius: Radius.circular(10),
-                                  child: Container(
-                                    width: double.infinity,
-                                    child: FlatButton(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        color: Colors.grey[50],
-                                        height: 150,
-                                        onPressed: () {
-                                          showModalBottomSheet<void>(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.vertical(
-                                                          top: Radius.circular(
-                                                              10))),
-                                              isScrollControlled: true,
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Container(
-                                                  padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Container(
-                                                        height: 100,
-                                                        child: TextField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .text,
-                                                          maxLines: null,
-                                                          style: TextStyle(
-                                                            fontSize: 23,
-                                                            color: Colors.black,
-                                                          ),
-                                                          autofocus: true,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            border: InputBorder
-                                                                .none,
-                                                          ),
-                                                          onSubmitted:
-                                                              (text) async {
-                                                            // print(text);
-
-                                                            NAVIGATION_popTopContext();
-                                                            await AWSApiToDB(
-                                                                    playlistUrl:
-                                                                        text)
-                                                                .AWSApiToDB_func(
-                                                                    dbInstance:
-                                                                        widget
-                                                                            .db,
-                                                                    subject_id:
-                                                                        widget
-                                                                            .subject_id);
-
-                                                            dataFromDB_table_chapters =
-                                                                await widget.db
-                                                                    .rawQuery(
-                                                                        'select * from chapters where subject_id = ${widget.subject_id}');
-
-                                                            setState(() {});
-                                                          },
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              });
-                                        },
-                                        child: Column(
-                                          children: [
-                                            Icon(
-                                              Icons.add_circle_outline_outlined,
-                                              size: 40,
-                                            ),
-                                            Text(
-                                              'Add Chapter',
-                                              style: TextStyle(fontSize: 20),
-                                            )
-                                          ],
-                                        )),
-                                  ),
-                                ),
-                              )
-                            ]).toList(),
+                              AddChapter_ChaptersPage_stfWidget(database: widget.db, subject_id: widget.subject_id,)
+                              ]).toList(),
                           ),
                         ),
                       ),

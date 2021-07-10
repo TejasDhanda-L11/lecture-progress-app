@@ -60,3 +60,8 @@ Future<void> updateTimeStudiedInDB(
   customPrint(await database.rawQuery('SELECT * FROM day_logger'),
       object2: 'DATABASE DAYLOGGER');
 }
+
+Future<List<Map<String,dynamic>>> dataFromDB_specificChapter_forSpecificSubject({required Database database, required int subject_id}){
+  return database.rawQuery(
+        'select * from chapters where subject_id = ${subject_id}');
+}
