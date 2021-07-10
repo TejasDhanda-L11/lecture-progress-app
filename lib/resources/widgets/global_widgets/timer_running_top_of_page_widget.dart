@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart'
     ;
@@ -19,7 +20,7 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
   @override
   void initState() {
     super.initState();
-    TV_setState_TOP_TIMER_WIDGET_func = setState;
+    STATE_TopTimerWidget = setState;
     
   }
 

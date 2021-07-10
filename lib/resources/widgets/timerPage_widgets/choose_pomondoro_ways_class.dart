@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart'
     ;
@@ -31,14 +32,14 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
                     onTap: () {
                       TV_howLong =
                           Duration(seconds: pomondoroList[0]['time_of_study']);
-                      TV_setState_c_func(() {});
+                      STATE_timerClockRunningPage!(() {});
                       TV_isStudyingAtPresent = true;
                       TV_isTakingBreakAtPresent = false;
                     },
                     onDoubleTap: () {
                       TV_howLong =
                           Duration(seconds: pomondoroList[0]['time_of_break']);
-                      TV_setState_c_func(() {});
+                      STATE_timerClockRunningPage!(() {});
                       TV_isStudyingAtPresent = false;
                       TV_isTakingBreakAtPresent = true;
                     },
@@ -71,14 +72,14 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
                     onTap: () {
                       TV_howLong =
                           Duration(seconds: pomondoroList[1]['time_of_study']);
-                      TV_setState_c_func(() {});
+                      STATE_timerClockRunningPage!(() {});
                       TV_isStudyingAtPresent = true;
                       TV_isTakingBreakAtPresent = false;
                     },
                     onDoubleTap: () {
                       TV_howLong =
                           Duration(seconds: pomondoroList[1]['time_of_break']);
-                      TV_setState_c_func(() {});
+                      STATE_timerClockRunningPage!(() {});
                       TV_isStudyingAtPresent = false;
                       TV_isTakingBreakAtPresent = true;
                     },
@@ -135,11 +136,11 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
                         TV_isMainTimerWorking = false;
 
                         try{
-                          TV_setState_TOP_TIMER_WIDGET_func(() {});
+                          STATE_TopTimerWidget!(() {});
                         } catch(e){
                           customPrint('error as state didn\'t existed on the reset pomondoro of the top timer',object2: e);
                         }
-                        TV_setState_c_func(() {});
+                        STATE_timerClockRunningPage!(() {});
                       },
                       icon: Icon(Icons.restore),
                       label: Text('Reset Pomondoro')),
@@ -157,7 +158,7 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
                           TV_isTimerPaused = false;
                           // customPrint('made TV_isTimerPaused false');
                         }
-                        TV_setState_c_func(() {});
+                        STATE_timerClockRunningPage!(() {});
                       },
                       icon: Icon(Icons.double_arrow_rounded),
                       label: Text('Start Pomondoro')),
@@ -174,7 +175,7 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
                         }
                         TV_isTimerCheckerRunning = false;
                         TV_isTimerPaused = true;
-                        TV_setState_c_func(() {});
+                        STATE_timerClockRunningPage!(() {});
                       },
                       icon: Icon(Icons.pause_rounded),
                       label: Text('Pause Pomondoro')),

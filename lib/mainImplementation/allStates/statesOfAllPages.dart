@@ -4,5 +4,8 @@ Function? STATE_ChaptersPage;
 Function? STATE_AllChapterSpecificVideos;
 Function? STATE_YoutubeVideoPlaying;
 
-// extra components
+// SubjectPage Widget
 Function? STATE_ListViewSubjectPageWidget;
+
+// TopTimer Widget 
+Function? STATE_TopTimerWidget;

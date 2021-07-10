@@ -8,7 +8,6 @@ Duration TV_timeSpent = Duration.zero;
 
 late Timer TV_timerInstance;
 
-late Function TV_setState_c_func;
 
 bool TV_isMainTimerWorking = false;
 bool TV_isTimerCheckerRunning = false;
@@ -37,7 +36,6 @@ int TV_onGoingTimerNotificationID = 2;
 
 
 // top timer on pages
-late Function TV_setState_TOP_TIMER_WIDGET_func;
 
 late Duration TV_studiedTime;
 
