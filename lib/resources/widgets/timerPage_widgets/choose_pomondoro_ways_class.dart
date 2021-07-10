@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart'
-    as temp_t_v;
+    ;
 
 class PomondoroTypePicker extends StatefulWidget {
   @override
@@ -23,24 +23,24 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
           children: [
             SizedBox(height: 50),
             Visibility(
-              visible: !temp_t_v.isMainTimerWorking,
+              visible: !TV_isMainTimerWorking,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
                     onTap: () {
-                      temp_t_v.howLong =
+                      TV_howLong =
                           Duration(seconds: pomondoroList[0]['time_of_study']);
-                      temp_t_v.setState_c_func(() {});
-                      temp_t_v.isStudyingAtPresent = true;
-                      temp_t_v.isTakingBreakAtPresent = false;
+                      TV_setState_c_func(() {});
+                      TV_isStudyingAtPresent = true;
+                      TV_isTakingBreakAtPresent = false;
                     },
                     onDoubleTap: () {
-                      temp_t_v.howLong =
+                      TV_howLong =
                           Duration(seconds: pomondoroList[0]['time_of_break']);
-                      temp_t_v.setState_c_func(() {});
-                      temp_t_v.isStudyingAtPresent = false;
-                      temp_t_v.isTakingBreakAtPresent = true;
+                      TV_setState_c_func(() {});
+                      TV_isStudyingAtPresent = false;
+                      TV_isTakingBreakAtPresent = true;
                     },
                     child: Container(
                       margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -69,18 +69,18 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      temp_t_v.howLong =
+                      TV_howLong =
                           Duration(seconds: pomondoroList[1]['time_of_study']);
-                      temp_t_v.setState_c_func(() {});
-                      temp_t_v.isStudyingAtPresent = true;
-                      temp_t_v.isTakingBreakAtPresent = false;
+                      TV_setState_c_func(() {});
+                      TV_isStudyingAtPresent = true;
+                      TV_isTakingBreakAtPresent = false;
                     },
                     onDoubleTap: () {
-                      temp_t_v.howLong =
+                      TV_howLong =
                           Duration(seconds: pomondoroList[1]['time_of_break']);
-                      temp_t_v.setState_c_func(() {});
-                      temp_t_v.isStudyingAtPresent = false;
-                      temp_t_v.isTakingBreakAtPresent = true;
+                      TV_setState_c_func(() {});
+                      TV_isStudyingAtPresent = false;
+                      TV_isTakingBreakAtPresent = true;
                     },
                     child: Container(
                       margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -114,32 +114,32 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
               children: [
                 //Reset
                 Visibility(
-                  visible: temp_t_v.isMainTimerWorking | temp_t_v.isTimerPaused,
+                  visible: TV_isMainTimerWorking | TV_isTimerPaused,
                   child: FlatButton.icon(
                       onPressed: () {
-                        temp_t_v.isMainTimerWorking = false;
-                        if (temp_t_v.checkerTimer!.isActive) {
-                          temp_t_v.checkerTimer!.cancel();
+                        TV_isMainTimerWorking = false;
+                        if (TV_checkerTimer!.isActive) {
+                          TV_checkerTimer!.cancel();
                         }
-                        temp_t_v.isTimerCheckerRunning = false;
-                        temp_t_v.timeSpent = Duration.zero;
-                        temp_t_v.howLong = Duration.zero;
-                        if (temp_t_v.isStudyingAtPresent){
-                          temp_t_v.studied_last_time = true;
-                        } else if (temp_t_v.isTakingBreakAtPresent) {
-                          temp_t_v.studied_last_time = false;
+                        TV_isTimerCheckerRunning = false;
+                        TV_timeSpent = Duration.zero;
+                        TV_howLong = Duration.zero;
+                        if (TV_isStudyingAtPresent){
+                          TV_studied_last_time = true;
+                        } else if (TV_isTakingBreakAtPresent) {
+                          TV_studied_last_time = false;
                         }
-                        temp_t_v.isStudyingAtPresent = false;
-                        temp_t_v.isTakingBreakAtPresent = false;
-                        temp_t_v.isTimerCheckerRunning = false;
-                        temp_t_v.isMainTimerWorking = false;
+                        TV_isStudyingAtPresent = false;
+                        TV_isTakingBreakAtPresent = false;
+                        TV_isTimerCheckerRunning = false;
+                        TV_isMainTimerWorking = false;
 
                         try{
-                          temp_t_v.setState_TOP_TIMER_WIDGET_func(() {});
+                          TV_setState_TOP_TIMER_WIDGET_func(() {});
                         } catch(e){
                           customPrint('error as state didn\'t existed on the reset pomondoro of the top timer',object2: e);
                         }
-                        temp_t_v.setState_c_func(() {});
+                        TV_setState_c_func(() {});
                       },
                       icon: Icon(Icons.restore),
                       label: Text('Reset Pomondoro')),
@@ -147,17 +147,17 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
                 //Start
                 Visibility(
                   visible:
-                      !temp_t_v.isMainTimerWorking | temp_t_v.isTimerPaused,
+                      !TV_isMainTimerWorking | TV_isTimerPaused,
                   child: FlatButton.icon(
                       onPressed: () {
                         // customPrint('Start Button Working');
-                        if (!temp_t_v.isMainTimerWorking) {
-                          temp_t_v.isMainTimerWorking = true;
-                        } else if (temp_t_v.isTimerPaused) {
-                          temp_t_v.isTimerPaused = false;
-                          // customPrint('made temp_t_v.isTimerPaused false');
+                        if (!TV_isMainTimerWorking) {
+                          TV_isMainTimerWorking = true;
+                        } else if (TV_isTimerPaused) {
+                          TV_isTimerPaused = false;
+                          // customPrint('made TV_isTimerPaused false');
                         }
-                        temp_t_v.setState_c_func(() {});
+                        TV_setState_c_func(() {});
                       },
                       icon: Icon(Icons.double_arrow_rounded),
                       label: Text('Start Pomondoro')),
@@ -165,16 +165,16 @@ class _PomondoroTypePickerState extends State<PomondoroTypePicker> {
                 // Pause
                 Visibility(
                   visible:
-                      temp_t_v.isMainTimerWorking && !temp_t_v.isTimerPaused,
+                      TV_isMainTimerWorking && !TV_isTimerPaused,
                   child: FlatButton.icon(
                       onPressed: () {
                         // isMainTimerWorking = false;
-                        if (temp_t_v.checkerTimer!.isActive) {
-                          temp_t_v.checkerTimer!.cancel();
+                        if (TV_checkerTimer!.isActive) {
+                          TV_checkerTimer!.cancel();
                         }
-                        temp_t_v.isTimerCheckerRunning = false;
-                        temp_t_v.isTimerPaused = true;
-                        temp_t_v.setState_c_func(() {});
+                        TV_isTimerCheckerRunning = false;
+                        TV_isTimerPaused = true;
+                        TV_setState_c_func(() {});
                       },
                       icon: Icon(Icons.pause_rounded),
                       label: Text('Pause Pomondoro')),

@@ -44,9 +44,9 @@ class _CustomSelectTimeState extends State<CustomSelectTime> {
               child: CupertinoTimerPicker(
                 mode: CupertinoTimerPickerMode.hms,
                 onTimerDurationChanged: (time) {
-                  howLong = time;
-                  howLong = time;
-                  timeSpent = Duration.zero;
+                  TV_howLong = time;
+                  TV_howLong = time;
+                  TV_timeSpent = Duration.zero;
                   debugPrint(
                       'howLong_Cupertino = ${widget.howLong} ---------------------------------');
                   // customPrint('setted state');
@@ -67,13 +67,13 @@ class _CustomSelectTimeState extends State<CustomSelectTime> {
                 visible: widget.isMainTimerWorking | widget.isTimerPaused,
                 child: FlatButton.icon(
                     onPressed: () {
-                      isMainTimerWorking = false;
+                      TV_isMainTimerWorking = false;
                       if (widget.checkerTimer!.isActive) {
                         widget.checkerTimer!.cancel();
                       }
-                      isTimerCheckerRunning = false;
-                      timeSpent = Duration.zero;
-                      howLong = Duration.zero;
+                      TV_isTimerCheckerRunning = false;
+                      TV_timeSpent = Duration.zero;
+                      TV_howLong = Duration.zero;
 
                       widget.setState_func(() {});
                     },
@@ -87,9 +87,9 @@ class _CustomSelectTimeState extends State<CustomSelectTime> {
                     onPressed: () {
                       // customPrint('Start Button Working');
                       if (!widget.isMainTimerWorking) {
-                        isMainTimerWorking = true;
+                        TV_isMainTimerWorking = true;
                       } else if (widget.isTimerPaused) {
-                        isTimerPaused = false;
+                        TV_isTimerPaused = false;
                         // customPrint('made widget.isTimerPaused false');
                       }
                       widget.setState_func(() {});
@@ -106,8 +106,8 @@ class _CustomSelectTimeState extends State<CustomSelectTime> {
                       if (widget.checkerTimer!.isActive) {
                         widget.checkerTimer!.cancel();
                       }
-                      isTimerCheckerRunning = false;
-                      isTimerPaused = true;
+                      TV_isTimerCheckerRunning = false;
+                      TV_isTimerPaused = true;
                       widget.setState_func(() {});
                     },
                     icon: Icon(Icons.pause_rounded),

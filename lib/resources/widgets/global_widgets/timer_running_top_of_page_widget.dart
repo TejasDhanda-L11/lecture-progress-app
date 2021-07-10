@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart'
-    as temp_t_v;
+    ;
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 
 class TimerStatusOnTopOfPage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
   @override
   void initState() {
     super.initState();
-    temp_t_v.setState_TOP_TIMER_WIDGET_func = setState;
+    TV_setState_TOP_TIMER_WIDGET_func = setState;
     
   }
 
@@ -27,9 +27,9 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
   Widget build(BuildContext context) {
     customPrint('setstate of top timer widget');
     String boxOfFocus_Break_None = 'NONE';
-    if (temp_t_v.isStudyingAtPresent) {
+    if (TV_isStudyingAtPresent) {
       boxOfFocus_Break_None = 'Focus';
-    } else if (temp_t_v.isTakingBreakAtPresent) {
+    } else if (TV_isTakingBreakAtPresent) {
       boxOfFocus_Break_None = 'Rest';
     }
 
@@ -58,7 +58,7 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
               ),
               Text(
                 durationToStringTime(
-                    duration: temp_t_v.howLong - temp_t_v.timeSpent),
+                    duration: TV_howLong - TV_timeSpent),
                 style: TextStyle(
                     fontSize: fontSize,
                     fontWeight: FontWeight.w800,
@@ -79,7 +79,7 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
           Row(
             children: [
               Text(
-                '${TVT_studiedTime.inMinutes}/500',
+                '${TV_studiedTime.inMinutes}/500',
                 style: TextStyle(fontSize: fontSize,
                 fontWeight: FontWeight.w800
                 

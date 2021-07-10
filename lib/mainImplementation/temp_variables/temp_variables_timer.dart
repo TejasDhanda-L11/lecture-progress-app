@@ -4,40 +4,40 @@ import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQuer
 
 
 //////// Timer_Page Variables
-Duration howLong = Duration.zero;
-Duration timeSpent = Duration.zero;
+Duration TV_howLong = Duration.zero;
+Duration TV_timeSpent = Duration.zero;
 
 // ignore: non_constant_identifier_names
-late Function setState_c_func;
+late Function TV_setState_c_func;
 
-bool isMainTimerWorking = false;
-bool isTimerCheckerRunning = false;
-bool isTimerPaused = false;
+bool TV_isMainTimerWorking = false;
+bool TV_isTimerCheckerRunning = false;
+bool TV_isTimerPaused = false;
 
-bool isLastPageStillActive = false;
+bool TV_isLastPageStillActive = false;
 
-Timer? checkerTimer;
+Timer? TV_checkerTimer;
 
-bool showPomondoroPicker = true;
+bool TV_showPomondoroPicker = true;
 
 // Pomondoro Stuff
-bool isStudyingAtPresent = false;
-bool isTakingBreakAtPresent = false;
+bool TV_isStudyingAtPresent = false;
+bool TV_isTakingBreakAtPresent = false;
 
-bool studied_last_time = false;
-int currentPomondoroTimer_id = 1;
+bool TV_studied_last_time = false;
+int TV_currentPomondoroTimer_id = 1;
 
 
 
 // notification
-int notificationId = 1;
-int onGoingTimerNotificationID = 2;
+int TV_notificationId = 1;
+int TV_onGoingTimerNotificationID = 2;
 
 
 
 
 // top timer on pages
-late Function setState_TOP_TIMER_WIDGET_func;
+late Function TV_setState_TOP_TIMER_WIDGET_func;
 
-late Duration TVT_studiedTime;
+late Duration TV_studiedTime;
 

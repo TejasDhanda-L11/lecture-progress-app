@@ -18,7 +18,7 @@ Future showTimerCompleteNotification({required String message_to_show}) async {
       NotificationDetails(android: androidPlatformChannelSpecifics);
 
   await flutterLocalNotificationsPlugin.show(
-      notificationId, 'Timer', message_to_show, platformChannelSpecifics,
+      TV_notificationId, 'Timer', message_to_show, platformChannelSpecifics,
       payload: 'item x');
 }
 
@@ -41,7 +41,7 @@ Future showOngoingTimerNotification({required String message_to_show}) async {
       NotificationDetails(android: androidPlatformChannelSpecifics);
 
   await flutterLocalNotificationsPlugin.show(
-    onGoingTimerNotificationID,
+    TV_onGoingTimerNotificationID,
     'Timer Ongoing',
     message_to_show,
     platformChannelSpecifics,

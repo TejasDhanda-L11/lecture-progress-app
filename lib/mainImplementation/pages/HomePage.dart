@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         _finalSortedList =
             await db.rawQuery('select * from subjects order by id');
         _finalSortedList_initialised = true;
-        TVT_studiedTime = await getHoursStudiedFromDayLoggerDB(database: gapv_dbInstance!,date: dateTimeIn_dd_mm_yyyy_formatNow());
+        TV_studiedTime = await getHoursStudiedFromDayLoggerDB(database: gapv_dbInstance!,date: dateTimeIn_dd_mm_yyyy_formatNow());
         setState(() {});
       });
     } else {
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         _finalSortedList =
             await db.rawQuery('select * from subjects order by id');
         _finalSortedList_initialised = true;
-        TVT_studiedTime = await getHoursStudiedFromDayLoggerDB(database: gapv_dbInstance!,date: dateTimeIn_dd_mm_yyyy_formatNow());
+        TV_studiedTime = await getHoursStudiedFromDayLoggerDB(database: gapv_dbInstance!,date: dateTimeIn_dd_mm_yyyy_formatNow());
 
         setState(() {});
       }.call();
