@@ -4,7 +4,7 @@ import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigatio
 import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/addChapter_ChaptersPage_stfWidget.dart';
-import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/listView_widget.dart';
+import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/listViewChaptersPage_stfWidget.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
