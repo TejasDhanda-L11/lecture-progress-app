@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
@@ -35,6 +36,8 @@ class _ChaptersPageState extends State<ChaptersPage> {
     super.initState();
     initialDataFunc();
     gapv_isChaptersPageOn = true;
+    STATE_ChaptersPage = setState;
+
   }
 
   @override

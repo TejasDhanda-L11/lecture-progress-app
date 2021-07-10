@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/resources/database/HomePageDB.dart';
 import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
@@ -28,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
+    STATE_SubjectSelectionPage = setState;
 
     // customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_init');
     if (!gapv_isDBInitialised) {

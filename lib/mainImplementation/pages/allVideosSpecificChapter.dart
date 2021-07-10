@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
@@ -48,6 +49,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
 
   @override
   void initState() {
+    STATE_AllChapterSpecificVideos = setState;
     // customPrint('initialised_init the allVideosSpecificPage');
     super.initState();
     // print('dataRequiredEL = ${dataRequiredEL}');

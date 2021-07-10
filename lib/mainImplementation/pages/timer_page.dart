@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/functions/timerRelated/timerFunctions.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
@@ -22,6 +23,7 @@ class _TimerPageState extends State<TimerPage> {
   @override
   void initState() {
     super.initState();
+    STATE_timerClockRunningPage = setState;
     // debugPrint('hi');
     if (!TV_isLastPageStillActive) {
       TV_setState_c_func = setState;
