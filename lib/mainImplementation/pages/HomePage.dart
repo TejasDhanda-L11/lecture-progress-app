@@ -10,6 +10,7 @@ import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusab
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
+import 'package:lecture_progress/resources/widgets/subjectPage/addSubject_SubjectsPage_stfWidget.dart';
 import 'package:lecture_progress/resources/widgets/subjectPage/listView_SubjectPage_stfWidget.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -38,7 +39,6 @@ class _HomePageState extends State<HomePage> {
       }
     }.call().then((value) async {
       db = gapv_dbInstance!;
-
 
       TV_studiedTime = await getHoursStudiedFromDayLoggerDB(
           database: gapv_dbInstance!, date: dateTimeIn_dd_mm_yyyy_formatNow());
@@ -102,9 +102,38 @@ class _HomePageState extends State<HomePage> {
                       TimerStatusOnTopOfPage(),
                       Expanded(
                         child: SingleChildScrollView(
-                            child: ListViewSubjectPageWidget(
-                          database: db,
-                        )),
+                          child: FutureBuilder(
+                            future: db
+                                .rawQuery('select * from subjects order by id'),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<Map<String, dynamic>>>
+                                    snapshot) {
+                              if (snapshot.hasData) {
+                                List<Map<String, dynamic>> dataFromDB_subjects =
+                                    snapshot.data!;
+                                return Column(
+                                  children: dataFromDB_subjects
+                                      .map<Widget>((e) => ListViewSubjectPageWidget(
+                                        database: db,
+                                            dataFromDB_singlesubject: e,
+                                          ))
+                                      .followedBy([
+                                    AddSubjectSubjectsPage_Widget(
+                                      database: db,
+                                    )
+                                    // add subject sign stuff
+                                  ]).toList(),
+                                );
+                              } else {
+                                return gapv_loadingScreen;
+                              }
+                            },
+                          ),
+
+                          //     child: ListViewSubjectPageWidget(
+                          //   database: db,
+                          // )
+                        ),
                       ),
                     ],
                   ),
