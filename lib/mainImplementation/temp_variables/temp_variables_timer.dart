@@ -7,7 +7,8 @@ import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQuer
 Duration TV_howLong = Duration.zero;
 Duration TV_timeSpent = Duration.zero;
 
-// ignore: non_constant_identifier_names
+late Timer TV_timerInstance;
+
 late Function TV_setState_c_func;
 
 bool TV_isMainTimerWorking = false;
