@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
@@ -64,6 +65,7 @@ Widget cutomDiaglog({required BuildContext context}) {
           if (!TV_isMainTimerWorking) {
             TV_isMainTimerWorking = true;
           }
+          NAVIGATION_openTimerPageOnTheTopOfTheStack();
           STATE_timerClockRunningPage!(() {});
 
           Navigator.pop(context);
