@@ -105,60 +105,22 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                         foregroundColor: Colors.black38,
                       ),
                       body: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TimerStatusOnTopOfPage(),
-                            Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: dataRequired_everyLectureVid.map((e) {
-                                    // Duration totalLength_Duration =
-                                    //     Duration(seconds: e['duration']);
-                                    // // customPrint(totalLength_Duration);
-                                    // String splitBy = e['lengthCompleted']
-                                    //         .toString()
-                                    //         .contains('-')
-                                    //     ? '-'
-                                    //     : ':';
-                                    // Duration lengthCompleted_Duration = Duration(
-                                    //     hours: int.parse(e['lengthCompleted']
-                                    //         .toString()
-                                    //         .split(e['lengthCompleted']
-                                    //                 .toString()
-                                    //                 .contains('-')
-                                    //             ? '-'
-                                    //             : ':')[0]),
-                                    //     minutes: int.parse(e['lengthCompleted']
-                                    //         .toString()
-                                    //         .split(
-                                    //             e['lengthCompleted'].toString().contains('-')
-                                    //                 ? '-'
-                                    //                 : ':')[1]),
-                                    //     seconds: int.parse(e['lengthCompleted'].toString().split(e['lengthCompleted'].toString().contains('-') ? '-' : ':')[2]));
-                                    // // customPrint(lengthCompleted_Duration);
-
-                                    // Duration lengthLeftToCover = Duration(
-                                    //     seconds:
-                                    //         (totalLength_Duration.inSeconds -
-                                    //             lengthCompleted_Duration
-                                    //                 .inSeconds));
-                                    // // customPrint(lengthLeftToCover);
-                                    Duration lengthLeftToCover = lengthLeftToCoverForLectureVideo(dataOfVideo: e);
-                                    String isLectureCompleted =
-                                        e["lectureCompleted"];
-                                    return AllSpecificChapterVideos_singleList_stfWidget(
-                                      e: e,
-                                      isLectureCompleted: isLectureCompleted,
-                                      lengthLeftToCover: lengthLeftToCover,
-                                      dbInstance: widget.dbInstance,
-                                    );
-                                  }).toList(),
-                                ),
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TimerStatusOnTopOfPage(),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: dataRequired_everyLectureVid.map((e) {
+                                  return AllSpecificChapterVideos_singleList_stfWidget(
+                                    videoData_Map: e,
+                                  );
+                                }).toList(),
                               ),
                             ),
-                          ],
-                        ),
-                      
+                          ),
+                        ],
+                      ),
                     );
             } else {
               return gapv_loadingScreen;
