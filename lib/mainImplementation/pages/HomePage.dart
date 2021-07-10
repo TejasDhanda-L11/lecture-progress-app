@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/resources/database/HomePageDB.dart';
+import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
@@ -39,7 +40,9 @@ class _HomePageState extends State<HomePage> {
         _finalSortedList =
             await db.rawQuery('select * from subjects order by id');
         _finalSortedList_initialised = true;
-        TV_studiedTime = await getHoursStudiedFromDayLoggerDB(database: gapv_dbInstance!,date: dateTimeIn_dd_mm_yyyy_formatNow());
+        TV_studiedTime = await getHoursStudiedFromDayLoggerDB(
+            database: gapv_dbInstance!,
+            date: dateTimeIn_dd_mm_yyyy_formatNow());
         setState(() {});
       });
     } else {
@@ -48,7 +51,9 @@ class _HomePageState extends State<HomePage> {
         _finalSortedList =
             await db.rawQuery('select * from subjects order by id');
         _finalSortedList_initialised = true;
-        TV_studiedTime = await getHoursStudiedFromDayLoggerDB(database: gapv_dbInstance!,date: dateTimeIn_dd_mm_yyyy_formatNow());
+        TV_studiedTime = await getHoursStudiedFromDayLoggerDB(
+            database: gapv_dbInstance!,
+            date: dateTimeIn_dd_mm_yyyy_formatNow());
 
         setState(() {});
       }.call();
@@ -77,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               // if (checkerTimer == null){
               if (true) {
                 gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
-                Navigator.pushNamed(context, RouteManager.timerPage);
+                NAVIIGATION_openTimerPageOnTheTopOfTheStack();
               }
             }
           },
@@ -87,8 +92,8 @@ class _HomePageState extends State<HomePage> {
               if (gapv_isDBInitialised && _finalSortedList_initialised) {
                 return Scaffold(
                   // floatingActionButton: FloatingActionButton(onPressed: () {
-                    // customPrint(DateTime.now().toString());
-                    // file_picker_simple();
+                  // customPrint(DateTime.now().toString());
+                  // file_picker_simple();
                   //   // custom_showDialog(context: context);
                   //   // showCupertinoDialog(
                   //   //     context: context,
@@ -104,8 +109,7 @@ class _HomePageState extends State<HomePage> {
                   // }),
                   body: Column(
                     children: [
-                                            TimerStatusOnTopOfPage(),
-
+                      TimerStatusOnTopOfPage(),
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
@@ -113,18 +117,19 @@ class _HomePageState extends State<HomePage> {
                                 .map<Widget>((e) => GestureDetector(
                                       onTap: () {
                                         gapv_subject_presently_id = e['id'];
-                                        Navigator.popAndPushNamed(
-                                          context,
-                                          RouteManager.chaptersPage,
-                                        );
+                                        NAVIGATION_popAndPushToChaptersPage();
                                       },
                                       child: Container(
                                         width: double.infinity,
                                         height: 150,
                                         margin: EdgeInsets.only(
-                                            left: 20, right: 20, top: 20, bottom: 20),
+                                            left: 20,
+                                            right: 20,
+                                            top: 20,
+                                            bottom: 20),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(23),
+                                          borderRadius:
+                                              BorderRadius.circular(23),
                                           color: Colors.grey[50],
                                         ),
                                         child: Align(
@@ -161,36 +166,40 @@ class _HomePageState extends State<HomePage> {
                                         onPressed: () {
                                           showModalBottomSheet<void>(
                                               shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.vertical(
-                                                      top: Radius.circular(10))),
+                                                  borderRadius:
+                                                      BorderRadius.vertical(
+                                                          top: Radius.circular(
+                                                              10))),
                                               isScrollControlled: true,
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return Container(
-                                                  padding: MediaQuery.of(context)
-                                                      .viewInsets,
+                                                  padding:
+                                                      MediaQuery.of(context)
+                                                          .viewInsets,
                                                   child: Column(
-                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
                                                     children: [
                                                       Container(
                                                         height: 100,
                                                         child: TextField(
-                                                          textAlign: TextAlign.center,
+                                                          textAlign:
+                                                              TextAlign.center,
                                                           style: TextStyle(
                                                               fontSize: 20,
                                                               fontWeight:
-                                                                  FontWeight.w900),
+                                                                  FontWeight
+                                                                      .w900),
                                                           autofocus: true,
-                                                          onSubmitted:
-                                                              (String text) async {
+                                                          onSubmitted: (String
+                                                              text) async {
                                                             await db
                                                                 .rawQuery(
                                                                     'INSERT INTO subjects(subject_name) VALUES ("$text")')
                                                                 .then((value) =>
                                                                     Navigator.pop(
-                                                                        context,
-                                                                        RouteManager
-                                                                            .homePage));
+                                                                        context,));
                                                             _finalSortedList =
                                                                 await db.rawQuery(
                                                                     'select * from subjects order by id');

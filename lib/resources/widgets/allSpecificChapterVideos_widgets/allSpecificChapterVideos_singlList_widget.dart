@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
@@ -51,10 +52,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                       widget.e['lengthCompleted'].toString().split(widget.e['lengthCompleted'].toString().contains('-')? '-':':')[1]),
                   seconds: int.parse(
                       widget.e['lengthCompleted'].toString().split(widget.e['lengthCompleted'].toString().contains('-')? '-':':')[2]));
-              Navigator.popAndPushNamed(
-                context,
-                RouteManager.singleVideoCustomPlayer,
-              );
+              NAVIGATION_popAndPushToYoutubeVideoPlaying();
             },
             child: Container(
               width: double.infinity,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
@@ -113,8 +114,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
               SET "lengthCompleted" = '$positionOfVideo_String'
                 WHERE id = ${widget.dataReq_youtubePlayer["id"]}
           ''');
-        Navigator.popAndPushNamed(
-            context, RouteManager.allVideosSpecificChapterPage);
+        NAVIGATION_onBackButtonYoutubeVideoPlaying();
         return Future.value(true);
       },
       child: GestureDetector(
@@ -126,7 +126,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
             if (true) {
               gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
 
-              Navigator.pushNamed(context, RouteManager.timerPage);
+              NAVIIGATION_openTimerPageOnTheTopOfTheStack();
             }
           }
         },
@@ -148,7 +148,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
                   if (chewieController.isFullScreen) {
                     // debugPrint(
                     //     'full screnn removeddddddddddddddddddddddddddddddddd');
-                    Navigator.pop(context);
+                    NAVIGATION_popTopContext();
                   }
                 });
                 return CustomPortraitOrientation(
@@ -248,8 +248,7 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
         Done_Not_DoneButton_YoutubePlayer(
           idOfVideo: widget.idOfVideo,
         ),
-                              Align(alignment: Alignment(0, 1), child: TimerStatusOnTopOfPage()),
-
+        Align(alignment: Alignment(0, 1), child: TimerStatusOnTopOfPage()),
       ],
     );
   }

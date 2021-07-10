@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/intentRelated/YotubePlaylistIntentRelated.dart';
+import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
@@ -90,8 +91,8 @@ class _MyAppState extends State<MyApp> {
         ReceiveSharingIntent.getTextStream().listen((String value) {
       customPrint(value);
       YPIR_youtubePlaylistLink = value;
-      Navigator.pushNamed(gapv_presentlyTopContext!,
-          RouteManager.chooseSubjectForYoutubePlaylist);
+      NAVIIGATION_openSubjectSelectionForYoutubePlaylistIntentOnTopOfStack();
+
       // setState(() {
       //   _sharedText = value;
       // });
@@ -112,12 +113,10 @@ class _MyAppState extends State<MyApp> {
     // });
     // For sharing or opening urls/text coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialText().then((value) {
-      if (value != null)
-      {
-        customPrint(value );
-      YPIR_youtubePlaylistLink = value ;
-      Navigator.pushNamed(gapv_presentlyTopContext!,
-          RouteManager.chooseSubjectForYoutubePlaylist);
+      if (value != null) {
+        customPrint(value);
+        YPIR_youtubePlaylistLink = value;
+        NAVIIGATION_openSubjectSelectionForYoutubePlaylistIntentOnTopOfStack();
       } else {
         customPrint('got nothing as intent');
       }

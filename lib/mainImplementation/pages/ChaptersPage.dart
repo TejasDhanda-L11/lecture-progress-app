@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
@@ -43,7 +43,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
     return WillPopScope(
       onWillPop: () {
         gapv_isChaptersPageOn = false;
-        Navigator.popAndPushNamed(context, RouteManager.homePage);
+        
         return Future.value(true);
       },
       child: SafeArea(
@@ -56,7 +56,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
               if (true) {
                 gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
 
-                Navigator.pushNamed(context, RouteManager.timerPage);
+                NAVIIGATION_openTimerPageOnTheTopOfTheStack();
               }
             }
           },
@@ -133,8 +133,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                                               (text) async {
                                                             // print(text);
 
-                                                            Navigator.pop(
-                                                                context);
+                                                            NAVIGATION_popTopContext();
                                                             await AWSApiToDB(
                                                                     playlistUrl:
                                                                         text)
@@ -152,7 +151,6 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                                                         'select * from chapters where subject_id = ${widget.subject_id}');
 
                                                             setState(() {});
-                                                            
                                                           },
                                                         ),
                                                       )

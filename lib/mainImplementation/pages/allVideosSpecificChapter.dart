@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/allVideoSpecificChapterVariables.dart';
@@ -60,11 +61,10 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
 
   @override
   Widget build(BuildContext context) {
-    
     gapv_presentlyTopContext = context;
     return WillPopScope(
       onWillPop: () {
-        Navigator.popAndPushNamed(context, RouteManager.chaptersPage);
+        NAVIGATION_onBackButtonChaptersPage();
         return Future.value(true);
       },
       child: SafeArea(
@@ -78,7 +78,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
               if (true) {
                 gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
 
-                Navigator.pushNamed(context, RouteManager.timerPage);
+                NAVIIGATION_openTimerPageOnTheTopOfTheStack();
               }
             }
           },
@@ -127,21 +127,26 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                                     Duration totalLength_Duration =
                                         Duration(seconds: e['duration']);
                                     // customPrint(totalLength_Duration);
-                                    String splitBy = e['lengthCompleted'].toString().contains('-')? '-':':';
-                                    Duration lengthCompleted_Duration =
-                                        Duration(
-                                            hours: int.parse(
-                                                e['lengthCompleted']
+                                    String splitBy = e['lengthCompleted']
+                                            .toString()
+                                            .contains('-')
+                                        ? '-'
+                                        : ':';
+                                    Duration lengthCompleted_Duration = Duration(
+                                        hours: int.parse(e['lengthCompleted']
+                                            .toString()
+                                            .split(e['lengthCompleted']
                                                     .toString()
-                                                    .split(e['lengthCompleted'].toString().contains('-')? '-':':')[0]),
-                                            minutes: int.parse(
-                                                e['lengthCompleted']
-                                                    .toString()
-                                                    .split(e['lengthCompleted'].toString().contains('-')? '-':':')[1]),
-                                            seconds: int.parse(
-                                                e['lengthCompleted']
-                                                    .toString()
-                                                    .split(e['lengthCompleted'].toString().contains('-')? '-':':')[2]));
+                                                    .contains('-')
+                                                ? '-'
+                                                : ':')[0]),
+                                        minutes: int.parse(e['lengthCompleted']
+                                            .toString()
+                                            .split(
+                                                e['lengthCompleted'].toString().contains('-')
+                                                    ? '-'
+                                                    : ':')[1]),
+                                        seconds: int.parse(e['lengthCompleted'].toString().split(e['lengthCompleted'].toString().contains('-') ? '-' : ':')[2]));
                                     // customPrint(lengthCompleted_Duration);
 
                                     Duration lengthLeftToCover = Duration(
