@@ -1,6 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/onPressed/SubjectsPage/AddSubject_onPressed.dart';
 import 'package:sqflite/sqflite.dart';
 

@@ -1,9 +1,6 @@
-import 'dart:async';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/functions/timerRelated/timerFunctions.dart';
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
-import 'package:lecture_progress/resources/notification_functionality/timer_notifications.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/resources/widgets/timerPage_widgets/choose_pomondoro_ways_class.dart';

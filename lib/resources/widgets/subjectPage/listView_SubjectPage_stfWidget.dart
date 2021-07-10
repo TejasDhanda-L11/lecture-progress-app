@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';

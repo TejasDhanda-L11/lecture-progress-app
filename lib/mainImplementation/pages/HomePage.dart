@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,23 +34,17 @@ class _HomePageState extends State<HomePage> {
     // customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_init');
     () async {
       if (!gapv_isDBInitialised) {
-        // customPrint('init 0.1');
         await databaseInitializer();
-        // customPrint('init 1');
       }
     }.call().then((value) async {
-      // customPrint('init 2');
       db = gapv_dbInstance!;
 
-      // customPrint('init 3');
 
       TV_studiedTime = await getHoursStudiedFromDayLoggerDB(
           database: gapv_dbInstance!, date: dateTimeIn_dd_mm_yyyy_formatNow());
       topTimerWidgetInitialised_withStudiedTime = true;
-      // customPrint('init 4');
 
       setState(() {});
-      // customPrint('init 5');
     });
 
     super.initState();
