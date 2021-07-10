@@ -3,11 +3,11 @@ import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 
 // Timer Page Navigation
-void NAVIIGATION_openTimerPageOnTheTopOfTheStack() {
+void NAVIGATION_openTimerPageOnTheTopOfTheStack() {
   Navigator.pushNamed(gapv_presentlyTopContext!, RouteManager.timerPage);
 }
 // Intent Recieving Pages Navigation
-void NAVIIGATION_openSubjectSelectionForYoutubePlaylistIntentOnTopOfStack() {
+void NAVIGATION_openSubjectSelectionForYoutubePlaylistIntentOnTopOfStack() {
   Navigator.pushNamed(
       gapv_presentlyTopContext!, RouteManager.chooseSubjectForYoutubePlaylist);
 }

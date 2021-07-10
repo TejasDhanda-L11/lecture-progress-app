@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
-import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
+import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/functions/timerRelated/timerFunctions.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/resources/notification_functionality/timer_notifications.dart';

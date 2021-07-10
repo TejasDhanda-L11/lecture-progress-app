@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
-import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
+import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
+import 'package:lecture_progress/resources/functions/allSpecificChapterVideos_funcs.dart';
 import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/allVideoSpecificChapterVariables.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
@@ -24,12 +25,12 @@ class AllVideoSpecificChapter extends StatefulWidget {
 }
 
 class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
-  late List<Map<String, dynamic>> dataRequiredEL;
+  late List<Map<String, dynamic>> dataRequired_everyLectureVid;
   late List<Map<String, dynamic>> dataRequired_chapter;
   bool gotDataFromDB = false;
   Future<void> gettingImportantDataFromDB() async {
     // debugPrint('getting started --------------------------------');
-    dataRequiredEL = await widget.dbInstance.rawQuery('''
+    dataRequired_everyLectureVid = await widget.dbInstance.rawQuery('''
                                 select * from specific_videos
                                 where subject_id = ${widget.subject_id}
                                 and
@@ -48,15 +49,8 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
   @override
   void initState() {
     STATE_AllChapterSpecificVideos = setState;
-    // customPrint('initialised_init the allVideosSpecificPage');
     super.initState();
-    // print('dataRequiredEL = ${dataRequiredEL}');
-    // isLectureCompleted = dataRequiredEL[0]["lectureCompleted"] as String;
     gettingImportantDataFromDB();
-  }
-
-  void onRefreshFunc() {
-    setState(() {});
   }
 
   @override
@@ -64,7 +58,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
     gapv_presentlyTopContext = context;
     return WillPopScope(
       onWillPop: () {
-        NAVIGATION_onBackButtonChaptersPage();
+        NAVIGATION_onBackButtonAllChapterSpecificVideos();
         return Future.value(true);
       },
       child: SafeArea(
@@ -78,7 +72,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
               if (true) {
                 gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
 
-                NAVIIGATION_openTimerPageOnTheTopOfTheStack();
+                NAVIGATION_openTimerPageOnTheTopOfTheStack();
               }
             }
           },
@@ -117,39 +111,39 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                             Expanded(
                               child: SingleChildScrollView(
                                 child: Column(
-                                  children: dataRequiredEL.map((e) {
-                                    Duration totalLength_Duration =
-                                        Duration(seconds: e['duration']);
-                                    // customPrint(totalLength_Duration);
-                                    String splitBy = e['lengthCompleted']
-                                            .toString()
-                                            .contains('-')
-                                        ? '-'
-                                        : ':';
-                                    Duration lengthCompleted_Duration = Duration(
-                                        hours: int.parse(e['lengthCompleted']
-                                            .toString()
-                                            .split(e['lengthCompleted']
-                                                    .toString()
-                                                    .contains('-')
-                                                ? '-'
-                                                : ':')[0]),
-                                        minutes: int.parse(e['lengthCompleted']
-                                            .toString()
-                                            .split(
-                                                e['lengthCompleted'].toString().contains('-')
-                                                    ? '-'
-                                                    : ':')[1]),
-                                        seconds: int.parse(e['lengthCompleted'].toString().split(e['lengthCompleted'].toString().contains('-') ? '-' : ':')[2]));
-                                    // customPrint(lengthCompleted_Duration);
+                                  children: dataRequired_everyLectureVid.map((e) {
+                                    // Duration totalLength_Duration =
+                                    //     Duration(seconds: e['duration']);
+                                    // // customPrint(totalLength_Duration);
+                                    // String splitBy = e['lengthCompleted']
+                                    //         .toString()
+                                    //         .contains('-')
+                                    //     ? '-'
+                                    //     : ':';
+                                    // Duration lengthCompleted_Duration = Duration(
+                                    //     hours: int.parse(e['lengthCompleted']
+                                    //         .toString()
+                                    //         .split(e['lengthCompleted']
+                                    //                 .toString()
+                                    //                 .contains('-')
+                                    //             ? '-'
+                                    //             : ':')[0]),
+                                    //     minutes: int.parse(e['lengthCompleted']
+                                    //         .toString()
+                                    //         .split(
+                                    //             e['lengthCompleted'].toString().contains('-')
+                                    //                 ? '-'
+                                    //                 : ':')[1]),
+                                    //     seconds: int.parse(e['lengthCompleted'].toString().split(e['lengthCompleted'].toString().contains('-') ? '-' : ':')[2]));
+                                    // // customPrint(lengthCompleted_Duration);
 
-                                    Duration lengthLeftToCover = Duration(
-                                        seconds:
-                                            (totalLength_Duration.inSeconds -
-                                                lengthCompleted_Duration
-                                                    .inSeconds));
-                                    // customPrint(lengthLeftToCover);
-
+                                    // Duration lengthLeftToCover = Duration(
+                                    //     seconds:
+                                    //         (totalLength_Duration.inSeconds -
+                                    //             lengthCompleted_Duration
+                                    //                 .inSeconds));
+                                    // // customPrint(lengthLeftToCover);
+                                    Duration lengthLeftToCover = lengthLeftToCoverForLectureVideo(dataOfVideo: e);
                                     String isLectureCompleted =
                                         e["lectureCompleted"];
                                     return AllSpecificChapterVideos_singleList_stfWidget(

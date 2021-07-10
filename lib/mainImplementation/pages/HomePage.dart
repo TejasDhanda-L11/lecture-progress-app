@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/resources/database/HomePageDB.dart';
-import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
+import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
               // if (checkerTimer == null){
               if (true) {
                 gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
-                NAVIIGATION_openTimerPageOnTheTopOfTheStack();
+                NAVIGATION_openTimerPageOnTheTopOfTheStack();
               }
             }
           },

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/intentRelated/YotubePlaylistIntentRelated.dart';
-import 'package:lecture_progress/resources/functions/NavigatorFunctions/navigationFunction.dart';
+import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
         ReceiveSharingIntent.getTextStream().listen((String value) {
       customPrint(value);
       YPIR_youtubePlaylistLink = value;
-      NAVIIGATION_openSubjectSelectionForYoutubePlaylistIntentOnTopOfStack();
+      NAVIGATION_openSubjectSelectionForYoutubePlaylistIntentOnTopOfStack();
 
       // setState(() {
       //   _sharedText = value;
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
       if (value != null) {
         customPrint(value);
         YPIR_youtubePlaylistLink = value;
-        NAVIIGATION_openSubjectSelectionForYoutubePlaylistIntentOnTopOfStack();
+        NAVIGATION_openSubjectSelectionForYoutubePlaylistIntentOnTopOfStack();
       } else {
         customPrint('got nothing as intent');
       }
