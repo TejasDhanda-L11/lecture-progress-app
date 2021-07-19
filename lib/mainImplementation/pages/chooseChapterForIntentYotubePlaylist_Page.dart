@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lecture_progress/resources/database/HomePageDB.dart';
+import 'package:custom_database_lecture_progress/HomePageDB.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
-import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
+import 'package:custom_AWSApi_lecture_progress_app/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/intentRelated/YotubePlaylistIntentRelated.dart';

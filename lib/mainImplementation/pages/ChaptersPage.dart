@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
-import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
+// import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
+import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/addChapter_ChaptersPage_stfWidget.dart';
 import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/listViewChaptersPage_stfWidget.dart';

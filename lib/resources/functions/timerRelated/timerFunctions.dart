@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
-import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
+import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/resources/functions/global_functions/timerCompleteDialog_func.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/resources/notification_functionality/timer_notifications.dart';

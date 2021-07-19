@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
-import 'package:lecture_progress/resources/database/DatabaseQueries/DatabaseQueries.dart';
-import 'package:lecture_progress/resources/database/HomePageDB.dart';
+import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
+import 'package:custom_database_lecture_progress/HomePageDB.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
-import 'package:lecture_progress/resources/database/functions/databaseInitialisation.dart';
+import 'package:custom_database_lecture_progress/functions/databaseInitialisation.dart';
 import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
@@ -35,7 +35,10 @@ class _HomePageState extends State<HomePage> {
     // customPrint(gapv_isDBInitialised,object2: 'gapv_isDBInitialised_in_init');
     () async {
       if (!gapv_isDBInitialised) {
-        await databaseInitializer();
+        List _tempList = await databaseInitializer();
+        gapv_dbInstance = _tempList[0];
+        gapv_isDBInitialised = _tempList[1];
+        _tempList = [];
       }
     }.call().then((value) async {
       db = gapv_dbInstance!;

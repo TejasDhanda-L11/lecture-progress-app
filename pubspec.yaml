@@ -23,6 +23,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
+  custom_AWSApi_lecture_progress_app:
+    path: ./packages/AWSApi
+
+  custom_database_lecture_progress:
+    path: ./packages/Database
+
   
 
 

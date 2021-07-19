@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:sqflite/sqflite.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:sqflite/sqflite.dart';
 
 class AWSApiToDB {
   final String playlistUrl;

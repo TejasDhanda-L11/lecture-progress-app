@@ -11,6 +11,7 @@ import 'package:lecture_progress/resources/widgets/youtubePlayerWidgets/done_not
 import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';
 
+
 class CustomYoutubePlayer extends StatefulWidget {
   // final Duration positionToSeekTo;
   final Database dbInstance;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
-import 'package:lecture_progress/resources/http_stuff/awsApiToDB.dart';
+import 'package:custom_AWSApi_lecture_progress_app/awsApiToDB.dart';
 import 'package:sqflite/sqflite.dart';
 
 Future<void> onPressedAddChapter_ChaptersPage(

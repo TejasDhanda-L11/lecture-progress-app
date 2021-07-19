@@ -1,7 +1,6 @@
 // update timeStudied to DB
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+import '../highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:sqflite/sqflite.dart';
-
 // Future<void> updateTimeStudiedDayLogger(
 //     {required Database dbInstance,
 //     required String newTimeValue,
