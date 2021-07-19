@@ -7,16 +7,6 @@ import 'package:timezone/timezone.dart' as tz;
 
 
 
-
-
-
-
-
-
-
-
-
-
 Future show_notification_now() async {
   const AndroidNotificationDetails androidPlatformChannelSpecifics =
       AndroidNotificationDetails(

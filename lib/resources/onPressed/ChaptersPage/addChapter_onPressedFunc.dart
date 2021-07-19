@@ -3,7 +3,7 @@ import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.d
 import 'package:custom_AWSApi_lecture_progress_app/awsApiToDB.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future<void> onPressedAddChapter_ChaptersPage(
+void onPressedAddChapter_ChaptersPage(
     {required BuildContext context,
     required Database database,
     required subject_id}) async {

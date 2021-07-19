@@ -6,7 +6,7 @@ import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.d
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
-import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
+import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
 import 'package:lecture_progress/resources/functions/YoutubePlayer/temp_functions.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';

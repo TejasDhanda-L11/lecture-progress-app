@@ -1,13 +1,13 @@
+import 'package:custom_add_button_dotted_border/AddButton.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 // import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
 import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
-import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/addChapter_ChaptersPage_stfWidget.dart';
+import 'package:lecture_progress/resources/onPressed/ChaptersPage/addChapter_onPressedFunc.dart';
 import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/listViewChaptersPage_stfWidget.dart';
-import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
+import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ChaptersPage extends StatefulWidget {
@@ -80,9 +80,11 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                     ))
                                 .followedBy([
                               // add subject sign stuff
-                              AddChapter_ChaptersPage_stfWidget(
-                                database: widget.db,
-                                subject_id: widget.subject_id,
+                              AddButton(
+                                icon: Icons.add_circle_outline_outlined,
+                                text: 'Add Chapter',
+                                onPressed: onPressedAddChapter_ChaptersPage,
+                                extraDataForFunction: {#subject_id:widget.subject_id, #database: widget.db},
                               )
                             ]).toList(),
                           ),

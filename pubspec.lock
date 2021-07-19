@@ -64,6 +64,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  custom_add_button_dotted_border:
+    dependency: "direct main"
+    description:
+      path: "packages/Widgets/ADDButtonDottedBorder"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   custom_database_lecture_progress:
     dependency: "direct main"
     description:

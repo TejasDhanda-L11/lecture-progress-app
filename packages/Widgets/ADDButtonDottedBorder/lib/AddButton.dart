@@ -1,22 +1,25 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/resources/onPressed/ChaptersPage/addChapter_onPressedFunc.dart';
-import 'package:sqflite/sqflite.dart';
 
-class AddChapter_ChaptersPage_stfWidget extends StatefulWidget {
-  Database database;
-  int subject_id;
-  AddChapter_ChaptersPage_stfWidget(
-      {required this.database, required this.subject_id});
+class AddButton extends StatefulWidget {
+  Function onPressed;
+
+  Map<Symbol, dynamic>? extraDataForFunction;
+  String text;
+  IconData icon;
+  AddButton(
+      {this.extraDataForFunction,
+      required this.onPressed,
+      required this.text,
+      required this.icon});
   @override
-  _AddChapter_ChaptersPage_stfWidgetState createState() =>
-      _AddChapter_ChaptersPage_stfWidgetState();
+  _AddButtonState createState() => _AddButtonState();
 }
 
-class _AddChapter_ChaptersPage_stfWidgetState
-    extends State<AddChapter_ChaptersPage_stfWidget> {
+class _AddButtonState extends State<AddButton> {
   @override
   Widget build(BuildContext context) {
+    widget.extraDataForFunction![#context] = context;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: DottedBorder(
@@ -32,20 +35,19 @@ class _AddChapter_ChaptersPage_stfWidgetState
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               color: Colors.grey[50],
               height: 150,
-              onPressed: () async {
-                await onPressedAddChapter_ChaptersPage(
-                    context: context,
-                    database: widget.database,
-                    subject_id: widget.subject_id);
+              onPressed: (){
+                Function.apply(
+                  widget.onPressed, [], widget.extraDataForFunction);
               },
+              
               child: Column(
                 children: [
                   Icon(
-                    Icons.add_circle_outline_outlined,
+                    widget.icon,
                     size: 40,
                   ),
                   Text(
-                    'Add Chapter',
+                    widget.text,
                     style: TextStyle(fontSize: 20),
                   )
                 ],

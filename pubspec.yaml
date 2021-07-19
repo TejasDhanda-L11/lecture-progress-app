@@ -35,6 +35,9 @@ dependencies:
 
   custom_top_timer_widget:
     path: ./packages/Widgets/TopTimer
+  
+  custom_add_button_dotted_border:
+    path: ./packages/Widgets/ADDButtonDottedBorder
 
   custom_done_notdone_youtube_player_button:
     path: ./packages/Widgets/Done_NotDone_YoutubePlayer

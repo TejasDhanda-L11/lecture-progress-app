@@ -9,8 +9,8 @@ import 'package:custom_AWSApi_lecture_progress_app/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/allVideoSpecificChapterVariables.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/resources/functions/allSpecificChapterVideos_funcs.dart';
-import 'package:lecture_progress/resources/packageConnectionFunctions/allSpecificChapterVideos_singleList_widget/CHANGER__gapv_dataReq_youtubePlayer.dart';
-import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
+import 'package:lecture_progress/resources/packageConnection/allSpecificChapterVideos_singleList_widget/CHANGER__gapv_dataReq_youtubePlayer.dart';
+import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
 

@@ -1,3 +1,4 @@
+import 'package:custom_add_button_dotted_border/AddButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,8 @@ import 'package:custom_database_lecture_progress/functions/databaseInitialisatio
 import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
-import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
+import 'package:lecture_progress/resources/onPressed/SubjectsPage/AddSubject_onPressed.dart';
+import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
 import 'package:lecture_progress/resources/widgets/subjectPage/addSubject_SubjectsPage_stfWidget.dart';
 import 'package:lecture_progress/resources/widgets/subjectPage/listView_SubjectPage_stfWidget.dart';
 import 'package:sqflite/sqflite.dart';
@@ -117,15 +119,17 @@ class _HomePageState extends State<HomePage> {
                                     snapshot.data!;
                                 return Column(
                                   children: dataFromDB_subjects
-                                      .map<Widget>((e) => ListViewSubjectPageWidget(
-                                        database: db,
-                                            dataFromDB_singlesubject: e,
-                                          ))
+                                      .map<Widget>(
+                                          (e) => ListViewSubjectPageWidget(
+                                                database: db,
+                                                dataFromDB_singlesubject: e,
+                                              ))
                                       .followedBy([
-                                    AddSubjectSubjectsPage_Widget(
-                                      database: db,
-                                    )
-                                    // add subject sign stuff
+                                    AddButton(
+                                        onPressed: onPressedADDSubject,
+                                        text: 'Add Subject',
+                                        icon: Icons.add_circle_outline_outlined,extraDataForFunction: {#database: db},)
+                                    
                                   ]).toList(),
                                 );
                               } else {
