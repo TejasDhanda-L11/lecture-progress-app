@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:sqflite/sqflite.dart';
 
-void onPressedADDSubject(
-    {required BuildContext context, required Database database}) {
+void ModalBottomSheetForADD(
+    {required BuildContext context, required Function onSubmitted, required Map<Symbol, dynamic> onSubmittedFunction_parameters}) {
   showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
@@ -25,10 +24,13 @@ void onPressedADDSubject(
                     Navigator.pop(
                       context,
                     );
-                    await database.rawQuery(
-                        'INSERT INTO subjects(subject_name) VALUES ("$text")');
+                    onSubmittedFunction_parameters[#text] = text;
+                    
+                    Function.apply(onSubmitted, [], onSubmittedFunction_parameters);
+                    // await database.rawQuery(
+                    //     'INSERT INTO subjects(subject_name) VALUES ("$text")');
 
-                    STATE_SubjectSelectionPage!(() {});
+                    // STATE_SubjectSelectionPage!(() {});
                   },
                 ),
               )

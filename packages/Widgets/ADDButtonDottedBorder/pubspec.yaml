@@ -9,10 +9,12 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  sqflite: ^2.0.0+3
   flutter:
     sdk: flutter
   
   dotted_border: ^2.0.0
+  
 
 
 

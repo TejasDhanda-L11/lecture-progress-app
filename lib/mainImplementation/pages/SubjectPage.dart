@@ -1,4 +1,5 @@
 import 'package:custom_add_button_dotted_border/AddButton.dart';
+import 'package:custom_add_button_dotted_border/ModalBottomSheetonPressed.dart';
 import 'package:custom_list_view_all_subjects/SubjectPage_ListView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,8 @@ import 'package:custom_database_lecture_progress/functions/databaseInitialisatio
 import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
-import 'package:lecture_progress/resources/onPressed/SubjectsPage/AddSubject_onPressed.dart';
 import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
+import 'package:lecture_progress/resources/packageConnection/subjectPage/CONNECTION_AddSubject.dart';
 import 'package:lecture_progress/resources/packageConnection/subjectPage/CONNECTION_subjectPage_listView.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -119,20 +120,30 @@ class _SubjectPageState extends State<SubjectPage> {
                                     snapshot.data!;
                                 return Column(
                                   children: dataFromDB_subjects
-                                      .map<Widget>(
-                                          (e) => ListViewSubjectPageWidget(
-                                                database: db,
-                                                dataFromDB_singlesubject: e,
-                                                NAVIGATION_popAndPushToChaptersPage: NAVIGATION_popAndPushToChaptersPage,
-                                                CHANGER_gapv_subject_presently_id: CHANGER_gapv_subject_presently_id,
-                                                loading_screen: gapv_loadingScreen,
-                                              ))
+                                      .map<Widget>((e) =>
+                                          ListViewSubjectPageWidget(
+                                            database: db,
+                                            dataFromDB_singlesubject: e,
+                                            NAVIGATION_popAndPushToChaptersPage:
+                                                NAVIGATION_popAndPushToChaptersPage,
+                                            CHANGER_gapv_subject_presently_id:
+                                                CHANGER_gapv_subject_presently_id,
+                                            loading_screen: gapv_loadingScreen,
+                                          ))
                                       .followedBy([
                                     AddButton(
-                                        onPressed: onPressedADDSubject,
-                                        text: 'Add Subject',
-                                        icon: Icons.add_circle_outline_outlined,extraDataForFunction: {#database: db},)
-                                    
+                                      onPressed: ModalBottomSheetForADD,
+                                      text: 'Add Subject',
+                                      icon: Icons.add_circle_outline_outlined,
+                                      extraDataForFunction: {
+                                        #onSubmitted : AddSubject_Function_OnSubmitted,
+                                        #onSubmittedFunction_parameters : {
+                                          #State_SubjectsPage: STATE_SubjectSelectionPage!,
+                                          #database: db
+
+                                        }
+                                      },
+                                    )
                                   ]).toList(),
                                 );
                               } else {
