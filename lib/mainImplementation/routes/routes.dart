@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/resources/extra/youtubePlayer.dart';
 import 'package:lecture_progress/mainImplementation/pages/ChaptersPage.dart';
-import 'package:lecture_progress/mainImplementation/pages/HomePage.dart';
+import 'package:lecture_progress/mainImplementation/pages/SubjectPage.dart';
 import 'package:lecture_progress/mainImplementation/pages/allVideosSpecificChapter.dart';
 import 'package:lecture_progress/mainImplementation/pages/calender_page.dart';
 import 'package:lecture_progress/mainImplementation/pages/chooseChapterForIntentYotubePlaylist_Page.dart';
@@ -9,7 +9,7 @@ import 'package:lecture_progress/mainImplementation/pages/timer_page.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 
 class RouteManager {
-  static const String homePage = '/';
+  static const String subjectPage = '/';
   static const String chaptersPage = '/chaptersPage';
   static const String allVideosSpecificChapterPage =
       '/allVideosSpecificChapterPage';
@@ -35,8 +35,8 @@ class RouteManager {
       //   return MaterialPageRoute(builder: (context) => gotYoutubePlaylistIntentPage());
       case chooseSubjectForYoutubePlaylist:
         return MaterialPageRoute(builder: (context)=> ChooseChapterForIntentYotubePlaylistPage());
-      case homePage:
-        return MaterialPageRoute(builder: (context) => HomePage());
+      case subjectPage:
+        return MaterialPageRoute(builder: (context) => SubjectPage());
 
       case chaptersPage:
         return MaterialPageRoute(

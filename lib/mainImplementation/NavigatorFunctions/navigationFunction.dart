@@ -31,7 +31,7 @@ void NAVIGATION_popAndPushToYoutubeVideoPlaying() {
   NAVIGATION_popAndGoToPage(routeName: RouteManager.singleVideoCustomPlayer);
 }
 void NAVIGATION_popAndPushToSubjectPage() {
-  NAVIGATION_popAndGoToPage(routeName: RouteManager.homePage);
+  NAVIGATION_popAndGoToPage(routeName: RouteManager.subjectPage);
 }
 void NAVIGATION_popAndPushToAllSpecificChapterVideos() {
   NAVIGATION_popAndGoToPage(

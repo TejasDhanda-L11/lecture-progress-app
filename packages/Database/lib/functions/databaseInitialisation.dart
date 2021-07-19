@@ -1,7 +1,4 @@
-// import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
-import 'package:sqflite/sqflite.dart';
-
-import '../HomePageDB.dart';
+import '../DatabaseHelper.dart';
 
 Future<List> databaseInitializer() async {
   LectureProgressHelper _lectureProgressHelper = LectureProgressHelper();

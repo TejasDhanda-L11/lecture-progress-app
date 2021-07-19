@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
-import 'package:custom_database_lecture_progress/HomePageDB.dart';
+import 'package:custom_database_lecture_progress/DatabaseHelper.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:custom_database_lecture_progress/functions/databaseInitialisation.dart';
 import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
@@ -12,16 +12,15 @@ import 'package:lecture_progress/mainImplementation/temp_variables/global_all_pa
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/resources/onPressed/SubjectsPage/AddSubject_onPressed.dart';
 import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
-import 'package:lecture_progress/resources/widgets/subjectPage/addSubject_SubjectsPage_stfWidget.dart';
 import 'package:lecture_progress/resources/widgets/subjectPage/listView_SubjectPage_stfWidget.dart';
 import 'package:sqflite/sqflite.dart';
 
-class HomePage extends StatefulWidget {
+class SubjectPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _SubjectPageState createState() => _SubjectPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SubjectPageState extends State<SubjectPage> {
   // final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
 
   LectureProgressHelper _lectureProgressHelper = LectureProgressHelper();
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> {
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
             // velocity = details.velocity;
-            // customPrint(details.velocity,object2: 'homepage');
+            // customPrint(details.velocity,object2: 'SubjectPage');
             if (details.velocity.pixelsPerSecond.dx > 1000) {
               // if (checkerTimer == null){
               if (true) {

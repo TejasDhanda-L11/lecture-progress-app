@@ -139,7 +139,6 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
       child: GestureDetector(
         onHorizontalDragEnd: (details) {
           // velocity = details.velocity;
-          // customPrint(details.velocity, object2: 'homepage');
           if (details.velocity.pixelsPerSecond.dx > 1000) {
             // if (checkerTimer == null){
             if (true) {

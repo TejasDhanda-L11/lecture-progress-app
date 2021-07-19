@@ -134,7 +134,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: RouteManager.homePage,
+      initialRoute: RouteManager.subjectPage,
       onGenerateRoute: RouteManager.generateRoute,
       debugShowCheckedModeBanner: false,
       // home: TimerPage()
