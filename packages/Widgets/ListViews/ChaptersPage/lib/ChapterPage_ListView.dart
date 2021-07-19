@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ListViewChaptersPage extends StatefulWidget {
   Map<String, dynamic> e;
   Database dbInstance;
-  ListViewChaptersPage({required this.e, required this.dbInstance});
+  Function NAVIGATION_popAndPushToAllSpecificChapterVideos;
+  Function CHANGER_gapv_chapter_presently_id;
+  Widget loading_screen;
+
+  ListViewChaptersPage(
+      {required this.e,
+      required this.CHANGER_gapv_chapter_presently_id,
+      required this.dbInstance,
+      required this.NAVIGATION_popAndPushToAllSpecificChapterVideos,
+      required this.loading_screen
+      
+      });
 
   @override
   _ListViewChaptersPageState createState() => _ListViewChaptersPageState();
@@ -19,7 +28,8 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
   late Duration totalTimeTotal_Duration;
   late List<Map<String, dynamic>> totalTimeDone;
   late Duration totalTimeDone_Duration;
-  Future<bool> done_gettingDataOfTimeAndImplementingToAllTimeRelatedVariables() async {
+  Future<bool>
+      done_gettingDataOfTimeAndImplementingToAllTimeRelatedVariables() async {
     totalTimeLeft = await widget.dbInstance.rawQuery('''
         select (
           (
@@ -60,7 +70,6 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
     totalTimeTotal_Duration =
         Duration(seconds: (totalTimeTotal[0]['time_total'].round()));
 
-
     totalTimeDone = await widget.dbInstance.rawQuery('''
         select (
           (
@@ -75,10 +84,10 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
           and 
           (chapter_id = ${widget.e['id']})
           and (lectureCompleted = 'T')
-        ''') ;
+        ''');
 
-    totalTimeDone_Duration =  
-        Duration(seconds: (totalTimeDone[0]['time_done']?? 0));
+    totalTimeDone_Duration =
+        Duration(seconds: (totalTimeDone[0]['time_done'] ?? 0));
 
     return Future.value(true);
   }
@@ -96,8 +105,8 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
         if (snapshot.hasData) {
           return GestureDetector(
             onTap: () async {
-              gapv_chapter_presently_id = widget.e['id'];
-              NAVIGATION_popAndPushToAllSpecificChapterVideos();
+              widget.CHANGER_gapv_chapter_presently_id(widget.e['id']);
+              widget.NAVIGATION_popAndPushToAllSpecificChapterVideos();
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -133,29 +142,27 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
                         ),
                         Text(
                           // '${totalTimeLeft[0]['time_left']}'
-                          'L:${totalTimeLeft_Duration.inHours}:${totalTimeLeft_Duration.inMinutes.remainder(60).toString().padLeft(2,'0')}:${totalTimeLeft_Duration.inSeconds.remainder(60).toString().padLeft(2,'0')}',
+                          'L:${totalTimeLeft_Duration.inHours}:${totalTimeLeft_Duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${totalTimeLeft_Duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         VerticalDivider(
                           width: 16,
                           color: Colors.grey[400],
                           thickness: 1,
-
                         ),
                         Text(
                           // '${totalTimeLeft[0]['time_left']}'
-                          'D:${totalTimeDone_Duration.inHours}:${totalTimeDone_Duration.inMinutes.remainder(60).toString().padLeft(2,'0')}:${totalTimeDone_Duration.inSeconds.remainder(60).toString().padLeft(2,'0')}',
+                          'D:${totalTimeDone_Duration.inHours}:${totalTimeDone_Duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${totalTimeDone_Duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         VerticalDivider(
                           width: 16,
                           color: Colors.grey[400],
                           thickness: 1,
-
                         ),
                         Text(
                           // '${totalTimeLeft[0]['time_left']}'
-                          'T:${totalTimeTotal_Duration.inHours}:${totalTimeTotal_Duration.inMinutes.remainder(60).toString().padLeft(2,'0')}:${totalTimeTotal_Duration.inSeconds.remainder(60).toString().padLeft(2,'0')}',
+                          'T:${totalTimeTotal_Duration.inHours}:${totalTimeTotal_Duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${totalTimeTotal_Duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                       ],
@@ -166,7 +173,7 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
             ),
           );
         } else {
-          return gapv_loadingScreen;
+          return widget.loading_screen;
         }
       },
     );

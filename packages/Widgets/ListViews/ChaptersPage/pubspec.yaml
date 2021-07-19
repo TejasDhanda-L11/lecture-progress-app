@@ -1,0 +1,31 @@
+name: custom_list_view_all_chapters_in_a_subject
+description: a custom list view package for all subjects page of lecture progress app
+
+
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+
+  sqflite: ^2.0.0+3
+
+  
+  
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+
+

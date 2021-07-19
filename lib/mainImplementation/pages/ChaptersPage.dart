@@ -1,4 +1,5 @@
 import 'package:custom_add_button_dotted_border/AddButton.dart';
+import 'package:custom_list_view_all_chapters_in_a_subject/ChapterPage_ListView.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
@@ -6,7 +7,7 @@ import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigatio
 import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/resources/onPressed/ChaptersPage/addChapter_onPressedFunc.dart';
-import 'package:lecture_progress/resources/widgets/chaptersPage_widgets/listViewChaptersPage_stfWidget.dart';
+import 'package:lecture_progress/resources/packageConnection/ChaptersPage/CONNECTION_chaptersListView.dart';
 import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -77,6 +78,9 @@ class _ChaptersPageState extends State<ChaptersPage> {
                                 .map<Widget>((e) => ListViewChaptersPage(
                                       e: e,
                                       dbInstance: widget.db,
+                                      CHANGER_gapv_chapter_presently_id: CHANGER_gapv_chapter_presently_id,
+                                      NAVIGATION_popAndPushToAllSpecificChapterVideos: NAVIGATION_popAndPushToAllSpecificChapterVideos,
+                                      loading_screen: gapv_loadingScreen,
                                     ))
                                 .followedBy([
                               // add subject sign stuff

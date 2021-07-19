@@ -46,7 +46,9 @@ dependencies:
   custom_list_view_all_videos_of_specific_chapter:
     path: ./packages/Widgets/ListViews/AllVideosOfSpecificChapter
   custom_list_view_all_subjects:
-    path: ./packages/Widgets/ListViews/SubjectPage
+    path: ./packages/Widgets/ListViews/SubjectsPage
+  custom_list_view_all_chapters_in_a_subject:
+    path: ./packages/Widgets/ListViews/ChaptersPage
 
 
 

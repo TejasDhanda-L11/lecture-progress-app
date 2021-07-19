@@ -92,10 +92,17 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  custom_list_view_all_chapters_in_a_subject:
+    dependency: "direct main"
+    description:
+      path: "packages/Widgets/ListViews/ChaptersPage"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   custom_list_view_all_subjects:
     dependency: "direct main"
     description:
-      path: "packages/Widgets/ListViews/SubjectPage"
+      path: "packages/Widgets/ListViews/SubjectsPage"
       relative: true
     source: path
     version: "1.0.0+1"
