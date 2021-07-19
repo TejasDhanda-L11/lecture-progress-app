@@ -30,7 +30,8 @@ dependencies:
   custom_database_lecture_progress:
     path: ./packages/Database
 
-  
+  custom_top_timer_widget:
+    path: ./packages/Widgets/TopTimer
 
 
   # The following adds the Cupertino Icons font to your application.

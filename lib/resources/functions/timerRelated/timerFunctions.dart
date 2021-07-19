@@ -29,7 +29,9 @@ void onTimerRunning() {
           '${durationToStringTime(duration: (TV_howLong - TV_timeSpent))} timer has completed');
   // top of the page timer
 
-  STATE_TopTimerWidget!(() {});
+  STATE_TopTimerWidget!(() {
+    
+  });
 
   if (STATE_timerClockRunningPage.toString() != 'Closure: () => Null') {
     try {

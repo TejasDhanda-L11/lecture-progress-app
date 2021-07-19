@@ -71,6 +71,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  custom_top_timer_widget:
+    dependency: "direct main"
+    description:
+      path: "packages/Widgets/TopTimer"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   dotted_border:
     dependency: "direct main"
     description:

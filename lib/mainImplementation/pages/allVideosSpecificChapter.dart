@@ -4,6 +4,7 @@ import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigatio
 import 'package:custom_AWSApi_lecture_progress_app/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/allVideoSpecificChapterVariables.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/resources/widgets/allSpecificChapterVideos_widgets/allSpecificChapterVideos_singlList_widget.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';

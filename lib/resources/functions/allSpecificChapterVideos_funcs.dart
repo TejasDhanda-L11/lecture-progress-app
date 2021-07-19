@@ -37,7 +37,7 @@ Duration lengthLeftToCoverForLectureVideo({required Map<String, dynamic> dataOfV
                     lengthCompleted_Duration
                         .inSeconds));
   }
-  customPrint(dataOfVideo['lectureCompleted']);
-        customPrint(lengthLeftToCover);
+  // customPrint(dataOfVideo['lectureCompleted']);
+  //       customPrint(lengthLeftToCover);
   return lengthLeftToCover;
 }
