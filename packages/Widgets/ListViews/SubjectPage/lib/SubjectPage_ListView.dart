@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
+
 import 'package:sqflite/sqflite.dart';
 
 class ListViewSubjectPageWidget extends StatefulWidget {
   Database database;
   Map<String, dynamic> dataFromDB_singlesubject;
+  Function NAVIGATION_popAndPushToChaptersPage;
+  Function CHANGER_gapv_subject_presently_id;
+  Widget loading_screen;
   ListViewSubjectPageWidget(
-      {required this.dataFromDB_singlesubject, required this.database});
+      {required this.dataFromDB_singlesubject,
+      required this.database,
+      required this.CHANGER_gapv_subject_presently_id,
+      required this.loading_screen,
+      required this.NAVIGATION_popAndPushToChaptersPage});
 
   @override
   _ListViewSubjectPageWidgetState createState() =>
@@ -87,9 +93,9 @@ class _ListViewSubjectPageWidgetState extends State<ListViewSubjectPageWidget> {
           Duration(seconds: (totalTimeDone[0]['time_done'].round()));
       // customPrint('return value');
     } else {
-    totalTimeLeft_Duration = Duration.zero;
-    totalTimeTotal_Duration= Duration.zero;
-    totalTimeDone_Duration= Duration.zero;
+      totalTimeLeft_Duration = Duration.zero;
+      totalTimeTotal_Duration = Duration.zero;
+      totalTimeDone_Duration = Duration.zero;
     }
     return Future.value(true);
   }
@@ -104,8 +110,9 @@ class _ListViewSubjectPageWidgetState extends State<ListViewSubjectPageWidget> {
 
           return GestureDetector(
             onTap: () {
-              gapv_subject_presently_id = widget.dataFromDB_singlesubject['id'];
-              NAVIGATION_popAndPushToChaptersPage();
+              widget.CHANGER_gapv_subject_presently_id(
+                  widget.dataFromDB_singlesubject['id']);
+              widget.NAVIGATION_popAndPushToChaptersPage();
             },
             child: Container(
               padding: EdgeInsets.fromLTRB(10, 15, 10, 25),
@@ -173,7 +180,7 @@ class _ListViewSubjectPageWidgetState extends State<ListViewSubjectPageWidget> {
             ),
           );
         } else {
-          return gapv_loadingScreen;
+          return widget.loading_screen;
         }
       },
     );

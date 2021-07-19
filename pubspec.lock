@@ -92,6 +92,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  custom_list_view_all_subjects:
+    dependency: "direct main"
+    description:
+      path: "packages/Widgets/ListViews/SubjectPage"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   custom_list_view_all_videos_of_specific_chapter:
     dependency: "direct main"
     description:

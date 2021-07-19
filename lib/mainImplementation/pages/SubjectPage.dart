@@ -1,4 +1,5 @@
 import 'package:custom_add_button_dotted_border/AddButton.dart';
+import 'package:custom_list_view_all_subjects/SubjectPage_ListView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +13,7 @@ import 'package:lecture_progress/mainImplementation/temp_variables/global_all_pa
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/resources/onPressed/SubjectsPage/AddSubject_onPressed.dart';
 import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
-import 'package:lecture_progress/resources/widgets/subjectPage/listView_SubjectPage_stfWidget.dart';
+import 'package:lecture_progress/resources/packageConnection/subjectPage/CONNECTION_subjectPage_listView.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SubjectPage extends StatefulWidget {
@@ -122,6 +123,9 @@ class _SubjectPageState extends State<SubjectPage> {
                                           (e) => ListViewSubjectPageWidget(
                                                 database: db,
                                                 dataFromDB_singlesubject: e,
+                                                NAVIGATION_popAndPushToChaptersPage: NAVIGATION_popAndPushToChaptersPage,
+                                                CHANGER_gapv_subject_presently_id: CHANGER_gapv_subject_presently_id,
+                                                loading_screen: gapv_loadingScreen,
                                               ))
                                       .followedBy([
                                     AddButton(
