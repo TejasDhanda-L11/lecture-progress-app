@@ -6,7 +6,7 @@ import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries
 import 'package:custom_database_lecture_progress/HomePageDB.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:custom_database_lecture_progress/functions/databaseInitialisation.dart';
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';

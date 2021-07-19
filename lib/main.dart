@@ -5,7 +5,7 @@ import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigatio
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'dart:async';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 

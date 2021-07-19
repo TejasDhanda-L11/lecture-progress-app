@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../highlyReusable_Functions.dart';
+import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 
 class CustomTopTimerWidget extends StatefulWidget {
   bool TV_isStudyingAtPresent;

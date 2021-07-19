@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:custom_database_lecture_progress/HomePageDB.dart';
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'package:custom_AWSApi_lecture_progress_app/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/routes/routes.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';

@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+// import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 // import 'dart:async';
 // import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 

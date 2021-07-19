@@ -1,5 +1,5 @@
-name: custom_database_lecture_progress
-description: a database package for database of lecture progress app
+name: custom_highly_reusable_functions
+description: a custom highly reusable functions package for reusanle function in lecture progress app
 
 
 publish_to: 'none' 
@@ -11,12 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  custom_highly_reusable_functions:
-    path: ../../packages/HighlyReusableFunctions
-
-  sqflite: ^2.0.0+3
-
-
+  
   
   
   

@@ -3,7 +3,7 @@
 // import 'package:file_picker/file_picker.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
-// import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+// import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 
 // Future<void> file_picker_simple() async {
 

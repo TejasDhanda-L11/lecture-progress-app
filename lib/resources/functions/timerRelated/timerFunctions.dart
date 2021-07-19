@@ -5,7 +5,7 @@ import 'package:lecture_progress/mainImplementation/temp_variables/global_all_pa
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 import 'package:custom_database_lecture_progress/DatabaseQueries/DatabaseQueries.dart';
 import 'package:lecture_progress/resources/functions/global_functions/timerCompleteDialog_func.dart';
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'package:lecture_progress/resources/notification_functionality/timer_notifications.dart';
 
 void onTimerStart() {
@@ -29,9 +29,10 @@ void onTimerRunning() {
           '${durationToStringTime(duration: (TV_howLong - TV_timeSpent))} timer has completed');
   // top of the page timer
 
-  STATE_TopTimerWidget!(() {
-    
-  });
+  if (STATE_TopTimerWidget != null) {
+    customPrint(STATE_TopTimerWidget.toString(),object2: 'STATE_TopTimerWidget');
+    STATE_TopTimerWidget!(() {});
+  }
 
   if (STATE_timerClockRunningPage.toString() != 'Closure: () => Null') {
     try {

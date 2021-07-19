@@ -71,6 +71,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  custom_highly_reusable_functions:
+    dependency: "direct main"
+    description:
+      path: "packages/HighlyReusableFunctions"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   custom_top_timer_widget:
     dependency: "direct main"
     description:

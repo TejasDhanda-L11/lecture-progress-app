@@ -19,6 +19,14 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
     // TODO: implement initState
     super.initState();
     STATE_TopTimerWidget = setState;
+    
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    STATE_TopTimerWidget = null;
   }
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
-import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart'
     ;
 

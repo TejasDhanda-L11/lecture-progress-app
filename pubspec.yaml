@@ -33,6 +33,8 @@ dependencies:
   custom_top_timer_widget:
     path: ./packages/Widgets/TopTimer
 
+  custom_highly_reusable_functions:
+    path: ./packages/HighlyReusableFunctions
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
