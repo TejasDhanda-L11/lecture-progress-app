@@ -37,6 +37,7 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
           where (subject_id = ${widget.e['subject_id']})
           and 
           (chapter_id = ${widget.e['id']})
+          and (lectureCompleted = 'F')
         ''');
 
     totalTimeLeft_Duration =
@@ -73,10 +74,11 @@ class _ListViewChaptersPageState extends State<ListViewChaptersPage> {
           where (subject_id = ${widget.e['subject_id']})
           and 
           (chapter_id = ${widget.e['id']})
-        ''');
+          and (lectureCompleted = 'T')
+        ''') ;
 
-    totalTimeDone_Duration =
-        Duration(seconds: (totalTimeDone[0]['time_done'].round()));
+    totalTimeDone_Duration =  
+        Duration(seconds: (totalTimeDone[0]['time_done']?? 0));
 
     return Future.value(true);
   }

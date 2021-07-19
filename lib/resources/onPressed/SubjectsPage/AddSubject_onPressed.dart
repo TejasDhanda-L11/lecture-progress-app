@@ -28,7 +28,7 @@ void onPressedADDSubject(
                     await database.rawQuery(
                         'INSERT INTO subjects(subject_name) VALUES ("$text")');
 
-                    STATE_ListViewSubjectPageWidget!(() {});
+                    STATE_SubjectSelectionPage!(() {});
                   },
                 ),
               )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/resources/onPressed/youtubePlayerPage/Done_Not_Done_onPressed.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Done_Not_DoneButton_YoutubePlayer extends StatefulWidget {
@@ -24,9 +25,8 @@ class _Done_Not_DoneButton_YoutubePlayerState
       builder: (BuildContext context,
           AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasData) {
-          bool isVideoDone = snapshot.data![0]['lectureCompleted']  == 'T'
-                          ? true
-                          : false;
+          bool isVideoDone =
+              snapshot.data![0]['lectureCompleted'] == 'T' ? true : false;
           gapv_isVideoDone = isVideoDone;
           String? T_F_toBeSetOnClick;
           if (isVideoDone) {
@@ -36,15 +36,13 @@ class _Done_Not_DoneButton_YoutubePlayerState
           }
           // customPrint(T_F_toBeSetOnClick);
           return FlatButton.icon(
-              onPressed: () async {
-                // print(
-                //     'id ---------------------------------------- ${widget.idOfVideo}');
-                widget.dbInstance.rawQuery('''
-                    UPDATE specific_videos
-                    SET lectureCompleted = '${T_F_toBeSetOnClick}'
-                    WHERE id = ${widget.idOfVideo}
-                    ''');
-                setState(() {});
+              onPressed: 
+              (){
+                Done_Not_Done_onPressed(
+                  database: widget.dbInstance,
+                  setStateFunc: setState,
+                  T_F_toBeSetOnClick: T_F_toBeSetOnClick!,
+                  idOfVideo: widget.idOfVideo);
               },
               icon: isVideoDone == false
                   ? Icon(Icons.done_outline_rounded)

@@ -1,3 +1,5 @@
+import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
+
 void dropdown ({required Function setState_func, required bool isClose}){
   isClose != isClose;
   setState_func((){});
@@ -5,7 +7,10 @@ void dropdown ({required Function setState_func, required bool isClose}){
 }
 
 Duration lengthLeftToCoverForLectureVideo({required Map<String, dynamic> dataOfVideo}){
-  Duration totalLength_Duration =
+  Duration lengthLeftToCover = Duration.zero;
+
+  if (dataOfVideo['lectureCompleted'] == 'F'){
+    Duration totalLength_Duration =
             Duration(seconds: dataOfVideo['duration']);
         // customPrint(totalLength_Duration);
 
@@ -26,11 +31,13 @@ Duration lengthLeftToCoverForLectureVideo({required Map<String, dynamic> dataOfV
             seconds: int.parse(dataOfVideo['lengthCompleted'].toString().split(dataOfVideo['lengthCompleted'].toString().contains('-') ? '-' : ':')[2]));
         // customPrint(lengthCompleted_Duration);
 
-        Duration lengthLeftToCover = Duration(
+        lengthLeftToCover = Duration(
             seconds:
                 (totalLength_Duration.inSeconds -
                     lengthCompleted_Duration
                         .inSeconds));
-        // customPrint(lengthLeftToCover);
-        return lengthLeftToCover;
+  }
+  customPrint(dataOfVideo['lectureCompleted']);
+        customPrint(lengthLeftToCover);
+  return lengthLeftToCover;
 }

@@ -39,14 +39,14 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
           GestureDetector(
             onTap: () {
               gapv_dataReq_youtubePlayer = widget.videoData_Map;
-              String splitBy = widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':';
-              gapv_psotionToSeekTo = Duration(
-                  hours: int.parse(
-                      widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[0]),
-                  minutes: int.parse(
-                      widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[1]),
-                  seconds: int.parse(
-                      widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[2]));
+              // gapv_psotionToSeekTo = Duration(
+              //     hours: int.parse(
+              //         widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[0]),
+              //     minutes: int.parse(
+              //         widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[1]),
+              //     seconds: int.parse(
+              //         widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[2]));
+              
               NAVIGATION_popAndPushToYoutubeVideoPlaying();
             },
             child: Container(
@@ -103,6 +103,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                               children: [
                                 // length left
                                 Text(
+                                  // 'L:${}'
                                   'L:${lengthLeftToCover.inHours}:${lengthLeftToCover.inMinutes.remainder(60).toString().padLeft(2, '0')}:${lengthLeftToCover.inSeconds.remainder(60).toString().padLeft(2, '0')}',
                                   // 'hi1',
                                   maxLines: 1,

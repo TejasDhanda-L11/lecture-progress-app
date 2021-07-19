@@ -5,24 +5,27 @@ import 'package:flutter/services.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/resources/highlyReusable_Functions/highlyReusable_Functions.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:lecture_progress/resources/widgets/youtubePlayerWidgets/done_not_done_button.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';
 
 class CustomYoutubePlayer extends StatefulWidget {
-  final Duration positionToSeekTo;
+  // final Duration positionToSeekTo;
   final Database dbInstance;
   final Map<String, dynamic> dataReq_youtubePlayer;
   CustomYoutubePlayer(
       {required this.dataReq_youtubePlayer,
       required this.dbInstance,
-      required this.positionToSeekTo});
+      });
   @override
   _CustomYoutubePlayerState createState() => _CustomYoutubePlayerState();
 }
 
 class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
+  Duration positionToSeekTo = Duration.zero;
+
   bool chewieController_initialised = false;
   late ChewieController chewieController;
   bool isOrientationCheckerRunning = false;
@@ -32,8 +35,12 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
   void chewieConfigStuff() async {
     final videoPlayerController = VideoPlayerController.network(
         widget.dataReq_youtubePlayer['video_url']);
+    try{
     await videoPlayerController.initialize();
-
+    } catch (e) {
+      customPrint('eror', object2: e);
+      throw ErrorSummary(e.toString());
+    }
     chewieController = ChewieController(
         autoInitialize: false,
         videoPlayerController: videoPlayerController,
@@ -54,7 +61,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
           DeviceOrientation.landscapeLeft,
         ],
         aspectRatio: 16 / 9);
-    chewieController.videoPlayerController.seekTo(widget.positionToSeekTo);
+    chewieController.videoPlayerController.seekTo(positionToSeekTo);
     setState(() {
       // debugPrint(
       //     '444444444444444444444444444444444444444444444444444444444444');
@@ -64,6 +71,11 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
 
   @override
   void initState() {
+    // customPrint(widget.dataReq_youtubePlayer['lengthCompleted']);
+    positionToSeekTo = widget.dataReq_youtubePlayer['lectureCompleted'] == 'T'
+    ? Duration.zero
+    : stringToDurationDB(duration: widget.dataReq_youtubePlayer['lengthCompleted']);
+    // : Duration(seconds: widget.dataReq_youtubePlayer['lengthCompleted']);   
     super.initState();
     orientation = Orientation.landscape;
     chewieConfigStuff();
@@ -71,7 +83,7 @@ class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
   }
 
   @override
-  void dispose() {
+  void dispose() {    
     super.dispose();
 
     try {

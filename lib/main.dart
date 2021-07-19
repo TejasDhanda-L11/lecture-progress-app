@@ -20,8 +20,7 @@ import 'mainImplementation/temp_variables/intentRelated/YotubePlaylistIntentRela
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-void main() async {
-  // notification
+void main() async {  // notification
   WidgetsFlutterBinding.ensureInitialized();
 
   var initializationSettingsAndroid =
@@ -64,7 +63,7 @@ class _MyAppState extends State<MyApp> {
     StreamSubscription? _intentDataStreamSubscription;
     List<SharedMediaFile>? _sharedFiles;
 
-    customPrint('yoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyo');
+    // customPrint('yoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyo');
 
 // // For sharing images coming from outside the app while the app is in the memory
     // _intentDataStreamSubscription =
@@ -129,7 +128,7 @@ class _MyAppState extends State<MyApp> {
     // customPrint(ReceiveSharingIntent.getTextStreamAsUri(),object2: 'ReceiveSharingIntent.getInitialMedia');
     // customPrint(ReceiveSharingIntent.(),object2: 'ReceiveSharingIntent.getInitialMedia');
 
-    customPrint('initialised recieve intent');
+    // customPrint('initialised recieve intent');
   }
 
   @override

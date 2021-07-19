@@ -26,7 +26,7 @@ class _ListViewSubjectPageWidgetState extends State<ListViewSubjectPageWidget> {
   late Duration totalTimeDone_Duration;
   Future<bool>
       done_gettingDataOfTimeAndImplementingToAllTimeRelatedVariables() async {
-    customPrint('1');
+    // customPrint('1');
 
     totalTimeLeft = await widget.database.rawQuery('''
         select (
@@ -103,7 +103,7 @@ class _ListViewSubjectPageWidgetState extends State<ListViewSubjectPageWidget> {
       future: done_gettingDataOfTimeAndImplementingToAllTimeRelatedVariables(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          customPrint('4');
+          // customPrint('4');
 
           return GestureDetector(
             onTap: () {

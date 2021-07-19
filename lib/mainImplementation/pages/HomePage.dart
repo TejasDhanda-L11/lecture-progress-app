@@ -52,7 +52,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    customPrint('setted state');
+    STATE_SubjectSelectionPage = setState;
+    // customPrint('setted state');
     gapv_presentlyTopContext = context;
 
     return WillPopScope(

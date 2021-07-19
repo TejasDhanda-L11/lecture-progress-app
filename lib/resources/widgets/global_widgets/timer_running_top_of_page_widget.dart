@@ -26,7 +26,7 @@ class _TimerStatusOnTopOfPageState extends State<TimerStatusOnTopOfPage> {
 
   @override
   Widget build(BuildContext context) {
-    customPrint('setstate of top timer widget');
+    // customPrint('setstate of top timer widget');
     String boxOfFocus_Break_None = 'NONE';
     if (TV_isStudyingAtPresent) {
       boxOfFocus_Break_None = 'Focus';
