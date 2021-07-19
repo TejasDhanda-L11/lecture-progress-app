@@ -85,6 +85,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  custom_list_view_all_videos_of_specific_chapter:
+    dependency: "direct main"
+    description:
+      path: "packages/Widgets/ListViews/AllVideosOfSpecificChapter"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   custom_top_timer_widget:
     dependency: "direct main"
     description:

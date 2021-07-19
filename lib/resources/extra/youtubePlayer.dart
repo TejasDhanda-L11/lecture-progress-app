@@ -26,6 +26,10 @@ class CustomYoutubePlayer extends StatefulWidget {
 }
 
 class _CustomYoutubePlayerState extends State<CustomYoutubePlayer> {
+  
+  
+
+
   Duration positionToSeekTo = Duration.zero;
 
   bool chewieController_initialised = false;

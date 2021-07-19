@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
-import 'package:lecture_progress/resources/functions/allSpecificChapterVideos_funcs.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 
 class AllSpecificChapterVideos_singleList_stfWidget extends StatefulWidget {
   Map<String, dynamic> videoData_Map;
+  Function NAVIGATION_popAndPushToYoutubeVideoPlaying;
+  Function lengthLeftToCoverForLectureVideo;
+  Function CHANGER__gapv_dataReq_youtubePlayer;
   AllSpecificChapterVideos_singleList_stfWidget(
-      {required this.videoData_Map});
+      {required this.videoData_Map,
+      required this.NAVIGATION_popAndPushToYoutubeVideoPlaying,
+      required this.lengthLeftToCoverForLectureVideo,
+      required this.CHANGER__gapv_dataReq_youtubePlayer,
+      
+      });
 
   @override
   _AllSpecificChapterVideos_singleList_stfWidgetState createState() =>
@@ -16,10 +21,11 @@ class AllSpecificChapterVideos_singleList_stfWidget extends StatefulWidget {
 class _AllSpecificChapterVideos_singleList_stfWidgetState
     extends State<AllSpecificChapterVideos_singleList_stfWidget> {
   bool isDropOpen = false;
-  
+
   @override
   Widget build(BuildContext context) {
-    Duration lengthLeftToCover = lengthLeftToCoverForLectureVideo(dataOfVideo: widget.videoData_Map);
+    Duration lengthLeftToCover = widget.lengthLeftToCoverForLectureVideo(
+        dataOfVideo: widget.videoData_Map);
 
     String isLectureCompleted = widget.videoData_Map["lectureCompleted"];
     return Container(
@@ -28,8 +34,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
       margin: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(23),
-        color:
-            isLectureCompleted == 'F' ? Colors.white : Colors.grey[50],
+        color: isLectureCompleted == 'F' ? Colors.white : Colors.grey[50],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +43,8 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
           // thumbnail
           GestureDetector(
             onTap: () {
-              gapv_dataReq_youtubePlayer = widget.videoData_Map;
+              widget.CHANGER__gapv_dataReq_youtubePlayer(videoData_Map: widget.videoData_Map);
+
               // gapv_psotionToSeekTo = Duration(
               //     hours: int.parse(
               //         widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[0]),
@@ -46,8 +52,8 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
               //         widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[1]),
               //     seconds: int.parse(
               //         widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[2]));
-              
-              NAVIGATION_popAndPushToYoutubeVideoPlaying();
+
+              widget.NAVIGATION_popAndPushToYoutubeVideoPlaying();
             },
             child: Container(
               width: double.infinity,
@@ -59,7 +65,8 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
               // ),
               child: Opacity(
                 opacity: isLectureCompleted == 'F' ? 1 : 0.3,
-                child: Image(image: NetworkImage(widget.videoData_Map['thumbnail'])),
+                child: Image(
+                    image: NetworkImage(widget.videoData_Map['thumbnail'])),
               ),
               // color: Colors.white,
             ),
@@ -120,7 +127,7 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                                 ),
                                 // completed length
                                 Text(
-                                  'D:${int.parse(widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[0])}:${widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[1]}:${widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-')? '-':':')[2]}',
+                                  'D:${int.parse(widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-') ? '-' : ':')[0])}:${widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-') ? '-' : ':')[1]}:${widget.videoData_Map['lengthCompleted'].toString().split(widget.videoData_Map['lengthCompleted'].toString().contains('-') ? '-' : ':')[2]}',
                                   maxLines: 1,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
@@ -157,7 +164,9 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                   visible: isDropOpen,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: [Text(widget.videoData_Map['chapter_description_box'])],
+                    children: [
+                      Text(widget.videoData_Map['chapter_description_box'])
+                    ],
                   ),
                 )
               ],

@@ -30,11 +30,26 @@ dependencies:
   custom_database_lecture_progress:
     path: ./packages/Database
 
+
+
+
   custom_top_timer_widget:
     path: ./packages/Widgets/TopTimer
 
   custom_done_notdone_youtube_player_button:
     path: ./packages/Widgets/Done_NotDone_YoutubePlayer
+
+
+  custom_list_view_all_videos_of_specific_chapter:
+    path: ./packages/Widgets/ListViews/AllVideosOfSpecificChapter
+
+
+
+
+
+
+
+
   custom_highly_reusable_functions:
     path: ./packages/HighlyReusableFunctions
 

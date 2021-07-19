@@ -1,13 +1,19 @@
+
+
+
+import 'package:custom_list_view_all_videos_of_specific_chapter/allSpecificChapterVideos_singlList_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:custom_AWSApi_lecture_progress_app/awsApiToDB.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/allVideoSpecificChapterVariables.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
-import 'package:lecture_progress/resources/widgets/allSpecificChapterVideos_widgets/allSpecificChapterVideos_singlList_widget.dart';
+import 'package:lecture_progress/resources/functions/allSpecificChapterVideos_funcs.dart';
+import 'package:lecture_progress/resources/packageConnectionFunctions/allSpecificChapterVideos_singleList_widget/CHANGER__gapv_dataReq_youtubePlayer.dart';
 import 'package:lecture_progress/resources/widgets/global_widgets/timer_running_top_of_page_widget.dart';
 import 'package:sqflite/sqflite.dart';
+
+
 
 class AllVideoSpecificChapter extends StatefulWidget {
   final Database dbInstance;
@@ -114,6 +120,9 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                                 children: dataRequired_everyLectureVid.map((e) {
                                   return AllSpecificChapterVideos_singleList_stfWidget(
                                     videoData_Map: e,
+                                    NAVIGATION_popAndPushToYoutubeVideoPlaying: NAVIGATION_popAndPushToYoutubeVideoPlaying,
+                                    lengthLeftToCoverForLectureVideo: lengthLeftToCoverForLectureVideo,
+                                    CHANGER__gapv_dataReq_youtubePlayer: CHANGER__gapv_dataReq_youtubePlayer,
                                   );
                                 }).toList(),
                               ),
