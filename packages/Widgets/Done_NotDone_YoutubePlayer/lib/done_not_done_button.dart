@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
-import 'package:lecture_progress/resources/onPressed/youtubePlayerPage/Done_Not_Done_onPressed.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'onPressed___done_not_done.dart';
+
 class Done_Not_DoneButton_YoutubePlayer extends StatefulWidget {
-  Database dbInstance = gapv_dbInstance!;
+  // Database dbInstance = gapv_dbInstance!;
+  Database dbInstance;
   int idOfVideo;
-  Done_Not_DoneButton_YoutubePlayer({required this.idOfVideo});
+  Widget loadingScreen;
+  Function gapv_isVideoDone_Changer;
+  Done_Not_DoneButton_YoutubePlayer(
+      {required this.idOfVideo,
+      required this.dbInstance,
+      required this.loadingScreen,
+      required this.gapv_isVideoDone_Changer,
+      });
 
   @override
   _Done_Not_DoneButton_YoutubePlayerState createState() =>
@@ -27,7 +35,7 @@ class _Done_Not_DoneButton_YoutubePlayerState
         if (snapshot.hasData) {
           bool isVideoDone =
               snapshot.data![0]['lectureCompleted'] == 'T' ? true : false;
-          gapv_isVideoDone = isVideoDone;
+          widget.gapv_isVideoDone_Changer(isVideoDone: isVideoDone);
           String? T_F_toBeSetOnClick;
           if (isVideoDone) {
             T_F_toBeSetOnClick = 'F';
@@ -36,20 +44,19 @@ class _Done_Not_DoneButton_YoutubePlayerState
           }
           // customPrint(T_F_toBeSetOnClick);
           return FlatButton.icon(
-              onPressed: 
-              (){
+              onPressed: () {
                 Done_Not_Done_onPressed(
-                  database: widget.dbInstance,
-                  setStateFunc: setState,
-                  T_F_toBeSetOnClick: T_F_toBeSetOnClick!,
-                  idOfVideo: widget.idOfVideo);
+                    database: widget.dbInstance,
+                    setStateFunc: setState,
+                    T_F_toBeSetOnClick: T_F_toBeSetOnClick!,
+                    idOfVideo: widget.idOfVideo);
               },
               icon: isVideoDone == false
                   ? Icon(Icons.done_outline_rounded)
                   : Icon(Icons.close_outlined),
               label: isVideoDone == false ? Text('Done') : Text('Not Done'));
         } else {
-          return gapv_loadingScreen;
+          return widget.loadingScreen;
         }
       },
     );

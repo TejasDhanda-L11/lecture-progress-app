@@ -71,6 +71,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  custom_done_notdone_youtube_player_button:
+    dependency: "direct main"
+    description:
+      path: "packages/Widgets/Done_NotDone_YoutubePlayer"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   custom_highly_reusable_functions:
     dependency: "direct main"
     description:

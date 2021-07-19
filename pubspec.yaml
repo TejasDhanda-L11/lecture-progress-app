@@ -33,6 +33,8 @@ dependencies:
   custom_top_timer_widget:
     path: ./packages/Widgets/TopTimer
 
+  custom_done_notdone_youtube_player_button:
+    path: ./packages/Widgets/Done_NotDone_YoutubePlayer
   custom_highly_reusable_functions:
     path: ./packages/HighlyReusableFunctions
 
