@@ -1,10 +1,10 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
 
 class CustomLandscapeOrientation extends StatefulWidget {
   final ChewieController? chewieController;
-  CustomLandscapeOrientation({required this.chewieController});
+  Widget loadingScreen;
+  CustomLandscapeOrientation({required this.chewieController, required this.loadingScreen});
   @override
   _CustomLandscapeOrientationState createState() =>
       _CustomLandscapeOrientationState();
@@ -21,7 +21,7 @@ class _CustomLandscapeOrientationState
   Widget build(BuildContext context) {
     return Container(
       child: widget.chewieController == null
-      ?gapv_loadingScreen
+      ?widget.loadingScreen
       :Chewie(
         controller: widget.chewieController!,
       )

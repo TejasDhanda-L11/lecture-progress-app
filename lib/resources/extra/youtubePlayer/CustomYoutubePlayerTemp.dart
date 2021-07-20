@@ -8,23 +8,39 @@ import 'package:video_player/video_player.dart';
 
 
 
-import 'package:lecture_progress/mainImplementation/allStates/statesOfAllPages.dart';
-import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
-
-
 
 import 'Pages/CustomLandscapeOrientation.dart';
 import 'Pages/CustomPortraitOrientation.dart';
 import 'Functions/chewieInitialConfig_Function.dart';
 
+
+
 class CustomYoutubePlayer_Temp extends StatefulWidget {
   // final Duration positionToSeekTo;
   final Database dbInstance;
   final Map<String, dynamic> dataReq_youtubePlayer;
+  Widget loadingScreen;
+  Function CHANGER_STATE_YoutubeVideoPlaying;
+  Function NAVIGATION_onBackButtonYoutubeVideoPlaying;
+  Function NAVIGATION_popTopContext;
+  Function NAVIGATION_openTimerPageOnTheTopOfTheStack;
+  Function CHANGER_gapv_presentlyTopContext;
+  Function CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context;
+  Function Changer_gapv_isVideoDone;
+  StatefulWidget TimerStatusOnTopOfPage;
   CustomYoutubePlayer_Temp({
     required this.dataReq_youtubePlayer,
     required this.dbInstance,
+    required this.loadingScreen,
+    required this.CHANGER_STATE_YoutubeVideoPlaying,
+    required this.NAVIGATION_onBackButtonYoutubeVideoPlaying,
+    required this.NAVIGATION_popTopContext,
+    required this.NAVIGATION_openTimerPageOnTheTopOfTheStack,
+    required this.CHANGER_gapv_presentlyTopContext,
+    required this.CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context,
+    required this.Changer_gapv_isVideoDone,
+    required this.TimerStatusOnTopOfPage,
+
   });
   @override
   _CustomYoutubePlayer_TempState createState() => _CustomYoutubePlayer_TempState();
@@ -53,7 +69,7 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
             duration: widget.dataReq_youtubePlayer['lengthCompleted']);
     super.initState();
     orientation = Orientation.landscape;
-    STATE_YoutubeVideoPlaying = setState;
+    widget.CHANGER_STATE_YoutubeVideoPlaying(setState_STATE:setState);
 
     ()
     async {chewieController = await return_chewieController_afterConfigurations(positionToSeekTo: positionToSeekTo, video_url: widget.dataReq_youtubePlayer['video_url']);
@@ -81,7 +97,7 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
 
   @override
   Widget build(BuildContext context) {
-    gapv_presentlyTopContext = context;
+    widget.CHANGER_gapv_presentlyTopContext(context:context);
 
     orientation = MediaQuery.of(context).orientation;
 
@@ -98,16 +114,16 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
               SET "lengthCompleted" = '$positionOfVideo_String'
                 WHERE id = ${widget.dataReq_youtubePlayer["id"]}
           ''');
-        NAVIGATION_onBackButtonYoutubeVideoPlaying();
+        widget.NAVIGATION_onBackButtonYoutubeVideoPlaying();
         return Future.value(true);
       },
       child: GestureDetector(
         onHorizontalDragEnd: (details) {
           if (details.velocity.pixelsPerSecond.dx > 1000) {
             if (true) {
-              gapv_presentlyLast_Top_Before_opening_Timer_Context = context;
+              widget.CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context(context:context);
 
-              NAVIGATION_openTimerPageOnTheTopOfTheStack();
+              widget.NAVIGATION_openTimerPageOnTheTopOfTheStack();
             }
           }
         },
@@ -123,7 +139,7 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
                   if (chewieController_initialised)
                   {
                     if (chewieController!.isFullScreen) {
-                    NAVIGATION_popTopContext();
+                    widget.NAVIGATION_popTopContext();
                   }
                   }
                 });
@@ -132,7 +148,9 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
                   dbInstance: widget.dbInstance,
                   chewieController: chewieController_initialised?chewieController : null,
                   titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
-                  
+                  loadingScreen: widget.loadingScreen,
+                  Changer_gapv_isVideoDone: widget.Changer_gapv_isVideoDone,
+                  TimerStatusOnTopOfPage: widget.TimerStatusOnTopOfPage,
                 );
               } 
               else {
@@ -145,6 +163,7 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
 
                 return CustomLandscapeOrientation(
                   chewieController: chewieController,
+                  loadingScreen: widget.loadingScreen,
                 );
               }
             }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
 import 'package:lecture_progress/resources/extra/youtubePlayer/CustomYoutubePlayerTemp.dart';
-import 'package:lecture_progress/resources/extra/youtubePlayer.dart';
 import 'package:lecture_progress/mainImplementation/pages/ChaptersPage.dart';
 import 'package:lecture_progress/mainImplementation/pages/SubjectPage.dart';
 import 'package:lecture_progress/mainImplementation/pages/allVideosSpecificChapter.dart';
@@ -8,6 +8,11 @@ import 'package:lecture_progress/mainImplementation/pages/calender_page.dart';
 import 'package:lecture_progress/mainImplementation/pages/chooseChapterForIntentYotubePlaylist_Page.dart';
 import 'package:lecture_progress/mainImplementation/pages/timer_page.dart';
 import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
+import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
+import 'package:lecture_progress/resources/packageConnection/YoutubePlayer/CHANGER_STATE_YoutubeVideoPlaying.dart';
+import 'package:lecture_progress/resources/packageConnection/YoutubePlayer/CHANGER_gapv_isVideoDone.dart';
+import 'package:lecture_progress/resources/packageConnection/YoutubePlayer/CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context.dart';
+import 'package:lecture_progress/resources/packageConnection/YoutubePlayer/CHANGER_gapv_presentlyTopContext.dart';
 
 class RouteManager {
   static const String subjectPage = '/';
@@ -60,6 +65,15 @@ class RouteManager {
                   dataReq_youtubePlayer:
                       gapv_dataReq_youtubePlayer!,
                   dbInstance: gapv_dbInstance!,
+                  loadingScreen: gapv_loadingScreen,
+                  CHANGER_STATE_YoutubeVideoPlaying: CHANGER_STATE_YoutubeVideoPlaying,
+                  NAVIGATION_onBackButtonYoutubeVideoPlaying: NAVIGATION_onBackButtonYoutubeVideoPlaying,
+                  NAVIGATION_popTopContext:NAVIGATION_popTopContext,
+                  NAVIGATION_openTimerPageOnTheTopOfTheStack:NAVIGATION_openTimerPageOnTheTopOfTheStack,
+                  CHANGER_gapv_presentlyTopContext: CHANGER_gapv_presentlyTopContext,
+                  CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context: CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context,
+                  Changer_gapv_isVideoDone: CHANGER_gapv_isVideoDone,
+                  TimerStatusOnTopOfPage: TimerStatusOnTopOfPage(),
                 ));
 
       case timerPage:

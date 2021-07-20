@@ -28,9 +28,9 @@ void onTimerRunning() {
       message_to_show:
           '${durationToStringTime(duration: (TV_howLong - TV_timeSpent))} timer has completed');
   // top of the page timer
-
+  // customPrint(STATE_TopTimerWidget.toString(),object2: 'STATE_TopTimerWidget');
   if (STATE_TopTimerWidget != null) {
-    customPrint(STATE_TopTimerWidget.toString(),object2: 'STATE_TopTimerWidget');
+    
     STATE_TopTimerWidget!(() {});
   }
 

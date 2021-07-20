@@ -1,24 +1,31 @@
 import 'package:chewie/chewie.dart';
 import 'package:custom_done_notdone_youtube_player_button/done_not_done_button.dart';
 import 'package:flutter/material.dart';
-import 'package:lecture_progress/mainImplementation/temp_variables/global_all_page_variable.dart';
-import 'package:lecture_progress/resources/functions/YoutubePlayer/temp_functions.dart';
-
-
-import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
-
 import 'package:sqflite/sqflite.dart';
+
+
+
+
 
 class CustomPortraitOrientation extends StatefulWidget {
   final Database dbInstance;
   final ChewieController? chewieController;
   final String titleOfVideo;
   final int idOfVideo;
+  Widget loadingScreen;
+  Function Changer_gapv_isVideoDone;
+  StatefulWidget TimerStatusOnTopOfPage;
+  // Widget Done_Not_DoneButton_YoutubePlayer;
   CustomPortraitOrientation(
       {required this.idOfVideo,
       required this.chewieController,
       required this.titleOfVideo,
-      required this.dbInstance});
+      required this.dbInstance,
+      // required this.Done_Not_DoneButton_YoutubePlayer,
+      required this.loadingScreen,
+      required this.Changer_gapv_isVideoDone, 
+      required this.TimerStatusOnTopOfPage,
+      });
   @override
   _CustomPortraitOrientationState createState() =>
       _CustomPortraitOrientationState();
@@ -44,7 +51,7 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
           child: FutureBuilder(
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) { 
               if  (widget.chewieController == null){
-                return gapv_loadingScreen;
+                return widget.loadingScreen;
               }
               else {
                 return Chewie(
@@ -75,13 +82,13 @@ class _CustomPortraitOrientationState extends State<CustomPortraitOrientation> {
 
         Done_Not_DoneButton_YoutubePlayer(
           idOfVideo: widget.idOfVideo,
-          dbInstance: gapv_dbInstance!,
-          loadingScreen: gapv_loadingScreen,
-          gapv_isVideoDone_Changer: gapv_isVideoDone_Changer,
+          dbInstance: widget.dbInstance,
+          loadingScreen: widget.loadingScreen,
+          gapv_isVideoDone_Changer: widget.Changer_gapv_isVideoDone,
         ),
         Align(
           alignment: Alignment(0, 1),
-          child: TimerStatusOnTopOfPage(),
+          child: widget.TimerStatusOnTopOfPage,
         ),
       ],
     );
