@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_progress/resources/extra/youtubePlayer/CustomYoutubePlayerTemp.dart';
 import 'package:lecture_progress/resources/extra/youtubePlayer.dart';
 import 'package:lecture_progress/mainImplementation/pages/ChaptersPage.dart';
 import 'package:lecture_progress/mainImplementation/pages/SubjectPage.dart';
@@ -55,7 +56,7 @@ class RouteManager {
 
       case singleVideoCustomPlayer:
         return MaterialPageRoute(
-            builder: (context) => CustomYoutubePlayer(
+            builder: (context) => CustomYoutubePlayer_Temp(
                   dataReq_youtubePlayer:
                       gapv_dataReq_youtubePlayer!,
                   dbInstance: gapv_dbInstance!,
