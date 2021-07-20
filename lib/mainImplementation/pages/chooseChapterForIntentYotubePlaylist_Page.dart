@@ -77,6 +77,7 @@ class _ChooseChapterForIntentYotubePlaylistPageState
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (_listOfSubjects_initialised) {
                     return SingleChildScrollView(
+                      
                       child: Column(
                         children: _listOfSubjects.map((e) {
                           return GestureDetector(

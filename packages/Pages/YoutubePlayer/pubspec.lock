@@ -51,89 +51,26 @@ packages:
     source: hosted
     version: "1.15.0"
   cupertino_icons:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
-  custom_AWSApi_lecture_progress_app:
-    dependency: "direct main"
-    description:
-      path: "packages/AWSApi"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  custom_add_button_dotted_border:
-    dependency: "direct main"
-    description:
-      path: "packages/Widgets/ADDButtonDottedBorder"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  custom_database_lecture_progress:
-    dependency: "direct main"
-    description:
-      path: "packages/Database"
-      relative: true
-    source: path
-    version: "1.0.0+1"
   custom_done_notdone_youtube_player_button:
     dependency: "direct main"
     description:
-      path: "packages/Widgets/Done_NotDone_YoutubePlayer"
+      path: "../../Widgets/Done_NotDone_YoutubePlayer"
       relative: true
     source: path
     version: "1.0.0+1"
   custom_highly_reusable_functions:
     dependency: "direct main"
     description:
-      path: "packages/HighlyReusableFunctions"
+      path: "../../HighlyReusableFunctions"
       relative: true
     source: path
     version: "1.0.0+1"
-  custom_list_view_all_chapters_in_a_subject:
-    dependency: "direct main"
-    description:
-      path: "packages/Widgets/ListViews/ChaptersPage"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  custom_list_view_all_subjects:
-    dependency: "direct main"
-    description:
-      path: "packages/Widgets/ListViews/SubjectsPage"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  custom_list_view_all_videos_of_specific_chapter:
-    dependency: "direct main"
-    description:
-      path: "packages/Widgets/ListViews/AllVideosOfSpecificChapter"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  custom_top_timer_widget:
-    dependency: "direct main"
-    description:
-      path: "packages/Widgets/TopTimer"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  custom_youtube_player_page:
-    dependency: "direct main"
-    description:
-      path: "packages/Pages/YoutubePlayer"
-      relative: true
-    source: path
-    version: "1.0.0+1"
-  dotted_border:
-    dependency: "direct main"
-    description:
-      name: dotted_border
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -148,46 +85,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2"
-  file_picker:
-    dependency: "direct main"
-    description:
-      name: file_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.3"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_local_notifications:
-    dependency: "direct main"
-    description:
-      name: flutter_local_notifications
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.0.0"
-  flutter_local_notifications_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_local_notifications_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.0"
-  flutter_plugin_android_lifecycle:
-    dependency: transitive
-    description:
-      name: flutter_plugin_android_lifecycle
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
-  flutter_spinkit:
-    dependency: "direct main"
-    description:
-      name: flutter_spinkit
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -198,27 +100,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  http:
-    dependency: "direct main"
-    description:
-      name: http
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.3"
-  http_parser:
-    dependency: transitive
-    description:
-      name: http_parser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.0"
-  intl:
-    dependency: transitive
-    description:
-      name: intl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -226,20 +107,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
-  liquid_pull_to_refresh:
-    dependency: "direct main"
-    description:
-      name: liquid_pull_to_refresh
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
-  loading_indicator:
-    dependency: "direct main"
-    description:
-      name: loading_indicator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
   matcher:
     dependency: transitive
     description:
@@ -268,41 +135,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  path_drawing:
-    dependency: transitive
-    description:
-      name: path_drawing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
-  path_parsing:
-    dependency: transitive
-    description:
-      name: path_parsing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
-  platform:
-    dependency: transitive
-    description:
-      name: platform
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
-  plugin_platform_interface:
-    dependency: transitive
-    description:
-      name: plugin_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   provider:
     dependency: transitive
     description:
@@ -310,27 +142,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
-  receive_sharing_intent:
-    dependency: "direct main"
-    description:
-      name: receive_sharing_intent
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.5"
-  screen_loader:
-    dependency: "direct main"
-    description:
-      name: screen_loader
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
-  simple_gesture_detector:
-    dependency: transitive
-    description:
-      name: simple_gesture_detector
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -385,13 +196,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
-  table_calendar:
-    dependency: "direct main"
-    description:
-      name: table_calendar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
   term_glyph:
     dependency: transitive
     description:
@@ -406,13 +210,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
-  timezone:
-    dependency: transitive
-    description:
-      name: timezone
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.0"
   typed_data:
     dependency: transitive
     description:
@@ -433,7 +230,7 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.10"
   video_player_platform_interface:
     dependency: transitive
     description:
@@ -489,7 +286,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.2"
+    version: "2.2.5"
 sdks:
   dart: ">=2.13.0 <3.0.0"
-  flutter: ">=2.2.0"
+  flutter: ">=2.0.0"

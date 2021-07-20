@@ -1,6 +1,6 @@
+import 'package:custom_youtube_player_page/CustomYoutubePlayerTemp.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_progress/mainImplementation/NavigatorFunctions/navigationFunction.dart';
-import 'package:lecture_progress/resources/extra/youtubePlayer/CustomYoutubePlayerTemp.dart';
 import 'package:lecture_progress/mainImplementation/pages/ChaptersPage.dart';
 import 'package:lecture_progress/mainImplementation/pages/SubjectPage.dart';
 import 'package:lecture_progress/mainImplementation/pages/allVideosSpecificChapter.dart';
@@ -23,7 +23,8 @@ class RouteManager {
   static const String timerPage = '/timerPage';
   static const String calenderPage = '/calenderPage';
   // static const String intentFromYoutubePlaylist = '/intentFromYoutubePlaylist';
-  static const String chooseSubjectForYoutubePlaylist = '/chooseSubjectForYoutubePlaylist';
+  static const String chooseSubjectForYoutubePlaylist =
+      '/chooseSubjectForYoutubePlaylist';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Map<dynamic, dynamic>? valuePassed;
@@ -32,15 +33,12 @@ class RouteManager {
     //   valuePassed = settings.arguments as Map<dynamic, dynamic>;
     // }
 
-
-
-
-
     switch (settings.name) {
       // case intentFromYoutubePlaylist:
       //   return MaterialPageRoute(builder: (context) => gotYoutubePlaylistIntentPage());
       case chooseSubjectForYoutubePlaylist:
-        return MaterialPageRoute(builder: (context)=> ChooseChapterForIntentYotubePlaylistPage());
+        return MaterialPageRoute(
+            builder: (context) => ChooseChapterForIntentYotubePlaylistPage());
       case subjectPage:
         return MaterialPageRoute(builder: (context) => SubjectPage());
 
@@ -62,16 +60,20 @@ class RouteManager {
       case singleVideoCustomPlayer:
         return MaterialPageRoute(
             builder: (context) => CustomYoutubePlayer_Temp(
-                  dataReq_youtubePlayer:
-                      gapv_dataReq_youtubePlayer!,
+                  dataReq_youtubePlayer: gapv_dataReq_youtubePlayer!,
                   dbInstance: gapv_dbInstance!,
                   loadingScreen: gapv_loadingScreen,
-                  CHANGER_STATE_YoutubeVideoPlaying: CHANGER_STATE_YoutubeVideoPlaying,
-                  NAVIGATION_onBackButtonYoutubeVideoPlaying: NAVIGATION_onBackButtonYoutubeVideoPlaying,
-                  NAVIGATION_popTopContext:NAVIGATION_popTopContext,
-                  NAVIGATION_openTimerPageOnTheTopOfTheStack:NAVIGATION_openTimerPageOnTheTopOfTheStack,
-                  CHANGER_gapv_presentlyTopContext: CHANGER_gapv_presentlyTopContext,
-                  CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context: CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context,
+                  CHANGER_STATE_YoutubeVideoPlaying:
+                      CHANGER_STATE_YoutubeVideoPlaying,
+                  NAVIGATION_onBackButtonYoutubeVideoPlaying:
+                      NAVIGATION_onBackButtonYoutubeVideoPlaying,
+                  NAVIGATION_popTopContext: NAVIGATION_popTopContext,
+                  NAVIGATION_openTimerPageOnTheTopOfTheStack:
+                      NAVIGATION_openTimerPageOnTheTopOfTheStack,
+                  CHANGER_gapv_presentlyTopContext:
+                      CHANGER_gapv_presentlyTopContext,
+                  CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context:
+                      CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context,
                   Changer_gapv_isVideoDone: CHANGER_gapv_isVideoDone,
                   TimerStatusOnTopOfPage: TimerStatusOnTopOfPage(),
                 ));

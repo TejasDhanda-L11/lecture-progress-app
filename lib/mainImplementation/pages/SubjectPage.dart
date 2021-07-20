@@ -56,8 +56,6 @@ class _SubjectPageState extends State<SubjectPage> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     STATE_SubjectSelectionPage = setState;
@@ -138,11 +136,12 @@ class _SubjectPageState extends State<SubjectPage> {
                                       text: 'Add Subject',
                                       icon: Icons.add_circle_outline_outlined,
                                       extraDataForFunction: {
-                                        #onSubmitted : AddSubject_Function_OnSubmitted,
-                                        #onSubmittedFunction_parameters : {
-                                          #State_SubjectsPage: STATE_SubjectSelectionPage!,
+                                        #onSubmitted:
+                                            AddSubject_Function_OnSubmitted,
+                                        #onSubmittedFunction_parameters: {
+                                          #State_SubjectsPage:
+                                              STATE_SubjectSelectionPage!,
                                           #database: db
-
                                         }
                                       },
                                     )

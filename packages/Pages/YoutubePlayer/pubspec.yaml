@@ -1,0 +1,38 @@
+name: custom_youtube_player_page
+description: a youtube player page package in lecture progress app
+
+
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  video_player: ^2.1.6
+  chewie: ^1.2.2
+
+  custom_highly_reusable_functions:
+    path: ../../../packages/HighlyReusableFunctions
+  sqflite: ^2.0.0+3
+  custom_done_notdone_youtube_player_button:
+    path: ../../Widgets/Done_NotDone_YoutubePlayer
+
+
+  
+  
+  
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+
+
