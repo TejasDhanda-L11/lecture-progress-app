@@ -41,6 +41,7 @@ class _AllVideoSpecificChapterState extends State<AllVideoSpecificChapter> {
                                 where subject_id = ${widget.subject_id}
                                 and
                                 chapter_id = ${widget.chapter_id}
+                                ORDER by lectureCompleted
                                 ''');
     dataRequired_chapter = await widget.dbInstance.rawQuery('''
                                 select * from chapters
