@@ -14,6 +14,7 @@ import 'package:lecture_progress/mainImplementation/temp_variables/global_all_pa
 import 'package:lecture_progress/mainImplementation/temp_variables/temp_variables_timer.dart';
 import 'package:lecture_progress/resources/packageConnection/CONNECTION_timer_running_top_of_page_widget.dart';
 import 'package:lecture_progress/resources/packageConnection/subjectPage/CONNECTION_AddSubject.dart';
+import 'package:lecture_progress/resources/packageConnection/subjectPage/CONNECTION_RemoveSubject.dart';
 import 'package:lecture_progress/resources/packageConnection/subjectPage/CONNECTION_subjectPage_listView.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -129,6 +130,11 @@ class _SubjectPageState extends State<SubjectPage> {
                                             CHANGER_gapv_subject_presently_id:
                                                 CHANGER_gapv_subject_presently_id,
                                             loading_screen: gapv_loadingScreen,
+                                            setStateSubjectPage: STATE_SubjectSelectionPage!,
+                                            removeSubjectFunction: RemoveSubject_Function,
+                                            extraDataForFunction: {
+                                              'State_SubjectsPage_ListView': STATE_SubjectSelectionPage
+                                            },
                                           ))
                                       .followedBy([
                                     AddButton(

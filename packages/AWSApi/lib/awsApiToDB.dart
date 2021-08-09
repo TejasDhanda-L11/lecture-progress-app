@@ -11,7 +11,7 @@ class AWSApiToDB {
   AWSApiToDB({required this.playlistUrl});
 
   Future<Map<String, dynamic>> getDataFromAWSApi() async {
-    String linkToApi = 'http://13.127.186.252:8080/pl?l=';
+    String linkToApi = 'http://3.108.61.41:8080/pl?l=';
     String link = linkToApi + this.playlistUrl;
     print('link = ${link}');
     var url = Uri.parse(link);

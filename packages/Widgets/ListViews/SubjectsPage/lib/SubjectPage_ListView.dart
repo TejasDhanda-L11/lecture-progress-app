@@ -1,3 +1,4 @@
+import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:sqflite/sqflite.dart';
@@ -8,12 +9,19 @@ class ListViewSubjectPageWidget extends StatefulWidget {
   Function NAVIGATION_popAndPushToChaptersPage;
   Function CHANGER_gapv_subject_presently_id;
   Widget loading_screen;
+  Function setStateSubjectPage;
+  Function removeSubjectFunction;
+  Map extraDataForFunction;
   ListViewSubjectPageWidget(
       {required this.dataFromDB_singlesubject,
       required this.database,
       required this.CHANGER_gapv_subject_presently_id,
       required this.loading_screen,
-      required this.NAVIGATION_popAndPushToChaptersPage});
+      required this.NAVIGATION_popAndPushToChaptersPage,
+      required this.setStateSubjectPage,
+      required this.removeSubjectFunction,
+      required this.extraDataForFunction
+      });
 
   @override
   _ListViewSubjectPageWidgetState createState() =>
@@ -27,9 +35,9 @@ class _ListViewSubjectPageWidgetState extends State<ListViewSubjectPageWidget> {
   late Duration totalTimeTotal_Duration;
   late List<Map<String, dynamic>> totalTimeDone;
   late Duration totalTimeDone_Duration;
+  
   Future<bool>
       done_gettingDataOfTimeAndImplementingToAllTimeRelatedVariables() async {
-    // customPrint('1');
 
     totalTimeLeft = await widget.database.rawQuery('''
         select (
@@ -48,11 +56,7 @@ class _ListViewSubjectPageWidgetState extends State<ListViewSubjectPageWidget> {
           where (subject_id = ${widget.dataFromDB_singlesubject['id']})
 
         ''');
-//         customPrint(widget.dataFromDB_singlesubject['id']);
 
-// customPrint('1.5');
-// customPrint(totalTimeLeft);
-// customPrint(totalTimeLeft[0]['time_left'].round());
     if (totalTimeLeft[0]['time_left'] != null) {
       totalTimeLeft_Duration =
           Duration(seconds: (totalTimeLeft[0]['time_left'].round()));
@@ -113,6 +117,19 @@ class _ListViewSubjectPageWidgetState extends State<ListViewSubjectPageWidget> {
               widget.CHANGER_gapv_subject_presently_id(
                   widget.dataFromDB_singlesubject['id']);
               widget.NAVIGATION_popAndPushToChaptersPage();
+            },
+            onLongPress: (){
+              
+              Function.apply(
+                  widget.removeSubjectFunction, [],{
+                    #id:widget.dataFromDB_singlesubject['id'],
+                    #database: widget.database,
+                    #State_SubjectsPage_ListView: widget.extraDataForFunction['State_SubjectsPage_ListView'],
+                    #SUBJECT: widget.dataFromDB_singlesubject['subject_name'],
+                    #context: context
+                  });
+              
+              customPrint('LongPressed');
             },
             child: Container(
               padding: EdgeInsets.fromLTRB(10, 15, 10, 25),

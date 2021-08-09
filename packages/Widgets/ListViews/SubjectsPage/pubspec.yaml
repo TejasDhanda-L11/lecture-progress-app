@@ -13,9 +13,8 @@ dependencies:
     sdk: flutter
   
   sqflite: ^2.0.0+3
-
-  
-  
+  custom_highly_reusable_functions:
+    path: ../../../HighlyReusableFunctions
   
   
 

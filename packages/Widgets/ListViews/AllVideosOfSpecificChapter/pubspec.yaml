@@ -12,7 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   
-  
+  custom_highly_reusable_functions:
+    path: ../../../HighlyReusableFunctions
   
   
   
