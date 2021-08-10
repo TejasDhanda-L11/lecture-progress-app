@@ -6,14 +6,9 @@ import 'package:custom_highly_reusable_functions/HighlyReusableFunctions.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:video_player/video_player.dart';
 
-
-
-
 import 'Pages/CustomLandscapeOrientation.dart';
 import 'Pages/CustomPortraitOrientation.dart';
 import 'Functions/chewieInitialConfig_Function.dart';
-
-
 
 class CustomYoutubePlayer_Temp extends StatefulWidget {
   // final Duration positionToSeekTo;
@@ -40,17 +35,13 @@ class CustomYoutubePlayer_Temp extends StatefulWidget {
     required this.CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context,
     required this.Changer_gapv_isVideoDone,
     required this.TimerStatusOnTopOfPage,
-
   });
   @override
-  _CustomYoutubePlayer_TempState createState() => _CustomYoutubePlayer_TempState();
+  _CustomYoutubePlayer_TempState createState() =>
+      _CustomYoutubePlayer_TempState();
 }
 
 class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
-  
-  
-
-
   Duration positionToSeekTo = Duration.zero;
 
   bool chewieController_initialised = false;
@@ -58,8 +49,6 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
   bool isOrientationCheckerRunning = false;
   late VideoPlayerController videoPlayerController;
   late Orientation orientation;
-
-
 
   @override
   void initState() {
@@ -69,21 +58,25 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
             duration: widget.dataReq_youtubePlayer['lengthCompleted']);
     super.initState();
     orientation = Orientation.landscape;
-    widget.CHANGER_STATE_YoutubeVideoPlaying(setState_STATE:setState);
+    widget.CHANGER_STATE_YoutubeVideoPlaying(setState_STATE: setState);
 
-    ()
-    async {chewieController = await return_chewieController_afterConfigurations(positionToSeekTo: positionToSeekTo, video_url: widget.dataReq_youtubePlayer['video_url']);
+    () async {
+      chewieController = await return_chewieController_afterConfigurations(
+          positionToSeekTo: positionToSeekTo,
+          video_url: widget.dataReq_youtubePlayer['video_url']);
       setState(() {
-      chewieController_initialised = true;
-    });
+        chewieController_initialised = true;
+        customPrint(
+            'chewieController_initialised = $chewieController_initialised');
+      });
     }.call();
   }
 
   @override
   void dispose() {
     super.dispose();
-
-    try {
+    if (chewieController_initialised)
+    {try {
       Future.delayed(Duration.zero, () {
         chewieController!.videoPlayerController.removeListener(() {});
         chewieController!.videoPlayerController.dispose();
@@ -92,12 +85,12 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
       });
     } catch (e) {
       debugPrint('Error1------------------------------------------- $e');
-    }
+    }}
   }
 
   @override
   Widget build(BuildContext context) {
-    widget.CHANGER_gapv_presentlyTopContext(context:context);
+    widget.CHANGER_gapv_presentlyTopContext(context: context);
 
     orientation = MediaQuery.of(context).orientation;
 
@@ -105,15 +98,22 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
 
     return WillPopScope(
       onWillPop: () async {
-        Duration? positionOfVideo_Duration =
-            await chewieController!.videoPlayerController.position;
-        String positionOfVideo_String =
-            '${positionOfVideo_Duration!.inHours.toString().padLeft(2, "0")}-${positionOfVideo_Duration.inMinutes.remainder(60).toString().padLeft(2, "0")}-${positionOfVideo_Duration.inSeconds.remainder(60).toString().padLeft(2, "0")}';
-        await widget.dbInstance.rawQuery('''
+        customPrint('WILLLLLLLLLLLLLLLLLPOP523235');
+        if (chewieController_initialised) {
+          Duration? positionOfVideo_Duration =
+              await chewieController!.videoPlayerController.position;
+
+          customPrint('WILLLLLLLLLLLLLLLLLPOP2');
+
+          String positionOfVideo_String =
+              '${positionOfVideo_Duration!.inHours.toString().padLeft(2, "0")}-${positionOfVideo_Duration.inMinutes.remainder(60).toString().padLeft(2, "0")}-${positionOfVideo_Duration.inSeconds.remainder(60).toString().padLeft(2, "0")}';
+          await widget.dbInstance.rawQuery('''
             UPDATE specific_videos
               SET "lengthCompleted" = '$positionOfVideo_String'
                 WHERE id = ${widget.dataReq_youtubePlayer["id"]}
           ''');
+        }
+
         widget.NAVIGATION_onBackButtonYoutubeVideoPlaying();
         return Future.value(true);
       },
@@ -121,58 +121,53 @@ class _CustomYoutubePlayer_TempState extends State<CustomYoutubePlayer_Temp> {
         onHorizontalDragEnd: (details) {
           if (details.velocity.pixelsPerSecond.dx > 1000) {
             if (true) {
-              widget.CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context(context:context);
+              widget
+                  .CHANGER_gapv_presentlyLast_Top_Before_opening_Timer_Context(
+                      context: context);
 
               widget.NAVIGATION_openTimerPageOnTheTopOfTheStack();
             }
           }
         },
-        child: Scaffold(
-            body: 
-            FutureBuilder(
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            // if (chewieController_initialised == false)
-            //   return gapv_loadingScreen;
-            // else {
-              if (orientation == Orientation.portrait) {
-                Future.delayed(Duration.zero, () {
-                  if (chewieController_initialised)
-                  {
-                    if (chewieController!.isFullScreen) {
-                    widget.NAVIGATION_popTopContext();
-                  }
-                  }
-                });
-                return CustomPortraitOrientation(
-                  idOfVideo: widget.dataReq_youtubePlayer["id"],
-                  dbInstance: widget.dbInstance,
-                  chewieController: chewieController_initialised?chewieController : null,
-                  titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
-                  loadingScreen: widget.loadingScreen,
-                  Changer_gapv_isVideoDone: widget.Changer_gapv_isVideoDone,
-                  TimerStatusOnTopOfPage: widget.TimerStatusOnTopOfPage,
-                );
-              } 
-              else {
-                Future.delayed(Duration.zero, () {
-                  if (chewieController_initialised)
-                  {if (!chewieController!.isFullScreen) {
-                    chewieController!.enterFullScreen();
-                  }}
-                });
-
-                return CustomLandscapeOrientation(
-                  chewieController: chewieController,
-                  loadingScreen: widget.loadingScreen,
-                );
+        child: Scaffold(body: FutureBuilder(
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          // if (chewieController_initialised == false)
+          //   return gapv_loadingScreen;
+          // else {
+          if (orientation == Orientation.portrait) {
+            Future.delayed(Duration.zero, () {
+              if (chewieController_initialised) {
+                if (chewieController!.isFullScreen) {
+                  widget.NAVIGATION_popTopContext();
+                }
               }
-            }
-            
-          
-        )
-        ),
+            });
+            return CustomPortraitOrientation(
+              idOfVideo: widget.dataReq_youtubePlayer["id"],
+              dbInstance: widget.dbInstance,
+              chewieController:
+                  chewieController_initialised ? chewieController : null,
+              titleOfVideo: widget.dataReq_youtubePlayer['video_title'],
+              loadingScreen: widget.loadingScreen,
+              Changer_gapv_isVideoDone: widget.Changer_gapv_isVideoDone,
+              TimerStatusOnTopOfPage: widget.TimerStatusOnTopOfPage,
+            );
+          } else {
+            Future.delayed(Duration.zero, () {
+              if (chewieController_initialised) {
+                if (!chewieController!.isFullScreen) {
+                  chewieController!.enterFullScreen();
+                }
+              }
+            });
+
+            return CustomLandscapeOrientation(
+              chewieController: chewieController,
+              loadingScreen: widget.loadingScreen,
+            );
+          }
+        })),
       ),
     );
   }
 }
-

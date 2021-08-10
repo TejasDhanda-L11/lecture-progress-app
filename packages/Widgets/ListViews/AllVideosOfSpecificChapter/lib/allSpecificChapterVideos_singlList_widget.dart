@@ -5,13 +5,12 @@ class AllSpecificChapterVideos_singleList_stfWidget extends StatefulWidget {
   Function NAVIGATION_popAndPushToYoutubeVideoPlaying;
   Function lengthLeftToCoverForLectureVideo;
   Function CHANGER__gapv_dataReq_youtubePlayer;
-  AllSpecificChapterVideos_singleList_stfWidget(
-      {required this.videoData_Map,
-      required this.NAVIGATION_popAndPushToYoutubeVideoPlaying,
-      required this.lengthLeftToCoverForLectureVideo,
-      required this.CHANGER__gapv_dataReq_youtubePlayer,
-      
-      });
+  AllSpecificChapterVideos_singleList_stfWidget({
+    required this.videoData_Map,
+    required this.NAVIGATION_popAndPushToYoutubeVideoPlaying,
+    required this.lengthLeftToCoverForLectureVideo,
+    required this.CHANGER__gapv_dataReq_youtubePlayer,
+  });
 
   @override
   _AllSpecificChapterVideos_singleList_stfWidgetState createState() =>
@@ -43,7 +42,8 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
           // thumbnail
           GestureDetector(
             onTap: () {
-              widget.CHANGER__gapv_dataReq_youtubePlayer(videoData_Map: widget.videoData_Map);
+              widget.CHANGER__gapv_dataReq_youtubePlayer(
+                  videoData_Map: widget.videoData_Map);
 
               // gapv_psotionToSeekTo = Duration(
               //     hours: int.parse(
@@ -111,7 +111,9 @@ class _AllSpecificChapterVideos_singleList_stfWidgetState
                                 // length left
                                 Text(
                                   // 'L:${}'
+
                                   'L:${lengthLeftToCover.inHours}:${lengthLeftToCover.inMinutes.remainder(60).toString().padLeft(2, '0')}:${lengthLeftToCover.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+
                                   // 'hi1',
                                   maxLines: 1,
                                   style: TextStyle(
